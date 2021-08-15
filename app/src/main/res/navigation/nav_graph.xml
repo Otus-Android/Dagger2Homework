@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentProducer">
+
+    <fragment
+        android:id="@+id/fragmentProducer"
+        android:name="ru.otus.daggerhomework.FragmentProducer"
+        android:label="FragmentProducer" >
+        <action
+            android:id="@+id/action_fragmentProducer_to_fragmentReceiver"
+            app:destination="@id/fragmentReceiver" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentReceiver"
+        android:name="ru.otus.daggerhomework.FragmentReceiver"
+        android:label="FragmentReceiver" />
+</navigation>
