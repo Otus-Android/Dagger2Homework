@@ -5,7 +5,7 @@ import dagger.Component
 import ru.otus.daggerhomework.FragmentProducer
 
 @FragmentScope
-@Component(modules = [ProducerModule::class, FragmentsModule::class], dependencies = [MainActivityComponent::class])
+@Component(modules = [ProducerModule::class], dependencies = [MainActivityComponent::class])
 interface FragmentProducerComponent {
 
     fun inject(fragmentProducer: FragmentProducer)

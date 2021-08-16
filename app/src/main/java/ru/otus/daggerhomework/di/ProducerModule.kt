@@ -16,19 +16,3 @@ interface ProducerModule {
     fun provideColorGenerator(colorGeneratorImpl: ColorGeneratorImpl): ColorGenerator
 
 }
-
-@Module
-class FragmentsModule {
-
-    @Provides
-    @ActivityContext
-    fun provideActivityContext(activity: Activity): Context {
-        return activity
-    }
-
-    @Provides
-    @ApplicationContext
-    fun provideAppContext(context: Context): Context {
-        return context
-    }
-}

@@ -11,9 +11,11 @@ import javax.inject.Named
 @Component(modules = [MainModule::class], dependencies = [ApplicationComponent::class])
 interface MainActivityComponent {
 
-    val activity: Activity
+    @ActivityContext
+    fun getActivityContext(): Context
 
-    val context: Context
+    @ApplicationContext
+    fun getAppContext(): Context
 
     val observerFlow: MutableStateFlow<Int>
 
@@ -23,7 +25,7 @@ interface MainActivityComponent {
         fun appComponent(applicationComponent: ApplicationComponent): Builder
 
         @BindsInstance
-        fun context(activity: Activity): Builder
+        fun context(@ActivityContext activity: Context): Builder
 
         fun build(): MainActivityComponent
     }

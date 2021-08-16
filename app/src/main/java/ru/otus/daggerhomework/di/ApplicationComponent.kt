@@ -10,12 +10,13 @@ import javax.inject.Singleton
 @Component()
 interface ApplicationComponent {
 
-    val context: Context
+    @ApplicationContext
+    fun context(): Context
 
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun applicationContext(context: Context): Builder
+        fun applicationContext(@ApplicationContext context: Context): Builder
 
         fun build(): ApplicationComponent
     }
