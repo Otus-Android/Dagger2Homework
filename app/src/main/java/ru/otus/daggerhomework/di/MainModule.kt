@@ -15,10 +15,4 @@ class MainModule {
         return MutableStateFlow(0)
     }
 
-    @Provides
-    @ActivityContext
-    fun provideActivityContext(activity: Activity): Context {
-        return activity
-    }
-
 }

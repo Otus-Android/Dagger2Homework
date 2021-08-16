@@ -18,7 +18,7 @@ interface ProducerModule {
 }
 
 @Module
-class ProducerModule2 {
+class FragmentsModule {
 
     @Provides
     @ActivityContext
