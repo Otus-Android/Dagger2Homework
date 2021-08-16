@@ -2,6 +2,7 @@ package ru.otus.daggerhomework
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import ru.otus.daggerhomework.di.ApplicationComponent
 import ru.otus.daggerhomework.di.DaggerApplicationComponent
 
@@ -15,6 +16,8 @@ class App :Application() {
         appComponent = DaggerApplicationComponent.builder()
             .applicationContext(applicationContext)
             .build()
+
+        Log.d("AppContext", applicationContext.toString())
     }
 }
 

@@ -3,11 +3,14 @@ package ru.otus.daggerhomework.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Named
+import javax.inject.Singleton
 
-@Component
+@Singleton
+@Component()
 interface ApplicationComponent {
 
-    val applicationContext: Context
+    val context: Context
 
     @Component.Builder
     interface Builder {
