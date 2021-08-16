@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.di.component.DaggerFragmentReceiverComponent
 import ru.otus.daggerhomework.di.component.MainActivityComponent
-import ru.otus.daggerhomework.di.qualifier.ReceiverViewModel
+import ru.otus.daggerhomework.di.component.ReceiverViewModel
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment(R.layout.fragment_b) {
@@ -38,11 +38,11 @@ class FragmentReceiver : Fragment(R.layout.fragment_b) {
         viewModelReceiver = ViewModelProvider(this, viewModelReceiverFactory).get(ViewModelReceiver::class.java)
 
         lifecycleScope.launch {
-            viewModelReceiver.observeColors()
-
             viewModelReceiver.stateFlow.collect {
                 populateColor(it)
             }
+
+            viewModelReceiver.observeColors()
         }
     }
 

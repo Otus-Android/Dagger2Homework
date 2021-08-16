@@ -3,7 +3,7 @@ package ru.otus.daggerhomework.di.component
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import ru.otus.daggerhomework.di.module.AppModule
+import dagger.Module
 import javax.inject.Singleton
 
 @Singleton
@@ -14,4 +14,8 @@ interface ApplicationComponent {
     interface Factory {
         fun create(@BindsInstance context: Context): ApplicationComponent
     }
+}
+
+@Module
+class AppModule {
 }

@@ -3,11 +3,13 @@ package ru.otus.daggerhomework.di.component
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import kotlinx.coroutines.flow.SharedFlow
+import dagger.Module
+import dagger.Provides
+import kotlinx.coroutines.flow.MutableSharedFlow
 import ru.otus.daggerhomework.ColorGenerator
+import ru.otus.daggerhomework.ColorGeneratorImpl
 import ru.otus.daggerhomework.MainActivity
-import ru.otus.daggerhomework.di.module.MainActivityModule
-import ru.otus.daggerhomework.di.scope.ActivityScope
+import javax.inject.Scope
 
 @ActivityScope
 @Component(modules = [MainActivityModule::class], dependencies = [ApplicationComponent::class])
@@ -20,7 +22,33 @@ interface MainActivityComponent {
 
     fun inject(activity: MainActivity)
 
-    fun provideSharedFlow() : SharedFlow<Int>
+    fun provideSharedFlow() : MutableSharedFlow<Int>
 
     fun provideColorGenerator() : ColorGenerator
 }
+
+@Module
+class MainActivityModule {
+
+    @ActivityScope
+    @Provides
+    fun provideSharedFlow(): MutableSharedFlow<Int> {
+        return MutableSharedFlow()
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideColorGenerator(): ColorGenerator {
+        return ColorGeneratorImpl()
+    }
+
+    @ActivityScope
+    @Provides
+    fun getMainActivity(): MainActivity{
+        return MainActivity()
+    }
+}
+
+@Scope
+@Retention(value = AnnotationRetention.RUNTIME)
+annotation class ActivityScope

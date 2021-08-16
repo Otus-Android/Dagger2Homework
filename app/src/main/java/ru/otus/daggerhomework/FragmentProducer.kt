@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.di.component.DaggerFragmentProducerComponent
 import ru.otus.daggerhomework.di.component.MainActivityComponent
-import ru.otus.daggerhomework.di.qualifier.ProducerViewModel
+import ru.otus.daggerhomework.di.component.ProducerViewModel
 import javax.inject.Inject
 
 class FragmentProducer : Fragment(R.layout.fragment_a) {
