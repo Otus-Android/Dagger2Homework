@@ -1,4 +1,4 @@
-package ru.otus.daggerhomework.di.component
+package ru.otus.daggerhomework.di
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
@@ -6,7 +6,6 @@ import dagger.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import ru.otus.daggerhomework.FragmentReceiver
 import ru.otus.daggerhomework.ViewModelReceiver
-import ru.otus.daggerhomework.di.scope.FragmentScope
 import javax.inject.Qualifier
 
 @FragmentScope
@@ -18,9 +17,14 @@ interface FragmentReceiverComponent {
         fun create(mainActivityComponent: MainActivityComponent, @BindsInstance context: Context): FragmentReceiverComponent
     }
 
-    fun inject(fragment: FragmentReceiver)
+    companion object{
+        fun create(context: Context): FragmentReceiverComponent {
+            return DaggerFragmentReceiverComponent.factory()
+                .create(MainActivityComponent.create(context), context)
+        }
+    }
 
-    fun mainActivityComponent(mainActivityComponent: MainActivityComponent)
+    fun inject(fragment: FragmentReceiver)
 }
 
 @Module

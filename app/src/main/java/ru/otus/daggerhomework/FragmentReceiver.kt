@@ -9,9 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import ru.otus.daggerhomework.di.component.DaggerFragmentReceiverComponent
-import ru.otus.daggerhomework.di.component.MainActivityComponent
-import ru.otus.daggerhomework.di.component.ReceiverViewModel
+import ru.otus.daggerhomework.di.DaggerFragmentReceiverComponent
+import ru.otus.daggerhomework.di.MainActivityComponent
+import ru.otus.daggerhomework.di.ReceiverViewModel
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment(R.layout.fragment_b) {
@@ -27,7 +27,7 @@ class FragmentReceiver : Fragment(R.layout.fragment_b) {
 
         DaggerFragmentReceiverComponent
             .factory()
-            .create(activity as MainActivityComponent, this.requireContext())
+            .create(MainActivityComponent.mainActivityComponentInstance!!, this.requireContext().applicationContext)
             .inject(this)
     }
 
@@ -38,11 +38,11 @@ class FragmentReceiver : Fragment(R.layout.fragment_b) {
         viewModelReceiver = ViewModelProvider(this, viewModelReceiverFactory).get(ViewModelReceiver::class.java)
 
         lifecycleScope.launch {
+            viewModelReceiver.observeColors()
+
             viewModelReceiver.stateFlow.collect {
                 populateColor(it)
             }
-
-            viewModelReceiver.observeColors()
         }
     }
 

@@ -1,4 +1,4 @@
-package ru.otus.daggerhomework.di.component
+package ru.otus.daggerhomework.di
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.FragmentProducer
 import ru.otus.daggerhomework.ViewModelProducer
-import ru.otus.daggerhomework.di.scope.FragmentScope
 import javax.inject.Qualifier
+import javax.inject.Scope
 
 @FragmentScope
 @Component(modules = [FragmentProducerModule::class], dependencies = [MainActivityComponent::class])
@@ -19,9 +19,14 @@ interface FragmentProducerComponent {
         fun create(mainActivityComponent: MainActivityComponent, @BindsInstance context: Context): FragmentProducerComponent
     }
 
-    fun inject(fragment: FragmentProducer)
+    companion object{
+        fun create(context: Context): FragmentProducerComponent {
+            return DaggerFragmentProducerComponent.factory()
+                .create(MainActivityComponent.create(context), context)
+        }
+    }
 
-    fun mainActivityComponent(mainActivityComponent: MainActivityComponent)
+    fun inject(fragment: FragmentProducer)
 }
 
 @Module
@@ -45,3 +50,7 @@ interface FragmentProducerModule {
 @Retention(AnnotationRetention.BINARY)
 @Qualifier
 annotation class ProducerViewModel
+
+@Scope
+@Retention(value = AnnotationRetention.RUNTIME)
+annotation class FragmentScope
