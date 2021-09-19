@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import ru.otus.daggerhomework.R
-import ru.otus.daggerhomework.di.component.DaggerFragmentComponent
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
@@ -22,8 +21,6 @@ class FragmentReceiver : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val daggerFragmentComponent = DaggerFragmentComponent.builder().build()
-        daggerFragmentComponent.injectFragmentReceiver(this)
         return inflater.inflate(R.layout.fragment_b, container, false)
     }
 

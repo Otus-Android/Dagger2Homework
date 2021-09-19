@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class ViewModelProducer @Inject constructor (
 //    private val colorGenerator: ColorGenerator,
-//    private val context: Context
+    private val context: Context
 ) : ViewModel() {
 
 //    fun generateColor() {

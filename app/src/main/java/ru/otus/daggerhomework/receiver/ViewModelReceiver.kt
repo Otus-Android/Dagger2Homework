@@ -9,7 +9,7 @@ import java.lang.RuntimeException
 import javax.inject.Inject
 
 class ViewModelReceiver @Inject constructor(
-//    private val context: Context
+    private val context: Context
 ) : ViewModel() {
 
 //    fun observeColors() {

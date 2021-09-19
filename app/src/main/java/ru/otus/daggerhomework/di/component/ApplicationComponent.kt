@@ -8,9 +8,12 @@ import javax.inject.Singleton
 @Component
 @Singleton
 interface ApplicationComponent {
+    @Component.Builder
+    interface Builder {
 
-    @Component.Factory
-    interface Factory {
-        fun create(@BindsInstance context: Context): ApplicationComponent
+        @BindsInstance
+        fun context(context: Context): Builder
+
+        fun build(): ApplicationComponent
     }
 }

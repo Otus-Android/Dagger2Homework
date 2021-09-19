@@ -1,13 +1,12 @@
 package ru.otus.daggerhomework.producer
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.otus.daggerhomework.R
-import ru.otus.daggerhomework.di.component.DaggerFragmentComponent
+import ru.otus.daggerhomework.di.component.DaggerMainActivityComponent
 import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
@@ -20,8 +19,6 @@ class FragmentProducer : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val daggerFragmentComponent = DaggerFragmentComponent.create()
-        daggerFragmentComponent.injectFragmentProducer(this)
         return inflater.inflate(R.layout.fragment_a, container, false)
     }
 
