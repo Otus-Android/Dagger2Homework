@@ -8,6 +8,9 @@ import javax.inject.Singleton
 @Component
 @Singleton
 interface ApplicationComponent {
+
+    fun applicationContext(): Context
+
     @Component.Builder
     interface Builder {
 

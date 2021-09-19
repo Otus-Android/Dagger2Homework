@@ -4,7 +4,9 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.otus.daggerhomework.di.module.ActivityModule
+import ru.otus.daggerhomework.di.scope.ActivityScope
 
+@ActivityScope
 @Component(modules = [ActivityModule::class])
 interface MainActivityComponent {
 
@@ -16,7 +18,7 @@ interface MainActivityComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun context(context: Context): Builder
+        fun activityContext(context: Context): Builder
 
         fun build(): MainActivityComponent
     }
