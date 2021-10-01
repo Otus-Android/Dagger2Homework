@@ -6,9 +6,10 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject
+import javax.inject.Named
 
 class ViewModelReceiver @Inject constructor(
-    private val context: Context,
+    @Named("appContext") private val context: Context,
     private val provideEvent: MutableLiveData<Int>
 ) : ViewModel() {
 

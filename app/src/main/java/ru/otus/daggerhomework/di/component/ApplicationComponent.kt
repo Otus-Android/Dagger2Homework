@@ -3,19 +3,21 @@ package ru.otus.daggerhomework.di.component
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import ru.otus.daggerhomework.di.module.ApplicationModule
+import javax.inject.Named
 import javax.inject.Singleton
 
-@Component
+@Component(modules = [ApplicationModule::class])
 @Singleton
 interface ApplicationComponent {
 
-    fun applicationContext(): Context
+    fun mainActivityComponentBuild(): MainActivityComponent.Builder
 
     @Component.Builder
     interface Builder {
 
         @BindsInstance
-        fun context(context: Context): Builder
+        fun context(@Named("appContext") context: Context): Builder
 
         fun build(): ApplicationComponent
     }
