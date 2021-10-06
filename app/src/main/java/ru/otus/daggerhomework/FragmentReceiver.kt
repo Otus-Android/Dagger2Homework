@@ -58,7 +58,7 @@ class FragmentReceiver : Fragment(), LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        (activity as MainActivity).mainActivityComponent.inject(this)
+        (activity as MainActivity).mainActivityComponent.getFragmentReceiverComponent().inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModelReceiver::class.java)
         activity?.lifecycle?.removeObserver(this)
     }

@@ -63,7 +63,7 @@ class FragmentProducer : Fragment(), LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate(){
-        (activity as MainActivity).mainActivityComponent.inject(this)
+        (activity as MainActivity).mainActivityComponent.getFragmentProducerComponent().inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModelProducer::class.java)
         activity?.lifecycle?.removeObserver(this)
     }

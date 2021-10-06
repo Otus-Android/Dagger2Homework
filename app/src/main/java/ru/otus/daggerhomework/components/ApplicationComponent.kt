@@ -1,18 +1,20 @@
 package ru.otus.daggerhomework.components
 
-import android.app.Application
+import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Named
+
+const val APPLICATION_CONTEXT = "applicationContext"
 
 @Component
 interface ApplicationComponent {
 
-    fun getFragmentReceiverComponent() : FragmentReceiverComponent
-    fun getFragmentProducerComponent() : FragmentProducerComponent
-    fun getApplication(): Application
+    @Named(APPLICATION_CONTEXT)
+    fun getAppContext() : Context
 
     @Component.Factory
     interface AppCompFactory {
-        fun create(@BindsInstance application: Application): ApplicationComponent
+        fun create(@Named(APPLICATION_CONTEXT) @BindsInstance context: Context): ApplicationComponent
     }
 }

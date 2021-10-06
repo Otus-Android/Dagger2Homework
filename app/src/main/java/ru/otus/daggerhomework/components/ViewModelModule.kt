@@ -1,6 +1,6 @@
 package ru.otus.daggerhomework.components
 
-import android.app.Application
+import android.content.Context
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import dagger.Module
@@ -11,6 +11,7 @@ import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.Events
 import ru.otus.daggerhomework.ViewModelProducer
 import ru.otus.daggerhomework.ViewModelReceiver
+import javax.inject.Named
 
 @Module
 class ViewModelModule {
@@ -18,18 +19,22 @@ class ViewModelModule {
     @IntoMap
     @ViewModelKey(ViewModelProducer::class)
     @Provides
-    fun provideViewModelProducer(colorGenerator: ColorGenerator, activity: FragmentActivity, stateFlow: MutableStateFlow<Events>): ViewModel {
-        return ViewModelProducer(colorGenerator, activity, stateFlow)
+    fun provideViewModelProducer(
+        colorGenerator: ColorGenerator,
+        @Named(ACTIVITY_CONTEXT) context: Context,
+        stateFlow: MutableStateFlow<Events>
+    ): ViewModel {
+        return ViewModelProducer(colorGenerator, context, stateFlow)
     }
 
     @IntoMap
     @ViewModelKey(ViewModelReceiver::class)
     @Provides
     fun provideViewModelReceiver(
-        application: Application,
+        @Named(APPLICATION_CONTEXT) appContext: Context,
         stateFlow: MutableStateFlow<Events>
     ): ViewModel {
-        return ViewModelReceiver(application, stateFlow)
+        return ViewModelReceiver(appContext, stateFlow)
     }
 
 }
