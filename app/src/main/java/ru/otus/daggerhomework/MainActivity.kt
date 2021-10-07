@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import ru.otus.daggerhomework.di.MainActivityComponent
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         MainActivityComponent.create(this).inject(this)

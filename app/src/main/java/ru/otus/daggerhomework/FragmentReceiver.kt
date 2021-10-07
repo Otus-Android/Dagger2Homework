@@ -11,12 +11,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.di.DaggerFragmentReceiverComponent
 import ru.otus.daggerhomework.di.MainActivityComponent
-import ru.otus.daggerhomework.di.ReceiverViewModel
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment(R.layout.fragment_b) {
+
     @Inject
-    @field:ReceiverViewModel
     lateinit var viewModelReceiverFactory: ViewModelProvider.Factory
     private lateinit var viewModelReceiver: ViewModelReceiver
 
@@ -27,7 +26,7 @@ class FragmentReceiver : Fragment(R.layout.fragment_b) {
 
         DaggerFragmentReceiverComponent
             .factory()
-            .create(MainActivityComponent.mainActivityComponentInstance!!, this.requireContext().applicationContext)
+            .create(MainActivityComponent.mainActivityComponentInstance, this.requireContext().applicationContext)
             .inject(this)
     }
 

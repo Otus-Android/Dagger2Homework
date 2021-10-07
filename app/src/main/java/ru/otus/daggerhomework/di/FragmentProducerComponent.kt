@@ -2,12 +2,15 @@ package ru.otus.daggerhomework.di
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
-import dagger.*
-import kotlinx.coroutines.flow.MutableSharedFlow
+import dagger.Binds
+import dagger.BindsInstance
+import dagger.Component
+import dagger.Module
+import dagger.Provides
 import ru.otus.daggerhomework.ColorGenerator
+import ru.otus.daggerhomework.ColorGeneratorImpl
 import ru.otus.daggerhomework.FragmentProducer
 import ru.otus.daggerhomework.ViewModelProducer
-import javax.inject.Qualifier
 import javax.inject.Scope
 
 @FragmentScope
@@ -16,10 +19,15 @@ interface FragmentProducerComponent {
 
     @Component.Factory
     interface Factory {
-        fun create(mainActivityComponent: MainActivityComponent, @BindsInstance context: Context): FragmentProducerComponent
+
+        fun create(
+            mainActivityComponent: MainActivityComponent,
+            @BindsInstance context: Context
+        ): FragmentProducerComponent
     }
 
-    companion object{
+    companion object {
+
         fun create(context: Context): FragmentProducerComponent {
             return DaggerFragmentProducerComponent.factory()
                 .create(MainActivityComponent.create(context), context)
@@ -33,24 +41,22 @@ interface FragmentProducerComponent {
 interface FragmentProducerModule {
 
     companion object {
+
         @FragmentScope
-        @ProducerViewModel
         @Provides
-        fun provideViewModelProducer (colorGenerator: ColorGenerator, context: Context, mutableSharedFlow: MutableSharedFlow<Int>): ViewModelProducer {
-            return ViewModelProducer(colorGenerator, context, mutableSharedFlow)
+        fun provideColorGenerator(): ColorGenerator {
+            return ColorGeneratorImpl()
         }
     }
 
     @FragmentScope
-    @ProducerViewModel
     @Binds
     fun bindProducerViewModelFactory(producerViewModelFactory: ViewModelProducer.ProducerViewModelFactory): ViewModelProvider.Factory
+
+//    @FragmentScope
+//    @Binds
+//    fun bindColorGenerator(colorGenerator: ColorGeneratorImpl): ColorGenerator
 }
 
-@Retention(AnnotationRetention.BINARY)
-@Qualifier
-annotation class ProducerViewModel
-
 @Scope
-@Retention(value = AnnotationRetention.RUNTIME)
 annotation class FragmentScope

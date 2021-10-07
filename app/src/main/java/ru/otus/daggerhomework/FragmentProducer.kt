@@ -10,12 +10,10 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.di.DaggerFragmentProducerComponent
 import ru.otus.daggerhomework.di.MainActivityComponent
-import ru.otus.daggerhomework.di.ProducerViewModel
 import javax.inject.Inject
 
 class FragmentProducer : Fragment(R.layout.fragment_a) {
     @Inject
-    @field:ProducerViewModel
     lateinit var viewModelProducerFactory: ViewModelProvider.Factory
     private lateinit var viewModelProducer: ViewModelProducer
 
@@ -24,7 +22,7 @@ class FragmentProducer : Fragment(R.layout.fragment_a) {
 
         DaggerFragmentProducerComponent
             .factory()
-            .create(MainActivityComponent.mainActivityComponentInstance!!, this.requireContext())
+            .create(MainActivityComponent.mainActivityComponentInstance, this.requireContext())
             .inject(this)
     }
 
