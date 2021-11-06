@@ -17,6 +17,13 @@ class MainActivity : AppCompatActivity(), DependenciesProvider<MainActivityCompo
         
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fReceiver, FragmentReceiver())
+                .replace(R.id.fProducer, FragmentProducer())
+                .commit()
+        }
     }
     
     override fun getDependencies(): MainActivityComponent = activityComponent
