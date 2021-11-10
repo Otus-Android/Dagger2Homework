@@ -30,7 +30,7 @@ interface MainActivityModule {
         fun provideColorEvent(): MutableSharedFlow<ColorEvent> {
             return MutableSharedFlow<ColorEvent>(
                 replay = 1,
-                onBufferOverflow = BufferOverflow.DROP_LATEST
+                onBufferOverflow = BufferOverflow.DROP_OLDEST
             ).apply {
                 distinctUntilChanged()
             }
