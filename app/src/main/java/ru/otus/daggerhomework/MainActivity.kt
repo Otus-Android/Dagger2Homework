@@ -14,8 +14,6 @@ import javax.inject.Scope
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var activityComponent: MainActivityComponent
-    val tag1 = "first"
-    val tag2 = "second"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         DaggerMainActivityComponent.factory()
@@ -26,13 +24,6 @@ class MainActivity : AppCompatActivity() {
             .inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val fragmentManager = supportFragmentManager
-//        if (fragmentManager.findFragmentByTag(tag1) == null || fragmentManager.findFragmentByTag(tag2) == null) {
-//            fragmentManager.beginTransaction()
-//                .add(R.id.first, FragmentProducer::class.java, null, tag1)
-//                .add(R.id.second, FragmentReceiver::class.java, null, tag2)
-//                .commit()
-//        }
     }
 }
 
