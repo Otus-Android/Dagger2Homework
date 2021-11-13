@@ -25,12 +25,8 @@ class FragmentProducer : Fragment() {
         super.onCreate(savedInstanceState)
         (activity as MainActivity).activityComponent.producerComponent().create().inject(this)
         viewModel = ViewModelProvider(
-            this, ViewModelProducer.Factory(
-                producerComponent.colorGenerator(),
-                producerComponent.observer(),
-                producerComponent.activityContext()
-            )
-        ).get(ViewModelProducer::class.java)
+            this, producerComponent.viewModelFactory()
+        )[ViewModelProducer::class.java]
     }
 
     override fun onCreateView(
@@ -62,6 +58,7 @@ interface FragmentProducerComponent {
     fun observer(): Channel<Result>
     fun inject(producer: FragmentProducer)
     fun colorGenerator(): ColorGenerator
+    fun viewModelFactory(): ViewModelProducer.Factory
 
     @Subcomponent.Factory
     interface Factory {

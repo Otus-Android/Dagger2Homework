@@ -24,10 +24,7 @@ class FragmentReceiver : Fragment() {
         super.onCreate(savedInstanceState)
         (activity as MainActivity).activityComponent.receiverComponent().create().inject(this)
         viewModel = ViewModelProvider(
-            this, ViewModelReceiver.Factory(
-                receiverComponent.observer(),
-                receiverComponent.applicationContext()
-            )
+            this, receiverComponent.viewModelFactory()
         )[ViewModelReceiver::class.java]
     }
 
@@ -61,6 +58,7 @@ interface FragmentReceiverComponent {
 
     fun observer(): Channel<Result>
     fun inject(fragmentReceiver: FragmentReceiver)
+    fun viewModelFactory(): ViewModelReceiver.Factory
 
     @Subcomponent.Factory
     interface Factory {

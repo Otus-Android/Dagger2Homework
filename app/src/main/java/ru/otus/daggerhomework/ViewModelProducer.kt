@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class ViewModelProducer(
     private val colorGenerator: ColorGenerator,
@@ -25,10 +26,10 @@ class ViewModelProducer(
         }
     }
 
-    class Factory(
-        val colorGenerator: ColorGenerator,
-        val channel: Channel<Result>,
-        val context: Context
+    class Factory @Inject constructor(
+        private val colorGenerator: ColorGenerator,
+        private val channel: Channel<Result>,
+        private val context: Context
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return ViewModelProducer(colorGenerator, channel, context) as T

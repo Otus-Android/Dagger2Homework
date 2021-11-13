@@ -7,6 +7,7 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class ViewModelReceiver(
     val observer: Channel<Result>,
@@ -33,7 +34,12 @@ class ViewModelReceiver(
         }
     }
 
-    class Factory(val observer: Channel<Result>, val context: Context) : ViewModelProvider.Factory {
+    class Factory @Inject constructor(
+        private val observer: Channel<Result>,
+        @ApplicationContext
+        private val context: Context
+    ) :
+        ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return ViewModelReceiver(observer, context) as T
         }
