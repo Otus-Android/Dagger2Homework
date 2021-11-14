@@ -5,7 +5,6 @@ import androidx.annotation.ColorInt
 import java.util.*
 import javax.inject.Inject
 
-
 interface ColorGenerator {
 
     @ColorInt

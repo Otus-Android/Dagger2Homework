@@ -1,12 +1,10 @@
 package ru.otus.daggerhomework.producer
 
 import android.app.Activity
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.Lazy
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.ColorGenerator

@@ -2,10 +2,9 @@ package ru.otus.daggerhomework
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.coroutines.flow.MutableStateFlow
 import ru.otus.daggerhomework.producer.FragmentProducer
 import ru.otus.daggerhomework.receiver.FragmentReceiver
-import javax.inject.Inject
+
 
 class MainActivity : AppCompatActivity() {
 
