@@ -1,5 +1,6 @@
 ### Реализуйте ApplicationComponent
-Это корень нашего дерева компонентов. Инициализируется в классе App, прокидывает в граф через Component Dependencies/Subcomponents ниже по графу следующие сущности:
+Это корень нашего дерева компонентов. Инициализируется в классе App, прокидывает в граф через
+Component Dependencies/Subcomponents ниже по графу следующие сущности:
 - Context(Application) до FragmentProducerComponent и FragmentReceiverComponent. 
 Проброс Context в граф реализуйте через BindsInstance + ComponentFactory
 

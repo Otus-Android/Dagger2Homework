@@ -1,19 +1,24 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.producer
 
-import android.app.Activity
 import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import java.lang.RuntimeException
+import ru.otus.daggerhomework.ColorGenerator
+import javax.inject.Inject
+import javax.inject.Named
 
-class ViewModelProducer(
+
+class ProducerViewModel @Inject constructor(
+    @Named("activityContext") val context: Context,
     private val colorGenerator: ColorGenerator,
-    private val context: Context
+    private val provideEvent: MutableLiveData<Int>
 ) : ViewModel() {
 
     fun generateColor() {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
         Toast.makeText(context, "Color sent", Toast.LENGTH_LONG).show()
+        provideEvent.value = colorGenerator.generateColor()
     }
 }
