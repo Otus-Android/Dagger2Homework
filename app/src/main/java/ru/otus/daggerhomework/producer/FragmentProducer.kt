@@ -2,6 +2,7 @@ package ru.otus.daggerhomework.producer
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,9 @@ class FragmentProducer : Fragment() {
         // происходит инжектинг ViewModel в поле
         DaggerFragmentProducerComponent.builder().mainActivityComponent(activityComponent).build()
             .injectFragmentProducer(this)
+
+        Log.i("!!!", "FragmentProducer: ")
+
     }
 
     override fun onCreateView(

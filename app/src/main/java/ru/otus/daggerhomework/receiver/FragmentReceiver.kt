@@ -2,6 +2,7 @@ package ru.otus.daggerhomework.receiver
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,9 @@ class FragmentReceiver : Fragment() {
         val activityComponent = (activity as MainActivity).mainActivityComponent
         DaggerFragmentReceiverComponent.builder().mainActivityComponent(activityComponent).build()
             .injectFragmentReceiver(this)
+
+        Log.i("!!!", "FragmentReceiver: ")
+
     }
 
     override fun onCreateView(
