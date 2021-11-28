@@ -1,10 +1,12 @@
 package ru.otus.daggerhomework.producer
 
 import dagger.Binds
+import dagger.Lazy
 import dagger.Module
 import dagger.Subcomponent
 import ru.otus.daggerhomework.di.FragmentScope
 import ru.otus.daggerhomework.receiver.FragmentReceiver
+import ru.otus.daggerhomework.receiver.ViewModelReceiver
 
 @FragmentScope
 @Subcomponent()
@@ -15,6 +17,7 @@ interface FragmentProducerComponent {
     }
 
     fun inject(fragment: FragmentProducer)
+
 }
 
 
@@ -28,6 +31,7 @@ interface FragmentReceiverComponent {
     }
 
     fun inject(fragment: FragmentReceiver)
+
 }
 
 

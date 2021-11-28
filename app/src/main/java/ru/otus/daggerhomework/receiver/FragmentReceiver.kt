@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.Lazy
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import ru.otus.daggerhomework.MainActivity
 import ru.otus.daggerhomework.R
+import ru.otus.daggerhomework.producer.ViewModelProducer
+import ru.otus.daggerhomework.producer.ViewModelProducerFactory
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
@@ -20,7 +23,8 @@ class FragmentReceiver : Fragment() {
     private lateinit var frame: View
 
     @Inject
-    lateinit var viewModelReceiver: Lazy<ViewModelReceiver>
+    lateinit var viewModelFactory: ViewModelReceiverFactory
+    private val viewModelReceiver: ViewModelReceiver by viewModels{viewModelFactory}
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -42,7 +46,7 @@ class FragmentReceiver : Fragment() {
         frame = view.findViewById(R.id.frame)
 
         lifecycleScope.launchWhenStarted {
-            viewModelReceiver.get().color
+            viewModelReceiver.color
                 .onEach {
                     populateColor(it)
                 }

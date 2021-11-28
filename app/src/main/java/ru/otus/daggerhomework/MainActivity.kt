@@ -24,4 +24,5 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.fragment_holder, FragmentProducer())
             .commit()
     }
+
 }
