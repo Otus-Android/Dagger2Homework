@@ -21,7 +21,5 @@ class App : Application() {
             .create(this)
 
         super.onCreate()
-
-
     }
 }

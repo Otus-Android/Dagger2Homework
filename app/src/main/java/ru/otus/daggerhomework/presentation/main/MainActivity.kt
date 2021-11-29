@@ -16,7 +16,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mainComponent = DaggerMainActivityComponent.factory()
+        mainComponent = DaggerMainActivityComponent
+            .factory()
             .create(this, getAppComponent())
 
 

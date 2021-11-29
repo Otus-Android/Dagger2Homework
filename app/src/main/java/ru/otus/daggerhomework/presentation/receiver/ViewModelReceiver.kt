@@ -4,14 +4,14 @@ import android.app.Application
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import ru.otus.daggerhomework.utils.ApplicationContext
 import javax.inject.Inject
 
 class ViewModelReceiver : ViewModel() {
 
     @Inject
-    lateinit var state: MutableStateFlow<Int>
+    lateinit var state: StateFlow<Int>
 
     @Inject
     @ApplicationContext
