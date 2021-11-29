@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import ru.otus.daggerhomework.R
 import ru.otus.daggerhomework.di.DaggerFragmentProducerComponent
 import ru.otus.daggerhomework.presentation.main.MainActivity
 import ru.otus.daggerhomework.presentation.receiver.FragmentReceiver
+import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
 
@@ -18,19 +19,19 @@ class FragmentProducer : Fragment() {
         const val TAG = "FragmentProducer"
     }
 
-    lateinit var viewModel: ViewModelProducer
+    @Inject
+    lateinit var viewModelFactory: ViewModelProducerFactory
+    private val viewModel: ViewModelProducer by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val component = DaggerFragmentProducerComponent.builder()
+        DaggerFragmentProducerComponent
+            .builder()
             .mainActivityComponent((requireActivity() as MainActivity).mainComponent)
             .build()
+            .inject(this)
 
-        component.inject(this)
-
-        viewModel = ViewModelProvider(this).get(ViewModelProducer::class.java)
-            .also { component.inject(it) }
     }
 
     override fun onCreateView(
