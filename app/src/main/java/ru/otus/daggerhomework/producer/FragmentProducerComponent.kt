@@ -7,7 +7,7 @@ import dagger.Binds
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import ru.otus.daggerhomework.Event
+import kotlinx.coroutines.channels.Channel
 import ru.otus.daggerhomework.FragmentScope
 import ru.otus.daggerhomework.MainActivityComponent
 import ru.otus.daggerhomework.app.ApplicationComponent
@@ -35,14 +35,14 @@ interface FragmentProducerModule {
         fun provideProducerViewModelFactory(
             colorGenerator: ColorGenerator,
             @Named("act") context: Context,
-            event: Event<Int>,
+            eventHandler: Channel<Int>,
         ): ViewModelProvider.Factory {
             return object : ViewModelProvider.Factory {
 
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
                     require(modelClass == ProducerViewModel::class.java)
-                    return ProducerViewModel(colorGenerator, context, event) as T
+                    return ProducerViewModel(colorGenerator, context, eventHandler) as T
                 }
             }
         }

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import ru.otus.daggerhomework.Event
+import kotlinx.coroutines.channels.Channel
 import ru.otus.daggerhomework.FragmentScope
 import ru.otus.daggerhomework.MainActivityComponent
 import ru.otus.daggerhomework.app.ApplicationComponent
@@ -31,14 +31,14 @@ class FragmentReceiverModule {
     @Provides
     fun provideReceiverViewModelFactory(
         @Named("app") context: Context,
-        event: Event<Int>,
+        eventHandler: Channel<Int>,
     ): ViewModelProvider.Factory {
         return object : ViewModelProvider.Factory {
 
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 require(modelClass == ReceiverViewModel::class.java)
-                return ReceiverViewModel(context, event) as T
+                return ReceiverViewModel(context, eventHandler) as T
             }
         }
     }

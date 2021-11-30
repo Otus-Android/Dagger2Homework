@@ -5,6 +5,7 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.channels.Channel
 import javax.inject.Named
 
 @MainActivityScope
@@ -14,7 +15,7 @@ interface MainActivityComponent {
     @Named("act")
     fun provideContext(): Context
 
-    fun provideEvent(): Event<Int>
+    fun provideEventHandler(): Channel<Int>
 
     @Component.Factory
     interface Factory {
@@ -28,5 +29,5 @@ class MainActivityModule {
 
     @MainActivityScope
     @Provides
-    fun provideEvent() = Event<Int>()
+    fun provideEventHandler() = Channel<Int>()
 }
