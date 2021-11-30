@@ -1,19 +1,14 @@
 package ru.otus.daggerhomework
 
 import android.app.Application
-import ru.otus.daggerhomework.di.AppComponent
-import ru.otus.daggerhomework.di.DaggerAppComponent
+import ru.otus.daggerhomework.di.components.AppComponent
+import ru.otus.daggerhomework.di.components.DaggerAppComponent
+import ru.otus.daggerhomework.di.dependencies.DependenciesProvider
+import ru.otus.daggerhomework.di.dependencies.MainActivityDependencies
 
+class App : Application(), DependenciesProvider<MainActivityDependencies> {
 
-class App : Application() {
-
-    companion object {
-        private lateinit var appComponent: AppComponent
-
-        fun getAppComponent(): AppComponent {
-            return appComponent
-        }
-    }
+    private lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         appComponent = DaggerAppComponent
@@ -22,4 +17,6 @@ class App : Application() {
 
         super.onCreate()
     }
+
+    override fun getDependencies(): MainActivityDependencies = appComponent
 }

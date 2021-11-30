@@ -8,17 +8,18 @@ import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import ru.otus.daggerhomework.R
-import ru.otus.daggerhomework.di.DaggerFragmentReceiverComponent
-import ru.otus.daggerhomework.presentation.main.MainActivity
+import ru.otus.daggerhomework.di.components.DaggerFragmentReceiverComponent
+import ru.otus.daggerhomework.di.dependencies.DependenciesProvider
+import ru.otus.daggerhomework.di.dependencies.FragmentReceiverDependencies
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
 
-    private lateinit var frame: View
-
     @Inject
     lateinit var viewModelFactory: ViewModelReceiverFactory
     private val viewModel: ViewModelReceiver by viewModels { viewModelFactory }
+
+    private lateinit var frame: View
 
     companion object {
         const val TAG = "FragmentReceiver"
@@ -27,9 +28,14 @@ class FragmentReceiver : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val providerDependencies = activity as? DependenciesProvider<FragmentReceiverDependencies>
+            ?: throw ClassCastException(
+                "Activity must implement `DependenciesProvider` of `FragmentReceiverDependencies`"
+            )
+
         DaggerFragmentReceiverComponent
             .builder()
-            .mainActivityComponent((requireActivity() as MainActivity).mainComponent)
+            .fragmentReceiverDependencies(providerDependencies.getDependencies())
             .build()
             .inject(this)
 

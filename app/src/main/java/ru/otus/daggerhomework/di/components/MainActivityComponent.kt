@@ -1,34 +1,27 @@
-package ru.otus.daggerhomework.di
+package ru.otus.daggerhomework.di.components
 
 import android.content.Context
 import dagger.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import ru.otus.daggerhomework.di.dependencies.FragmentProducerDependencies
+import ru.otus.daggerhomework.di.dependencies.FragmentReceiverDependencies
+import ru.otus.daggerhomework.di.dependencies.MainActivityDependencies
 import ru.otus.daggerhomework.utils.ActivityScope
-import ru.otus.daggerhomework.utils.ApplicationContext
 
 @ActivityScope
 @Component(
-    dependencies = [AppComponent::class],
+    dependencies = [MainActivityDependencies::class],
     modules = [MainMutableStateModule::class, MainStateModule::class]
 )
-interface MainActivityComponent {
-
-    fun providesMutableStateFlow(): MutableStateFlow<Int>
-
-    fun providesStateFlow(): StateFlow<Int>
-
-    @ApplicationContext
-    fun providesAppContext(): Context
-
-    fun providesActivityContext(): Context
+interface MainActivityComponent : FragmentProducerDependencies, FragmentReceiverDependencies {
 
     @Component.Factory
     interface Factory {
 
         fun create(
             @BindsInstance context: Context,
-            appComponent: AppComponent
+            mainActivityDependencies: MainActivityDependencies
         ): MainActivityComponent
     }
 }
