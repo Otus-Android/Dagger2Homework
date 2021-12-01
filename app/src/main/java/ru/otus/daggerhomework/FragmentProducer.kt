@@ -18,7 +18,10 @@ import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
     private lateinit var navController: NavController
-    private val viewModelProduser by viewModels<ViewModelProducer>{ componentProduser.getViewModule() }
+
+    @Inject
+    lateinit var factoryProducer: ViewModelProducer.FactoryProducer
+    private val viewModelProduser by viewModels<ViewModelProducer> { factoryProducer }
     lateinit var componentProduser: FragmentComponentProduser
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,11 +30,14 @@ class FragmentProducer : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_a, container, false)
     }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        componentProduser=DaggerFragmentComponentProduser.factory().
-        create((requireActivity() as MainActivity).appComponent)
+        componentProduser = DaggerFragmentComponentProduser.factory()
+            .create((requireActivity() as MainActivity).appComponent)
+        componentProduser.inject(this)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()

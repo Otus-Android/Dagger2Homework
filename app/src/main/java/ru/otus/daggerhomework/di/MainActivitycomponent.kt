@@ -14,30 +14,12 @@ import javax.inject.Named
 import javax.inject.Scope
 import javax.inject.Singleton
 
-@Module
-interface ViewModule{
-    @Singleton
-    @Binds
-    @[IntoMap ViewModelkey(ViewModelProducer::class)]
-    fun viewModelProvider(viewModel: ViewModelProducer): ViewModel
-    @Singleton
-    @Binds
-    @[IntoMap ViewModelkey(ViewModelReceiver::class)]
-    fun viewModelReceiver(viewModel: ViewModelReceiver): ViewModel
-}
-
-@Module(includes = [ViewModule::class])
+@Module()
 class MainActivityModule {
     @Singleton
     @Provides
     fun provideMutableStateFlow(): MutableStateFlow<Int> {
         return MutableStateFlow(0)
-    }
-
-    @Singleton
-    @Provides
-    fun provideColor(): ColorGenerator {
-        return ColorGeneratorImpl()
     }
 }
 
@@ -56,7 +38,6 @@ interface MainActivityComponent {
     @Named("MainActivityContext")
     fun providesActivityContext(): Context
 
-    fun getViewModule():ViewModleFactory
 
     @Component.Factory
     interface Factory {

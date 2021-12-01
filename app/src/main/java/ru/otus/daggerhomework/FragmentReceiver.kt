@@ -19,9 +19,10 @@ import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
     lateinit var componentReceiver: FragmentComponentReceiver
-    private val viewModelReceiver by viewModels<ViewModelReceiver> {
-        componentReceiver.getViewModule()
-    }
+
+    @Inject
+    lateinit var factoryReceiver: ViewModelReceiver.FactoryReceiver
+    private val viewModelReceiver by viewModels<ViewModelReceiver> { factoryReceiver }
     private lateinit var frame: View
 
     override fun onCreateView(
@@ -36,11 +37,11 @@ class FragmentReceiver : Fragment() {
         super.onAttach(context)
         componentReceiver = DaggerFragmentComponentReceiver.factory()
             .create((requireActivity() as MainActivity).appComponent)
+        componentReceiver.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // viewModelReceiver = ViewModelProvider(this, viewModelFactory).get(ViewModelReceiver::class.java)
         frame = view.findViewById(R.id.frame)
         lifecycleScope.launchWhenResumed {
             viewModelReceiver.observeColors()

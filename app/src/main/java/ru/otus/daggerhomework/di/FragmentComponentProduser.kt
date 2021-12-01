@@ -8,15 +8,17 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.multibindings.IntoMap
-import ru.otus.daggerhomework.FragmentProducer
-import ru.otus.daggerhomework.ViewModelProducer
-import ru.otus.daggerhomework.ViewModleFactory
+import kotlinx.coroutines.flow.MutableStateFlow
+import ru.otus.daggerhomework.*
 import ru.otus.daggerhomework.utils.FragmentScope
 import ru.otus.daggerhomework.utils.ViewModelkey
 import javax.inject.Named
 
 @Module
 interface FragmentProduserModule{
+    @FragmentScope
+    @Binds
+    fun provideColorGenerator(colorGeneratorImpl: ColorGeneratorImpl): ColorGenerator
 }
 
 @FragmentScope
@@ -25,7 +27,7 @@ interface FragmentProduserModule{
     dependencies = [MainActivityComponent::class]
 )
 interface FragmentComponentProduser {
-    fun getViewModule():ViewModleFactory
+    fun inject(fragment:FragmentProducer)
     @Component.Factory
     interface Factory {
         fun create(applicationComponent: MainActivityComponent): FragmentComponentProduser

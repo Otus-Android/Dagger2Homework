@@ -8,24 +8,19 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.multibindings.IntoMap
-import ru.otus.daggerhomework.ViewModelProducer
-import ru.otus.daggerhomework.ViewModelReceiver
-import ru.otus.daggerhomework.ViewModleFactory
+import kotlinx.coroutines.flow.MutableStateFlow
+import ru.otus.daggerhomework.*
 import ru.otus.daggerhomework.utils.FragmentScope
 import ru.otus.daggerhomework.utils.ViewModelkey
 import javax.inject.Named
 
-@Module
-interface FragmentReceiverModule{
-}
 
 @FragmentScope
 @Component(
-    modules = [FragmentReceiverModule::class],
     dependencies = [MainActivityComponent::class]
 )
 interface FragmentComponentReceiver {
-    fun getViewModule():ViewModleFactory
+    fun inject(fragment: FragmentReceiver)
     @Component.Factory
     interface Factory {
         fun create(applicationComponent: MainActivityComponent): FragmentComponentReceiver

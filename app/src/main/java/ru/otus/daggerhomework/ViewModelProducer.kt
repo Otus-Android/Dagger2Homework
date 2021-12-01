@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -11,7 +12,7 @@ import java.lang.RuntimeException
 import javax.inject.Inject
 import javax.inject.Named
 
-class ViewModelProducer @Inject constructor(
+class ViewModelProducer (
     private val colorGenerator: ColorGenerator,
     @Named("MainActivityContext")
     private val context: Context,
@@ -24,6 +25,17 @@ class ViewModelProducer @Inject constructor(
         viewModelScope.launch {
             val color = colorGenerator.generateColor()
             produser.value=color
+        }
+    }
+
+    class FactoryProducer @Inject constructor(
+        private val colorGenerator: ColorGenerator,
+        @Named("MainActivityContext")
+        private val context: Context,
+        private val produser: MutableStateFlow<Int>
+    ):ViewModelProvider.Factory{
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return ViewModelProducer(colorGenerator,context,produser) as T
         }
     }
 }
