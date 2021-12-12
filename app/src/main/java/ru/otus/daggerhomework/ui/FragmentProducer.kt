@@ -8,23 +8,38 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import ru.otus.daggerhomework.*
+import ru.otus.daggerhomework.ColorGenerator
+import ru.otus.daggerhomework.EventBusProducer
+import ru.otus.daggerhomework.R
 import ru.otus.daggerhomework.di.ActivityContext
+import ru.otus.daggerhomework.di.activityComponent
 import ru.otus.daggerhomework.viewmodels.ViewModelProducer
 import javax.inject.Inject
 
-class FragmentProducer @Inject constructor(
-    private val colorGenerator: ColorGenerator,
-    private val observer: EventBus,
-    @ActivityContext private val activityContext: Context
-) : Fragment() {
+class FragmentProducer : Fragment() {
+
+    @Inject
+    lateinit var colorGenerator: ColorGenerator
+
+    @Inject
+    lateinit var producer: EventBusProducer
+
+    @Inject
+    @ActivityContext
+    lateinit var activityContext: Context
 
     private val viewModel by viewModels<ViewModelProducer> {
         ViewModelProducer.Factory(
             colorGenerator,
-            observer,
+            producer,
             activityContext
         )
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        activityComponent.provideProducerComponent().build().inject(this)
     }
 
     override fun onCreateView(

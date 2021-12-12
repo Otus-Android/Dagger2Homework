@@ -6,12 +6,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ru.otus.daggerhomework.ColorGenerator
-import ru.otus.daggerhomework.EventBus
-import ru.otus.daggerhomework.di.ActivityContext
+import ru.otus.daggerhomework.EventBusProducer
 
 class ViewModelProducer(
     private val colorGenerator: ColorGenerator,
-    private val producer: EventBus,
+    private val producer: EventBusProducer,
     private val context: Context
 ) : ViewModel() {
 
@@ -24,7 +23,7 @@ class ViewModelProducer(
 
     class Factory(
         private val colorGenerator: ColorGenerator,
-        private val producer: EventBus,
+        private val producer: EventBusProducer,
         private val context: Context
     ) : ViewModelProvider.Factory {
 

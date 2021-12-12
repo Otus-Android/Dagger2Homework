@@ -3,16 +3,19 @@ package ru.otus.daggerhomework
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
+import ru.otus.daggerhomework.di.ActivityScope
 import javax.inject.Inject
 
-// TODO: Надо бы разделить отдельно на прием и отправку событий, но как сделать два binds на один instance класса?
-interface EventBus {
+interface EventBusReceiver {
     val events: Flow<Int>
+}
 
+interface EventBusProducer {
     fun dispatch(value: Int)
 }
 
-class EventBusImpl @Inject constructor() : EventBus {
+@ActivityScope
+class EventBusImpl @Inject constructor() : EventBusReceiver, EventBusProducer {
 
     private val channel = Channel<Int>(Channel.BUFFERED)
     override val events = channel.receiveAsFlow()

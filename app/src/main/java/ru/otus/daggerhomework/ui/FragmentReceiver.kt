@@ -10,23 +10,34 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
-import ru.otus.daggerhomework.EventBus
-import ru.otus.daggerhomework.di.ApplicationContext
+import ru.otus.daggerhomework.EventBusReceiver
 import ru.otus.daggerhomework.R
+import ru.otus.daggerhomework.di.ApplicationContext
+import ru.otus.daggerhomework.di.activityComponent
 import ru.otus.daggerhomework.viewmodels.ViewModelReceiver
 import javax.inject.Inject
 
-class FragmentReceiver @Inject constructor(
-    private val observer: EventBus,
-    @ApplicationContext private val appContext: Context,
-    ) : Fragment() {
+class FragmentReceiver : Fragment() {
+
+    @Inject
+    lateinit var receiver: EventBusReceiver
+
+    @Inject
+    @ApplicationContext
+    lateinit var applicationContext: Context
 
     private lateinit var frame: View
 
     private val viewModel by viewModels<ViewModelReceiver> {
         ViewModelReceiver.Factory(
-            appContext, observer
+            applicationContext, receiver
         )
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        activityComponent.provideReceiverComponent().build().inject(this)
     }
 
     override fun onCreateView(

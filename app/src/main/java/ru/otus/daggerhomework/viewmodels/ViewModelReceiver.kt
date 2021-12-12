@@ -7,14 +7,14 @@ import androidx.annotation.ColorInt
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.*
-import ru.otus.daggerhomework.EventBus
-import ru.otus.daggerhomework.di.ApplicationContext
-import java.lang.RuntimeException
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
+import ru.otus.daggerhomework.EventBusReceiver
 
 class ViewModelReceiver(
     private val context: Context,
-    receiver: EventBus
+    receiver: EventBusReceiver
 ) : ViewModel() {
 
     val colorFlow = receiver.events
@@ -29,12 +29,12 @@ class ViewModelReceiver(
 
     class Factory(
         private val context: Context,
-        private val observer: EventBus
+        private val receiver: EventBusReceiver
     ) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass == ViewModelReceiver::class.java) {
-                return ViewModelReceiver(context, observer) as T
+                return ViewModelReceiver(context, receiver) as T
             }
 
             throw IllegalStateException("Unknown class ${modelClass.name}")
