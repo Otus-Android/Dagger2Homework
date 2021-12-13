@@ -6,13 +6,16 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import java.lang.RuntimeException
+import javax.inject.Inject
 
-class ViewModelReceiver(
-    private val context: Context
+class ViewModelReceiver @Inject constructor(
+    private val context: Context,
+    private val observer: ColorObserver
 ) : ViewModel() {
 
-    fun observeColors() {
+    fun observeColors(): ColorObserver {
         if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
         Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
+        return observer
     }
 }
