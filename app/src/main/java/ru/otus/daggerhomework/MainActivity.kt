@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     lateinit var mainActivityComponent: MainActivityComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mainActivityComponent = DaggerMainActivityComponent.factory().create(this)
+        mainActivityComponent = DaggerMainActivityComponent.factory().create(appComponent, this)
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

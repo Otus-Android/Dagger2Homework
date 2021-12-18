@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import ru.otus.daggerhomework.MainActivity
 import ru.otus.daggerhomework.R
-import ru.otus.daggerhomework.appComponent
 import javax.inject.Inject
 
 class FragmentProducer : Fragment(R.layout.fragment_a) {
@@ -24,7 +23,6 @@ class FragmentProducer : Fragment(R.layout.fragment_a) {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         DaggerFragmentProducerComponent.builder()
-            .applicationComponent(requireContext().appComponent)
             .mainActivityComponent((requireActivity() as MainActivity).mainActivityComponent)
             .build()
             .inject(this)

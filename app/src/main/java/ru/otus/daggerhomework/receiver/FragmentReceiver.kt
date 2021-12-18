@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import ru.otus.daggerhomework.MainActivity
 import ru.otus.daggerhomework.R
-import ru.otus.daggerhomework.appComponent
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment(R.layout.fragment_b) {
@@ -23,7 +22,6 @@ class FragmentReceiver : Fragment(R.layout.fragment_b) {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         DaggerFragmentReceiverComponent.builder()
-            .applicationComponent(requireContext().appComponent)
             .mainActivityComponent((requireActivity() as MainActivity).mainActivityComponent)
             .build()
             .inject(this)

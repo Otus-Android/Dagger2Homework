@@ -10,15 +10,11 @@ import dagger.Provides
 import kotlinx.coroutines.channels.Channel
 import ru.otus.daggerhomework.FragmentScope
 import ru.otus.daggerhomework.MainActivityComponent
-import ru.otus.daggerhomework.app.ApplicationComponent
 import javax.inject.Named
 
 @FragmentScope
 @Component(
-    dependencies = [
-        ApplicationComponent::class,
-        MainActivityComponent::class,
-    ],
+    dependencies = [MainActivityComponent::class],
     modules = [FragmentProducerModule::class]
 )
 interface FragmentProducerComponent {

@@ -5,7 +5,4 @@ import ru.otus.daggerhomework.app.App
 import ru.otus.daggerhomework.app.ApplicationComponent
 
 val Context.appComponent: ApplicationComponent
-    get() = when (this) {
-        is App -> appComponent
-        else -> applicationContext.appComponent
-    }
+    get() = (applicationContext as App).appComponent
