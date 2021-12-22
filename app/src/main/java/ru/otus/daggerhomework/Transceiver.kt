@@ -1,8 +1,10 @@
 package ru.otus.daggerhomework
 
 import kotlinx.coroutines.channels.Channel
+import ru.otus.daggerhomework.di.ActivityScope
 import javax.inject.Inject
 
+@ActivityScope
 class Transceiver @Inject constructor() {
 
     private val channel = Channel<Int>()
