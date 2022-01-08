@@ -6,6 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.di.DaggerFragmentReceiverComponent
 import ru.otus.daggerhomework.di.ViewModelFactory
 import ru.otus.daggerhomework.di.injectViewModel
@@ -36,10 +40,22 @@ class FragmentReceiver : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         frame = view.findViewById(R.id.frame)
+//        with(viewLifecycleOwner) {
+//            lifecycleScope.launch {
+//                repeatOnLifecycle(Lifecycle.State.CREATED) {
+//                    receiverViewModel.observeColors { populateColor(it) }
+//                }
+//            }
+//        }
         receiverViewModel.observeColors { populateColor(it) }
     }
 
-    fun populateColor(@ColorInt color: Int) {
+    private fun populateColor(@ColorInt color: Int) {
         frame.setBackgroundColor(color)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        receiverViewModel.stopObservingColors()
     }
 }

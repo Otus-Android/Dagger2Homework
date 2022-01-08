@@ -6,6 +6,7 @@ import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -19,13 +20,19 @@ class ViewModelReceiver @Inject constructor(
     private val state: MutableStateFlow<Int>
 ) : ViewModel() {
 
+    private var colorUpdatesJob: Job? = null
+
     fun observeColors(action: ((Int) -> Unit)?) {
         if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
-        viewModelScope.launch {
+        colorUpdatesJob = viewModelScope.launch {
             state.collect {
                 Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
                 action?.invoke(it)
             }
         }
+    }
+
+    fun stopObservingColors() {
+        colorUpdatesJob?.cancel()
     }
 }
