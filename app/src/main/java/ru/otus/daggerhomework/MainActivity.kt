@@ -2,7 +2,13 @@ package ru.otus.daggerhomework
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import ru.otus.daggerhomework.di.ActivityComponent
+import ru.otus.daggerhomework.di.DaggerActivityComponent
 
+@ExperimentalCoroutinesApi
+@FlowPreview
 class MainActivity : AppCompatActivity() {
     companion object{
         lateinit var component: ActivityComponent

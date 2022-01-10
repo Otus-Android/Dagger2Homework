@@ -1,6 +1,5 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.di
 
-import android.app.Application
 import android.content.Context
 import dagger.*
 import javax.inject.Singleton
@@ -12,7 +11,7 @@ interface ApplicationComponent{
 
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance context: Context): ApplicationComponent;
+        fun create(@BindsInstance context: Context): ApplicationComponent
     }
 }
 

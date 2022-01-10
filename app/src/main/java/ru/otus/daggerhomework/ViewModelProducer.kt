@@ -1,6 +1,5 @@
 package ru.otus.daggerhomework
 
-import android.app.Activity
 import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
@@ -9,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
+import ru.otus.daggerhomework.di.ColorObserver
 import java.lang.RuntimeException
 import javax.inject.Inject
 import javax.inject.Named

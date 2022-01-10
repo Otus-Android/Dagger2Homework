@@ -26,12 +26,16 @@ class FragmentReceiver : Fragment() {
         viewModelFactory
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        DaggerFragmentReceiverComponent.builder().activityComponent(MainActivity.component).build().inject(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        DaggerFragmentReceiverComponent.builder().activityComponent(MainActivity.component).build().inject(this)
         return inflater.inflate(R.layout.fragment_b, container, false)
     }
 
@@ -39,7 +43,7 @@ class FragmentReceiver : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         frame = view.findViewById(R.id.frame)
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.observeColors().state.collect {
+            viewModel.observeColors().collect {
                 populateColor(it)
             }
         }

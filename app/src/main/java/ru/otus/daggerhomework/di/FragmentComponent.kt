@@ -1,23 +1,23 @@
 package ru.otus.daggerhomework.di
 
-import android.app.Application
-import android.content.Context
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dagger.*
 import dagger.multibindings.IntoMap
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import ru.otus.daggerhomework.*
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Scope
-import javax.inject.Singleton
 import kotlin.reflect.KClass
 
 @FragmentScope
 @Component(modules = [FragmentProducerModule::class, ViewModelModule::class],
     dependencies = [ActivityComponent::class])
 interface FragmentProducerComponent{
+    @ExperimentalCoroutinesApi
+    @FlowPreview
     fun inject(fragment: FragmentProducer)
 }
 
@@ -26,11 +26,12 @@ interface FragmentProducerModule{
     @Binds
     @FragmentScope
     @IntoMap
+    @ExperimentalCoroutinesApi
+    @FlowPreview
     @ViewModelKey(ViewModelProducer::class)
     fun bindViewModelProducer(viewModel: ViewModelProducer): ViewModel
 
     @Binds
-    @FragmentScope
     fun bindColorGenerator(colorGenerator: ColorGeneratorImpl): ColorGenerator
 }
 
