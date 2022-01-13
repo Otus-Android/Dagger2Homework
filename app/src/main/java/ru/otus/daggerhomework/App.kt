@@ -1,6 +1,8 @@
 package ru.otus.daggerhomework
 
 import android.app.Application
+import ru.otus.daggerhomework.di.ApplicationComponent
+import ru.otus.daggerhomework.di.DaggerApplicationComponent
 import javax.inject.Inject
 
 class App : Application() {

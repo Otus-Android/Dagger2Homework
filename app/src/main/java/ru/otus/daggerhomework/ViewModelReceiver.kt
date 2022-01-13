@@ -7,10 +7,11 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
+import ru.otus.daggerhomework.di.ApplicationContext
 import javax.inject.Inject
 
 class ViewModelReceiver(
-    val observer: Channel<Result>,
+    private val observer: Channel<Result>,
     private val context: Context
 ) : ViewModel() {
 

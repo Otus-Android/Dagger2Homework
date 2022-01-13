@@ -1,21 +1,12 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.di
 
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import dagger.Module
-import javax.inject.Qualifier
+import ru.otus.daggerhomework.App
 import javax.inject.Singleton
 
-@Module()
-interface ApplicationModule {
-
-}
-
-@Qualifier
-annotation class ApplicationContext
-
-@Component
+@Component(modules = [ApplicationModule::class])
 @Singleton
 interface ApplicationComponent {
     @ApplicationContext
