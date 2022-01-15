@@ -7,18 +7,18 @@ import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import ru.otus.daggerhomework.R
 import ru.otus.daggerhomework.di.activityComponent
-import ru.otus.daggerhomework.viewmodels.ViewModelFactory
 import ru.otus.daggerhomework.viewmodels.ViewModelReceiver
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var frame: View
 

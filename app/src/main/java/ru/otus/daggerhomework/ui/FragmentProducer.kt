@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import ru.otus.daggerhomework.R
 import ru.otus.daggerhomework.di.activityComponent
-import ru.otus.daggerhomework.viewmodels.ViewModelFactory
 import ru.otus.daggerhomework.viewmodels.ViewModelProducer
 import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by viewModels<ViewModelProducer> { viewModelFactory }
 

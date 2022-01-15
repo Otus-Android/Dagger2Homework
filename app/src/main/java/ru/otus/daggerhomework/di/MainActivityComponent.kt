@@ -1,11 +1,13 @@
 package ru.otus.daggerhomework.di
 
 import android.content.Context
+import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import ru.otus.daggerhomework.*
+import ru.otus.daggerhomework.viewmodels.ViewModelFactory
 import javax.inject.Qualifier
 import javax.inject.Scope
 
@@ -46,5 +48,8 @@ interface MainActivityModule {
 
     @Binds
     fun bindGenerator(eventBus: ColorGeneratorImpl): ColorGenerator
+
+    @Binds
+    fun bindFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 }
 
