@@ -1,6 +1,5 @@
 package ru.otus.daggerhomework.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,29 +9,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
-import ru.otus.daggerhomework.EventBusReceiver
 import ru.otus.daggerhomework.R
-import ru.otus.daggerhomework.di.ApplicationContext
 import ru.otus.daggerhomework.di.activityComponent
+import ru.otus.daggerhomework.viewmodels.ViewModelFactory
 import ru.otus.daggerhomework.viewmodels.ViewModelReceiver
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
 
     @Inject
-    lateinit var receiver: EventBusReceiver
-
-    @Inject
-    @ApplicationContext
-    lateinit var applicationContext: Context
+    lateinit var viewModelFactory: ViewModelFactory
 
     private lateinit var frame: View
 
-    private val viewModel by viewModels<ViewModelReceiver> {
-        ViewModelReceiver.Factory(
-            applicationContext, receiver
-        )
-    }
+    private val viewModel by viewModels<ViewModelReceiver> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

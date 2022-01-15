@@ -4,7 +4,6 @@ import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.EventBusProducer
 
@@ -19,21 +18,6 @@ class ViewModelProducer(
 
         Toast.makeText(context, "Color sent", Toast.LENGTH_SHORT).show()
         producer.dispatch(colorGenerator.generateColor())
-    }
-
-    class Factory(
-        private val colorGenerator: ColorGenerator,
-        private val producer: EventBusProducer,
-        private val context: Context
-    ) : ViewModelProvider.Factory {
-
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass == ViewModelProducer::class.java) {
-                return ViewModelProducer(colorGenerator, producer, context) as T
-            }
-
-            throw IllegalStateException("Unknown class ${modelClass.name}")
-        }
     }
 
 }

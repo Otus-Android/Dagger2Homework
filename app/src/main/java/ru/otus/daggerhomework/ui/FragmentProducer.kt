@@ -1,6 +1,5 @@
 package ru.otus.daggerhomework.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,33 +7,18 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import ru.otus.daggerhomework.ColorGenerator
-import ru.otus.daggerhomework.EventBusProducer
 import ru.otus.daggerhomework.R
-import ru.otus.daggerhomework.di.ActivityContext
 import ru.otus.daggerhomework.di.activityComponent
+import ru.otus.daggerhomework.viewmodels.ViewModelFactory
 import ru.otus.daggerhomework.viewmodels.ViewModelProducer
 import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
 
     @Inject
-    lateinit var colorGenerator: ColorGenerator
+    lateinit var viewModelFactory: ViewModelFactory
 
-    @Inject
-    lateinit var producer: EventBusProducer
-
-    @Inject
-    @ActivityContext
-    lateinit var activityContext: Context
-
-    private val viewModel by viewModels<ViewModelProducer> {
-        ViewModelProducer.Factory(
-            colorGenerator,
-            producer,
-            activityContext
-        )
-    }
+    private val viewModel by viewModels<ViewModelProducer> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

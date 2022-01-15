@@ -1,8 +1,7 @@
 package ru.otus.daggerhomework
 
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.receiveAsFlow
+import android.graphics.Color
+import kotlinx.coroutines.flow.*
 import ru.otus.daggerhomework.di.ActivityScope
 import javax.inject.Inject
 
@@ -17,10 +16,10 @@ interface EventBusProducer {
 @ActivityScope
 class EventBusImpl @Inject constructor() : EventBusReceiver, EventBusProducer {
 
-    private val channel = Channel<Int>(Channel.BUFFERED)
-    override val events = channel.receiveAsFlow()
+    private val mutableStateFlow = MutableStateFlow(Color.BLACK)
+    override val events = mutableStateFlow.asStateFlow()
 
     override fun dispatch(value: Int) {
-        channel.trySend(value)
+        mutableStateFlow.tryEmit(value)
     }
 }
