@@ -20,6 +20,7 @@ class ApplicationModule {
     }
 }
 
+
 @AppScope
 @Component(modules = [ApplicationModule::class])
 interface ApplicationComponent {
