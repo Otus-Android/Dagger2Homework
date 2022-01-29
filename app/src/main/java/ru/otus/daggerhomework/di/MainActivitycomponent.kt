@@ -13,19 +13,11 @@ import javax.inject.Named
 import javax.inject.Scope
 import javax.inject.Singleton
 
-@Module()
-class MainActivityModule {
-    @ActivityScope
-    @Provides
-    fun provideMutableStateFlow(): MutableStateFlow<Int> {
-        return MutableStateFlow(0)
-    }
-}
+
 
 @ActivityScope
 @Component(
     dependencies = [ApplicationComponent::class],
-    modules = [MainActivityModule::class]
 )
 interface MainActivityComponent {
 

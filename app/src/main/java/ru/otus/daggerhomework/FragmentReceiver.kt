@@ -10,8 +10,7 @@ import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -27,7 +26,7 @@ class FragmentReceiver : Fragment() {
     private lateinit var navController: NavController
     @Inject
     lateinit var factoryReceiver: ViewModelReceiver.FactoryReceiver
-    private lateinit var viewModelReceiver :ViewModelReceiver
+    private val viewModelReceiver by viewModels<ViewModelReceiver> { factoryReceiver }
     private lateinit var frame: View
 
     override fun onCreateView(
@@ -47,7 +46,6 @@ class FragmentReceiver : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModelReceiver=   ViewModelProviders.of(this,factoryReceiver).get(ViewModelReceiver::class.java)
         frame = view.findViewById(R.id.frame)
         navController = findNavController()
         view.findViewById<Button>(R.id.button).setOnClickListener {

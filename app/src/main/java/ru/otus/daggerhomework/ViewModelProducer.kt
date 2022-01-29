@@ -36,7 +36,7 @@ class ViewModelProducer (
         private val produser: MutableStateFlow<Int>
     ):ViewModelProvider.Factory{
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            Log.d("TAG", "create")
+            Log.d("ViewModelProducer", "create")
             return ViewModelProducer(colorGenerator,context,produser) as T
         }
     }

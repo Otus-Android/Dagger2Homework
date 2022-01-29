@@ -17,7 +17,7 @@ import ru.otus.daggerhomework.di.DaggerFragmentComponentProduser
 import ru.otus.daggerhomework.di.DaggerFragmentComponentReceiver
 import ru.otus.daggerhomework.di.FragmentComponentProduser
 import javax.inject.Inject
-import androidx.lifecycle.ViewModelProviders
+
 
 
 
@@ -27,7 +27,7 @@ class FragmentProducer : Fragment() {
 
     @Inject
     lateinit var factoryProducer: ViewModelProducer.FactoryProducer
-    private lateinit var viewModelProduser :ViewModelProducer
+    private val viewModelProduser by viewModels<ViewModelProducer> { factoryProducer }
     lateinit var componentProduser: FragmentComponentProduser
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +36,7 @@ class FragmentProducer : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_a, container, false)
     }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -54,7 +55,6 @@ class FragmentProducer : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
-        viewModelProduser=   ViewModelProviders.of(this,factoryProducer).get(ViewModelProducer::class.java)
         view.findViewById<Button>(R.id.button).setOnClickListener {
             viewModelProduser.provideColor()
             navController.navigate(R.id.action_fragmentProducer_to_fragmentReceiver)

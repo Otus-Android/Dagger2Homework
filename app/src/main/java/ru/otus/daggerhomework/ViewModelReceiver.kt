@@ -2,6 +2,7 @@ package ru.otus.daggerhomework
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -32,6 +33,7 @@ class ViewModelReceiver (
         private val receiver:MutableStateFlow<Int>
     ): ViewModelProvider.Factory{
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            Log.d("ViewModelReceiver", "create")
             return ViewModelReceiver(context,receiver) as T
         }
     }
