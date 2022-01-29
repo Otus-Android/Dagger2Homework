@@ -17,7 +17,7 @@ class ViewModelReceiver (
     private val receiver:MutableStateFlow<Int>
 ) : ViewModel() {
     private val _receiver = MutableStateFlow(0)
-    val receiverStateFlow: StateFlow<Int> = _receiver
+    val receiverStateFlow: StateFlow<Int> = receiver
 
 
      fun observeColors() {

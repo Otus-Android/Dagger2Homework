@@ -15,5 +15,9 @@
     <fragment
         android:id="@+id/fragmentReceiver"
         android:name="ru.otus.daggerhomework.FragmentReceiver"
-        android:label="FragmentReceiver" />
+        android:label="FragmentReceiver" >
+        <action
+            android:id="@+id/action_fragmentReceiver_to_fragmentProducer"
+            app:destination="@id/fragmentProducer" />
+    </fragment>
 </navigation>

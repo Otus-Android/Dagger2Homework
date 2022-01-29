@@ -2,11 +2,13 @@ package ru.otus.daggerhomework
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -15,13 +17,17 @@ import ru.otus.daggerhomework.di.DaggerFragmentComponentProduser
 import ru.otus.daggerhomework.di.DaggerFragmentComponentReceiver
 import ru.otus.daggerhomework.di.FragmentComponentProduser
 import javax.inject.Inject
+import androidx.lifecycle.ViewModelProviders
+
+
+
 
 class FragmentProducer : Fragment() {
     private lateinit var navController: NavController
 
     @Inject
     lateinit var factoryProducer: ViewModelProducer.FactoryProducer
-    private val viewModelProduser by viewModels<ViewModelProducer> { factoryProducer }
+    private lateinit var viewModelProduser :ViewModelProducer
     lateinit var componentProduser: FragmentComponentProduser
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,13 +43,21 @@ class FragmentProducer : Fragment() {
             .create((requireActivity() as MainActivity).appComponent)
         componentProduser.inject(this)
     }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("FragmentProducer", "Destory")
+    }
 
+    override fun onStop() {
+        super.onStop()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
+        viewModelProduser=   ViewModelProviders.of(this,factoryProducer).get(ViewModelProducer::class.java)
         view.findViewById<Button>(R.id.button).setOnClickListener {
             viewModelProduser.provideColor()
-            navController.navigate(R.id.fragmentReceiver)
+            navController.navigate(R.id.action_fragmentProducer_to_fragmentReceiver)
         }
     }
 }

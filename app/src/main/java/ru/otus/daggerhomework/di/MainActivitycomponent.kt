@@ -9,21 +9,20 @@ import dagger.multibindings.IntoMap
 import kotlinx.coroutines.flow.MutableStateFlow
 import ru.otus.daggerhomework.*
 import ru.otus.daggerhomework.utils.ActivityScope
-import ru.otus.daggerhomework.utils.ViewModelkey
 import javax.inject.Named
 import javax.inject.Scope
 import javax.inject.Singleton
 
 @Module()
 class MainActivityModule {
-    @Singleton
+    @ActivityScope
     @Provides
     fun provideMutableStateFlow(): MutableStateFlow<Int> {
         return MutableStateFlow(0)
     }
 }
 
-@Singleton
+@ActivityScope
 @Component(
     dependencies = [ApplicationComponent::class],
     modules = [MainActivityModule::class]

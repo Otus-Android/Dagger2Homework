@@ -1,6 +1,7 @@
 package ru.otus.daggerhomework
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
@@ -35,6 +36,7 @@ class ViewModelProducer (
         private val produser: MutableStateFlow<Int>
     ):ViewModelProvider.Factory{
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            Log.d("TAG", "create")
             return ViewModelProducer(colorGenerator,context,produser) as T
         }
     }

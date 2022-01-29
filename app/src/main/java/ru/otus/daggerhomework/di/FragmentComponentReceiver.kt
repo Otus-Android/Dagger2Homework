@@ -11,7 +11,7 @@ import dagger.multibindings.IntoMap
 import kotlinx.coroutines.flow.MutableStateFlow
 import ru.otus.daggerhomework.*
 import ru.otus.daggerhomework.utils.FragmentScope
-import ru.otus.daggerhomework.utils.ViewModelkey
+
 import javax.inject.Named
 
 
