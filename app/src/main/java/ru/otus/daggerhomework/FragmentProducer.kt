@@ -9,6 +9,10 @@ import androidx.fragment.app.Fragment
 
 class FragmentProducer : Fragment() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        DaggerFragmentProducerComponent.builder().applicationComponent(App.applicationComponent).build()
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

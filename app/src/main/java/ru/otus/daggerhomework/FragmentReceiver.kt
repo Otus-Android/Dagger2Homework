@@ -11,7 +11,10 @@ import androidx.fragment.app.Fragment
 class FragmentReceiver : Fragment() {
 
     private lateinit var frame: View
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        DaggerFragmentReceiverComponent.builder().applicationComponent(App.applicationComponent).build()
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
