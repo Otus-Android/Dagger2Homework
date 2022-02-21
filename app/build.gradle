@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
@@ -41,5 +41,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation 'com.google.dagger:dagger:2.38.1'
+    implementation 'androidx.fragment:fragment-ktx:1.4.1'
     kapt 'com.google.dagger:dagger-compiler:2.38.1'
 }

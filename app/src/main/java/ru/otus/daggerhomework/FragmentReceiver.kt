@@ -4,16 +4,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 
 class FragmentReceiver : Fragment() {
-
+    lateinit var fragmentReceiverComponent: FragmentReceiverComponent
+    private val viewModel: ViewModelReceiver by viewModels {
+        Factory {
+            fragmentReceiverComponent.viewModelReceiver
+        }
+    }
     private lateinit var frame: View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DaggerFragmentReceiverComponent.builder().applicationComponent(App.applicationComponent).build()
+        DaggerFragmentReceiverComponent.builder()
+            .applicationComponent(App.applicationComponent)
+            .mainActivityComponent(MainActivity.mainActivityComponent)
+            .build()
+
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,9 +39,14 @@ class FragmentReceiver : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         frame = view.findViewById(R.id.frame)
+        lifecycleScope.launch {
+            viewModel.sharedFlow.collect {
+                populateColor(it)
+            }
+        }
     }
 
-    fun populateColor(@ColorInt color: Int) {
+    private fun populateColor(@ColorInt color: Int) {
         frame.setBackgroundColor(color)
     }
 }

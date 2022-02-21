@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import java.lang.ref.WeakReference
 
 class MainActivity : AppCompatActivity() {
-    private val stateFlow: StateFlow<String> = MutableStateFlow("")
+    companion object{
+        lateinit var mainActivityComponent: MainActivityComponent
+    }
+    private val stateFlow = MutableStateFlow(0)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        DaggerMainActivityComponent.factory().create(this, stateFlow)
+        mainActivityComponent = DaggerMainActivityComponent.factory().create(WeakReference(this), stateFlow)
     }
 }
