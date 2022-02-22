@@ -1,6 +1,7 @@
 package ru.otus.daggerhomework
 
 import android.app.Application
+import java.lang.ref.WeakReference
 
 class App :Application() {
     companion object{
@@ -8,6 +9,6 @@ class App :Application() {
     }
     override fun onCreate() {
         super.onCreate()
-        applicationComponent = DaggerApplicationComponent.factory().create(this)
+        applicationComponent = DaggerApplicationComponent.factory().create(WeakReference(this))
     }
 }
