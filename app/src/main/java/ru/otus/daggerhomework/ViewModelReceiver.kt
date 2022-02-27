@@ -7,9 +7,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import java.lang.RuntimeException
+import javax.inject.Inject
 
-class ViewModelReceiver(
-    private val context: Application
+class ViewModelReceiver @Inject constructor(
+     val context: Application
 ) : ViewModel() {
 
     fun observeColors() {

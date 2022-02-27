@@ -1,5 +1,6 @@
 package ru.otus.daggerhomework
 
+import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -14,23 +15,22 @@ import androidx.lifecycle.Observer
 import javax.inject.Inject
 
 
-class FragmentProducer @Inject constructor (val appContext:Context) : Fragment() {
+class FragmentProducer @Inject constructor(context:Context,colorGenerator: ColorGenerator) : Fragment() {
 
-    //@Inject
-    //lateinit var viewModel: ViewModelProducer
 
-   // @Inject
-  //  lateinit var colorGenerator:ColorGenerator
-    val viewModel by viewModels<ViewModelProducer>()
-    
-    // var  viewModel=ViewModelProducerFactory(this.colorGenerator,this.appContext)
+    val viewModel by viewModels<ViewModelProducer>() {
+       ViewModelProducerFactory(
+           colorGenerator = colorGenerator,
+           context
+       )
+   }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        //viewModel = ViewModelProviders.of(this, viewModelFactory).get(ViewModelProducer::class.java)
 
         return inflater.inflate(R.layout.fragment_a, container, false)
     }
@@ -41,11 +41,8 @@ class FragmentProducer @Inject constructor (val appContext:Context) : Fragment()
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.button).setOnClickListener {
-            viewModel.generateColor()
+           viewModel.generateColor()
         }
-
-
-
     }
 
 

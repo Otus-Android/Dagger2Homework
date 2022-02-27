@@ -9,28 +9,37 @@ import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
+
+
+    val appComponent: ApplicationComponent by lazy {
+        DaggerApplicationComponent.factory().create(this,this.application)
+    }
+
     @Inject
     protected lateinit var colorGenerator: ColorGenerator
+
+
+    @Inject
+    protected lateinit var fragmentProducer: FragmentProducer
+
+    @Inject
+    protected lateinit var fragmentReceiver: FragmentReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-          DaggerMainActivityComponent.builder()
-            .build()
-            Toast.makeText(this, colorGenerator.generateColor().toString(),1).show()
-       // val producerViewModel = ViewModelProducerFactory(colorGenerator,this)
-       // val receiverViewModel = ViewModelReceiverFactory(this)
 
+         appComponent.inject(this)
 
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.producerFragmentLayout, FragmentProducer(colorGenerator,this))
+                .replace(R.id.producerFragmentLayout,fragmentProducer)
                 .commitAllowingStateLoss()
 
             supportFragmentManager.beginTransaction()
-                .replace(R.id.receiverFragmentLayout, FragmentReceiver())
+                .replace(R.id.receiverFragmentLayout, fragmentReceiver)
                 .commitAllowingStateLoss()
 
 
