@@ -38,8 +38,9 @@ class ViewModelReceiver  constructor(
 
     }
 
-    fun onClear() {
-
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
     }
 }
 
