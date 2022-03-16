@@ -11,26 +11,30 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import io.reactivex.rxjava3.subjects.PublishSubject
 import javax.inject.Inject
 
 
-class FragmentProducer @Inject constructor(context:Context,colorGenerator: ColorGenerator) : Fragment() {
+class FragmentProducer @Inject constructor(context:Context,colorGenerator: ColorGenerator,publishSubject: PublishSubject<Int>) : Fragment() {
 
 
     val viewModel by viewModels<ViewModelProducer>() {
        ViewModelProducerFactory(
            colorGenerator = colorGenerator,
-           context
+           context = context,
+           publishSubject = publishSubject
        )
    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //viewModel = ViewModelProviders.of(this, viewModelFactory).get(ViewModelProducer::class.java)
 
         return inflater.inflate(R.layout.fragment_a, container, false)
     }

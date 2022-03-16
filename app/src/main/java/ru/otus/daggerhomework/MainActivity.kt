@@ -10,10 +10,9 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-
-    val appComponent: ApplicationComponent by lazy {
-        DaggerApplicationComponent.factory().create(this,this.application)
-    }
+/*    val appMainActivityComponent: MainActivityComponent by lazy {
+        DaggerMainActivityComponent.factory().create(this)
+    }*/
 
     @Inject
     protected lateinit var colorGenerator: ColorGenerator
@@ -28,10 +27,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-         appComponent.inject(this)
-
+        val appComponent = (applicationContext as App).appComponent
+       val activityComponent = DaggerMainActivityComponent.
+            factory().
+            create(applicationComponent =appComponent,context =this).inject(this)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

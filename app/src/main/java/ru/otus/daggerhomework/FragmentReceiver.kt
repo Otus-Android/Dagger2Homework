@@ -10,15 +10,16 @@ import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import io.reactivex.rxjava3.subjects.PublishSubject
 import javax.inject.Inject
 
-class FragmentReceiver @Inject constructor(application: Application) : Fragment() {
+class FragmentReceiver @Inject constructor(application: Application,publishSubject: PublishSubject<Int>) : Fragment() {
 
     private lateinit var frame: View
 
     val viewModel by viewModels<ViewModelReceiver>() {
         ViewModelReceiverFactory(
-            application
+            application,publishSubject
         )
     }
     override fun onCreateView(
@@ -32,6 +33,7 @@ class FragmentReceiver @Inject constructor(application: Application) : Fragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         frame = view.findViewById(R.id.frame)
+        viewModel.observeColors()
     }
 
     fun populateColor(@ColorInt color: Int) {

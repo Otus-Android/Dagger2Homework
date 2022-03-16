@@ -3,19 +3,17 @@ package ru.otus.daggerhomework
 import android.app.Application
 
 class App: Application() {
-   /* companion object {
-        fun getComponent(): ApplicationComponent {
-            return appComponent
-        }
-        lateinit  private var appComponent: ApplicationComponent
-    }*/
+
+    val appComponent: ApplicationComponent by lazy {
+        DaggerApplicationComponent.factory().create(this)
+    }
 
     override fun onCreate() {
         super.onCreate()
+    }
 
-        // Instance of the AppComponent that will be used by all the Activities in the project
-
-
+    fun appComponent():ApplicationComponent {
+        return appComponent;
     }
 
 
