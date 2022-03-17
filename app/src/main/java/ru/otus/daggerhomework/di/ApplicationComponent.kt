@@ -22,22 +22,7 @@ interface ApplicationComponent {
 
 }
 
-@Module
-class FragmentsModule {
 
-    @Singleton
-    @Provides
-    fun provideFragmentReceiver(appContext: Application,publishSubject: PublishSubject<Int>): FragmentReceiver {
-        return FragmentReceiver(application = appContext,publishSubject = publishSubject
-        )
-    }
-
-    @Singleton
-    @Provides
-    fun provideFragmentProducer(context: Context,colorGenerator: ColorGenerator,publishSubject: PublishSubject<Int>): FragmentProducer {
-        return FragmentProducer(context,colorGenerator,publishSubject)
-    }
-}
 
 
 
