@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import ru.otus.daggerhomework.di.DaggerMainActivityComponent
 import javax.inject.Inject
 
 
