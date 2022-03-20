@@ -8,14 +8,9 @@ class App: Application() {
         DaggerApplicationComponent.factory().create(this)
     }
 
-    override fun onCreate() {
-        super.onCreate()
-    }
-
     fun appComponent():ApplicationComponent {
         return appComponent;
     }
-
 
 }
 

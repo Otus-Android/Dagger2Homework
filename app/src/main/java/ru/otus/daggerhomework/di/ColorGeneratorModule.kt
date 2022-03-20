@@ -6,7 +6,6 @@ import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.ColorGeneratorImpl
 import javax.inject.Singleton
 
-
 @Module
 interface ColorGeneratorModule {
 

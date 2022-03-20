@@ -6,13 +6,16 @@ import dagger.BindsInstance
 import dagger.Component
 import io.reactivex.rxjava3.subjects.PublishSubject
 import ru.otus.daggerhomework.*
+import ru.otus.daggerhomework.viewmodels.ViewModelFactory
 import javax.inject.Scope
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ ObserverModule::class,ColorGeneratorModule::class],
-    dependencies = [ApplicationComponent::class])
-interface MainActivityComponent  {
+@Component(
+    modules = [ObserverModule::class, ColorGeneratorModule::class, ViewModelModule::class],
+    dependencies = [ApplicationComponent::class]
+)
+interface MainActivityComponent {
 
     @Component.Factory
     interface Factory {
@@ -33,7 +36,7 @@ interface MainActivityComponent  {
 
     fun provideColorGenerator(): ColorGenerator
 
-
+    fun provideViewModelFactory(): ViewModelFactory
 }
 
 @Scope

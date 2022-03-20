@@ -1,28 +1,33 @@
 package ru.otus.daggerhomework
 
 import android.app.Application
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import io.reactivex.rxjava3.subjects.PublishSubject
+import ru.otus.daggerhomework.viewmodels.ViewModelFactory
+import ru.otus.daggerhomework.viewmodels.injectViewModel
 import javax.inject.Inject
 
-class FragmentReceiver @Inject constructor(application: Application,publishSubject: PublishSubject<Int>) : Fragment() {
+class FragmentReceiver @Inject constructor() : Fragment() {
 
     private lateinit var frame: View
 
-    val viewModel by viewModels<ViewModelReceiver>() {
-        ViewModelReceiverFactory(
-            application,publishSubject
-        )
-    }
+    @Inject
+    protected lateinit  var application: Application
+
+    @Inject
+    protected lateinit var publishSubject: PublishSubject<Int>
+
+    @Inject
+    protected lateinit var viewModelFactory: ViewModelFactory
+
+    protected lateinit var viewModel : ViewModelReceiver
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,17 +38,16 @@ class FragmentReceiver @Inject constructor(application: Application,publishSubje
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = injectViewModel(viewModelFactory)
         frame = view.findViewById(R.id.frame)
-        val colorObserver = Observer<ViewModelReceiver.Result> { it ->
+
+        viewModel.result.observe(viewLifecycleOwner, { it ->
             if (it is ViewModelReceiver.Result.Success) {
                 this.populateColor(it.color)
             }
+        })
 
-        }
-
-        viewModel.result.observe(viewLifecycleOwner, colorObserver)
         viewModel.observeColors()
-
     }
 
     fun populateColor(@ColorInt color: Int) {
