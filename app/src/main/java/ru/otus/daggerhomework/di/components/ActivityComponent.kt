@@ -1,10 +1,12 @@
 package ru.otus.daggerhomework.di.components
 
 import android.content.Context
+import androidx.fragment.app.FragmentActivity
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Provides
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.di.modules.viewModels.ViewModelFactory
 import ru.otus.daggerhomework.views.MainActivity
@@ -18,21 +20,21 @@ interface ActivityComponent {
     @Component.Factory
     interface Factory {
         fun create(appComponent: AppComponent,
-                   @BindsInstance mutableStateFlow: MutableStateFlow<Int>,
-                   @FragmentActivityContext
-                   @BindsInstance context: Context
-
+                   @BindsInstance stateFlow: StateFlow<Int>,
+                   @BindsInstance context: FragmentActivity
         ): ActivityComponent
     }
 
-    @FragmentActivityContext
-    fun provideContext(): Context
+    fun provideContext(): FragmentActivity
 
-    fun provideObserver(): MutableStateFlow<Int>
+    @ApplicationContext
+    fun provideAppContext(): Context
+
+    fun provideColorGenerator(): ColorGenerator
+
+    fun provideObserver(): StateFlow<Int>
 
 
 }
 @Scope
 annotation class ActivityScope
-@Qualifier
-annotation class FragmentActivityContext

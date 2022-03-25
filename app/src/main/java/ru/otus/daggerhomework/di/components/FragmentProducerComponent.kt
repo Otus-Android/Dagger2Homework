@@ -7,14 +7,14 @@ import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.di.modules.viewModels.ViewModelModuleFragmentProducer
 import ru.otus.daggerhomework.views.FragmentProducer
 import javax.inject.Scope
-@FragmentProducerComponentScope
-@Component(modules = [ViewModelModuleFragmentProducer::class], dependencies = [AppComponent::class, ActivityComponent::class])
+@FragmentScope
+@Component(modules = [ViewModelModuleFragmentProducer::class], dependencies = [ActivityComponent::class])
 interface FragmentProducerComponent {
     @Component.Factory
     interface Factory {
-        fun create(appComponent: AppComponent, activityComponent: ActivityComponent): FragmentProducerComponent
+        fun create(activityComponent: ActivityComponent): FragmentProducerComponent
     }
     fun inject(fragment: FragmentProducer)
 }
 @Scope
-annotation class FragmentProducerComponentScope
+annotation class FragmentScope

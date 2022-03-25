@@ -13,6 +13,7 @@ import ru.otus.daggerhomework.App
 import ru.otus.daggerhomework.R
 import ru.otus.daggerhomework.di.components.DaggerActivityComponent
 import ru.otus.daggerhomework.di.components.DaggerFragmentProducerComponent
+import ru.otus.daggerhomework.di.components.FragmentProducerComponent
 import ru.otus.daggerhomework.viewModels.ViewModelProducer
 import javax.inject.Inject
 
@@ -20,12 +21,8 @@ import javax.inject.Inject
 class FragmentProducer : Fragment() {
 
     @Inject
-    lateinit var stateFlow: MutableStateFlow<Int>
-    @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: ViewModelProducer
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,12 +36,10 @@ class FragmentProducer : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         DaggerFragmentProducerComponent
             .factory()
-            .create((requireActivity() as MainActivity).appComponent,
-                (requireActivity() as MainActivity).activityComponent)
+            .create((requireActivity() as MainActivity).activityComponent)
             .inject(this)
         viewModel = viewModelFactory.create(ViewModelProducer::class.java)
         view.findViewById<Button>(R.id.button).setOnClickListener {
-           stateFlow.value = Color.BLUE;
             viewModel.generateColor()
             (requireActivity() as MainActivity).showFragment(FragmentReceiver())
 

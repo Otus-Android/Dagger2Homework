@@ -14,8 +14,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.R
-import ru.otus.daggerhomework.di.components.DaggerFragmentProducerComponent
 import ru.otus.daggerhomework.di.components.DaggerFragmentReceiverComponent
+import ru.otus.daggerhomework.di.components.FragmentReceiverComponent
 import ru.otus.daggerhomework.viewModels.ViewModelProducer
 import ru.otus.daggerhomework.viewModels.ViewModelReceiver
 import javax.inject.Inject
@@ -23,8 +23,6 @@ import javax.inject.Inject
 class FragmentReceiver : Fragment() {
 
     private lateinit var frame: View
-    @Inject
-    lateinit var stateFlow: MutableStateFlow<Int>
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var viewModel: ViewModelReceiver
@@ -42,13 +40,12 @@ class FragmentReceiver : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         DaggerFragmentReceiverComponent
             .factory()
-            .create((requireActivity() as MainActivity).appComponent,
-                (requireActivity() as MainActivity).activityComponent)
+            .create((requireActivity() as MainActivity).activityComponent)
             .inject(this)
         viewModel = viewModelFactory.create(ViewModelReceiver::class.java)
         frame = view.findViewById(R.id.frame)
         viewLifecycleOwner.lifecycleScope.launch {
-            stateFlow.collect {
+            viewModel.stateFlow.collect {
                 populateColor(it)
                 viewModel.observeColors()
             }

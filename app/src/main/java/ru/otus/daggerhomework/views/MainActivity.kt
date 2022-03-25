@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import ru.otus.daggerhomework.App
 import ru.otus.daggerhomework.R
 import ru.otus.daggerhomework.di.components.ActivityComponent
@@ -23,8 +24,9 @@ class MainActivity : AppCompatActivity() {
         appComponent = (application as App).appComponent
         activityComponent = DaggerActivityComponent
             .factory()
-            .create(appComponent,
-                MutableStateFlow<Int>(0),
+            .create(
+                appComponent,
+                MutableStateFlow(Color.BLACK),
                 this
             )
         setContentView(R.layout.activity_main)
