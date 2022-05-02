@@ -20,7 +20,6 @@ class FragmentProducer : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         FragmentProducerComponent.crete(
-//                ((requireContext().applicationContext as App).appComponent),
                 (requireActivity() as MainActivity).activityComponent
         ).inject(this)
     }
