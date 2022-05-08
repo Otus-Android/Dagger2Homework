@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ApplicationModule::class])
+@Component()
 interface ApplicationComponent {
 
     @Component.Factory
@@ -21,21 +21,4 @@ interface ApplicationComponent {
     @ApplicationContext
     fun provideApplicationContext(): Context
 
-    fun provideColorGenerator(): ColorGenerator
-
-    fun provideState(): MutableStateFlow<Int>
-}
-
-@Module
-interface ApplicationModule {
-
-    companion object {
-        @Provides
-        @Singleton
-        fun provideState() = MutableStateFlow(0)
-    }
-
-    @Binds
-    @Singleton
-    fun bindColorGenerator(generator: ColorGeneratorImpl): ColorGenerator
 }

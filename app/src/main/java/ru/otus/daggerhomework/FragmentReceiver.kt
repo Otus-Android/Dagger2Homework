@@ -9,6 +9,7 @@ import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -26,7 +27,8 @@ class FragmentReceiver : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         FragmentReceiverComponent
-            .create((requireContext().applicationContext as App).appComponent)
+            .create((requireContext().applicationContext as App).appComponent,
+                (requireActivity() as MainActivity).activityComponent)
             .inject(this)
     }
 
@@ -41,7 +43,7 @@ class FragmentReceiver : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         frame = view.findViewById(R.id.frame)
-        GlobalScope.launch {
+        lifecycleScope.launch {
             viewModel.stateFlow.collect {
                 populateColor(it)
             }
