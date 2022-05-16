@@ -1,11 +1,9 @@
 package ru.otus.daggerhomework
 
-import android.app.Activity
 import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
-import java.lang.RuntimeException
 
 class ViewModelProducer(
     private val colorGenerator: ColorGenerator,
