@@ -1,4 +1,4 @@
-package ru.otus.daggerhomework.di.common
+package ru.otus.daggerhomework.common
 
 import javax.inject.Scope
 

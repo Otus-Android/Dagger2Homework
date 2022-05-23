@@ -1,11 +1,7 @@
 package ru.otus.daggerhomework
 
-import ru.otus.daggerhomework.di.common.ActivityScope
-import javax.inject.Inject
+import kotlinx.coroutines.flow.SharedFlow
 
-@ActivityScope
-class EventObservable @Inject constructor() {
-
-
-
+interface EventObservable {
+    val events: SharedFlow<Event>
 }

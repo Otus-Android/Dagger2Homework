@@ -1,7 +1,7 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.app
 
 import android.app.Application
-import ru.otus.daggerhomework.di.app.ApplicationComponent
+import ru.otus.daggerhomework.app.di.ApplicationComponent
 
 class App : Application() {
 

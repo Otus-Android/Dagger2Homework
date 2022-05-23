@@ -1,9 +1,9 @@
-package ru.otus.daggerhomework.di.app
+package ru.otus.daggerhomework.app.di
 
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import ru.otus.daggerhomework.di.common.NeedInitializeException
+import ru.otus.daggerhomework.common.NeedInitializeException
 
 @Component
 interface ApplicationComponent {
@@ -19,14 +19,14 @@ interface ApplicationComponent {
 
     companion object {
 
-        var instance: ApplicationComponent? = null
-            private set
-            get() = field ?: throw NeedInitializeException()
+        private var mInstance: ApplicationComponent? = null
 
         fun init(context: Context) {
-            instance = DaggerApplicationComponent.factory()
+            mInstance = DaggerApplicationComponent.factory()
                 .create(context)
         }
+
+        fun getInstance() = mInstance ?: throw NeedInitializeException()
 
     }
 
