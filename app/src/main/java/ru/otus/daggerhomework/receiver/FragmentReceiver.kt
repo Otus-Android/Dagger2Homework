@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import ru.otus.daggerhomework.Event
 import ru.otus.daggerhomework.R
-import ru.otus.daggerhomework.main.di.MainActivityComponent
+import ru.otus.daggerhomework.main.impl.di.MainActivityComponent
 import ru.otus.daggerhomework.receiver.di.FragmentReceiverComponent
 
 class FragmentReceiver : Fragment(R.layout.fragment_b) {
@@ -23,7 +23,6 @@ class FragmentReceiver : Fragment(R.layout.fragment_b) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        FragmentReceiverComponent.init(MainActivityComponent.getInstance())
         frame = view.findViewById(R.id.frame)
         mViewModel.events.flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .onEach(::render)

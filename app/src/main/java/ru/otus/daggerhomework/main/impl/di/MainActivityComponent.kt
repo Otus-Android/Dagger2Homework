@@ -1,24 +1,22 @@
-package ru.otus.daggerhomework.main.di
+package ru.otus.daggerhomework.main.impl.di
 
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import ru.otus.daggerhomework.MutableEventObservable
 import ru.otus.daggerhomework.common.ActivityScope
 import ru.otus.daggerhomework.common.NeedInitializeException
-import ru.otus.daggerhomework.producer.di.FragmentProducerComponent
+import ru.otus.daggerhomework.main.api.MainActivityApi
 import javax.inject.Named
 
-@Component(modules = [MainActivityModule::class])
+@Component
 @ActivityScope
-interface MainActivityComponent {
+interface MainActivityComponent : MainActivityApi {
 
     @Named(APPLICATION_CONTEXT_QUALIFIER)
-    fun provideApplicationContext(): Context
+    override fun provideApplicationContext(): Context
+
     @Named(ACTIVITY_CONTEXT_QUALIFIER)
-    fun provideActivityContext(): Context
-    val eventObservable: MutableEventObservable
-    //val producerComponent: FragmentProducerComponent
+    override fun provideActivityContext(): Context
 
     @Component.Factory
     interface Factory {
@@ -29,20 +27,24 @@ interface MainActivityComponent {
     }
 
     companion object {
-        const val APPLICATION_CONTEXT_QUALIFIER = "1applicationContext"
-        const val ACTIVITY_CONTEXT_QUALIFIER = "1activityContext"
+        const val APPLICATION_CONTEXT_QUALIFIER = "mainActivityComponentApplicationContext"
+        const val ACTIVITY_CONTEXT_QUALIFIER = "mainActivityComponentActivityContext"
 
         private var mInstance: MainActivityComponent? = null
+        private var mApplicationContextProvider: () -> Context = {
+            throw NeedInitializeException()
+        }
 
-        fun init(
-            applicationContext: Context,
-            activityContext: Context
-        ) {
-            mInstance = DaggerMainActivityComponent.factory()
+        fun init(applicationContextProvider: () -> Context) {
+            mApplicationContextProvider = applicationContextProvider
+        }
+
+        fun create(activityContext: Context) {
+            DaggerMainActivityComponent.factory()
                 .create(
-                    applicationContext = applicationContext,
+                    applicationContext = mApplicationContextProvider(),
                     activityContext = activityContext
-                )
+                ).apply { mInstance = this }
         }
 
         fun getInstance() = mInstance ?: throw NeedInitializeException()

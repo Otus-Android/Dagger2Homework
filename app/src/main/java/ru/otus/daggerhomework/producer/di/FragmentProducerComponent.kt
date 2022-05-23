@@ -6,10 +6,7 @@ import dagger.Component
 import ru.otus.daggerhomework.common.FragmentScope
 import ru.otus.daggerhomework.common.NeedInitializeException
 import ru.otus.daggerhomework.common.ViewModelProviderFactory
-import ru.otus.daggerhomework.main.di.MainActivityComponent
-import ru.otus.daggerhomework.receiver.di.DaggerFragmentReceiverComponent
-import ru.otus.daggerhomework.receiver.di.FragmentReceiverComponent
-import ru.otus.daggerhomework.receiver.di.ReceiverDependency
+import ru.otus.daggerhomework.main.api.MainActivityApi
 import javax.inject.Named
 
 @Component(
@@ -35,18 +32,21 @@ interface FragmentProducerComponent {
         const val ACTIVITY_CONTEXT_QUALIFIER = "activityContext"
 
         private var mComponent: FragmentProducerComponent? = null
+        private var mMainActivityApiProvider: () -> MainActivityApi =
+            { throw NeedInitializeException() }
 
-        fun init(mainActivityComponent: MainActivityComponent) {
-            mComponent = DaggerFragmentProducerComponent.factory().create(
-                applicationContext = mainActivityComponent.provideApplicationContext(),
-                context = mainActivityComponent.provideActivityContext(),
-                dependency = object : ProducerDependency {
-                    override fun provideEventObservable() = mainActivityComponent.eventObservable
-                }
-            )
+        fun init(mainActivityApiProvider: () -> MainActivityApi) {
+            mMainActivityApiProvider = mainActivityApiProvider
         }
 
-        fun getInstance() = mComponent ?: throw NeedInitializeException()
+        fun getInstance() = mComponent ?: DaggerFragmentProducerComponent.factory().create(
+            applicationContext = mMainActivityApiProvider().provideApplicationContext(),
+            context = mMainActivityApiProvider().provideActivityContext(),
+            dependency = object : ProducerDependency {
+                override fun provideEventObservable() =
+                    mMainActivityApiProvider().eventObservable
+            }
+        ).apply { mComponent = this }
 
         fun release() {
             mComponent = null
