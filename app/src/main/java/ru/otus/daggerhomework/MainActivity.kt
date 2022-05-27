@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var appContext: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        provideDependencies().inject(this@MainActivity)
+        appComponent().inject(this@MainActivity)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-fun Context.provideDependencies(): ApplicationComponent =
+fun Context.appComponent(): ApplicationComponent =
     (this as? App)?.componentInstance
-        ?: this.applicationContext?.provideDependencies()
+        ?: this.applicationContext?.appComponent()
         ?: throw Throwable()
