@@ -13,7 +13,9 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var appContext: Context
 
-    lateinit var activityComponent: ActivityComponent
+    val activityComponent: ActivityComponent by lazy {
+        createActivityComponent()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injectDependencies()
@@ -22,11 +24,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun injectDependencies() {
-        activityComponent = (application as App)
-            .componentInstance
-            .provideActivityComponentFactory()
-            .create(context = this)
-
         activityComponent.inject(this)
     }
+
+    private fun createActivityComponent(): ActivityComponent = (application as App)
+        .componentInstance
+        .provideActivityComponentFactory()
+        .create(context = this)
 }
