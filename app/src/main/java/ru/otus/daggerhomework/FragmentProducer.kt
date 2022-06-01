@@ -9,6 +9,12 @@ import androidx.fragment.app.Fragment
 
 class FragmentProducer : Fragment() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        injectDependencies()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -22,5 +28,14 @@ class FragmentProducer : Fragment() {
         view.findViewById<Button>(R.id.button).setOnClickListener {
             //отправить результат через livedata в другой фрагмент
         }
+    }
+
+    private fun injectDependencies() {
+        val component = (activity as MainActivity)
+            .activityComponent
+            .provideFragmentProducerComponentFactory()
+            .create()
+
+        component.inject(this)
     }
 }

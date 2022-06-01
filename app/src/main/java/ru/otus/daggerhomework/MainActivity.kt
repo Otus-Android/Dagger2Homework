@@ -2,9 +2,8 @@ package ru.otus.daggerhomework
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import ru.otus.daggerhomework.di.app.ApplicationComponent
+import ru.otus.daggerhomework.di.activity.ActivityComponent
 import ru.otus.daggerhomework.di.qualifiers.AppContext
 import javax.inject.Inject
 
@@ -14,17 +13,20 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var appContext: Context
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        appComponent().inject(this@MainActivity)
+    lateinit var activityComponent: ActivityComponent
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        injectDependencies()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
 
-        Log.i("myDebug", "onCreate: appContext -> $appContext")
+    private fun injectDependencies() {
+        activityComponent = (application as App)
+            .componentInstance
+            .provideActivityComponentFactory()
+            .create(context = this)
+
+        activityComponent.inject(this)
     }
 }
-
-fun Context.appComponent(): ApplicationComponent =
-    (this as? App)?.componentInstance
-        ?: this.applicationContext?.appComponent()
-        ?: throw Throwable()

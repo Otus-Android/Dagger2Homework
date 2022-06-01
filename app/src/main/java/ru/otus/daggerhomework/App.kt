@@ -6,11 +6,9 @@ import ru.otus.daggerhomework.di.app.DaggerApplicationComponent
 
 class App : Application() {
 
-    var componentInstance: ApplicationComponent? = null
-
-    override fun onCreate() {
-        super.onCreate()
-        componentInstance =
-            DaggerApplicationComponent.factory().create(context = applicationContext)
+    val componentInstance: ApplicationComponent by lazy {
+        DaggerApplicationComponent
+            .factory()
+            .create(context = this)
     }
 }

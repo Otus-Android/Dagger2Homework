@@ -4,13 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 
 class FragmentReceiver : Fragment() {
 
     private lateinit var frame: View
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        injectDependencies()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,5 +32,14 @@ class FragmentReceiver : Fragment() {
 
     fun populateColor(@ColorInt color: Int) {
         frame.setBackgroundColor(color)
+    }
+
+    private fun injectDependencies() {
+        val component = (activity as MainActivity)
+            .activityComponent
+            .provideFragmentReceiverComponentFactory()
+            .create()
+
+        component.inject(this)
     }
 }
