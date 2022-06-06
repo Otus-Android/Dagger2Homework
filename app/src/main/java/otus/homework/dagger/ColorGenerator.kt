@@ -1,8 +1,7 @@
-package ru.otus.daggerhomework
+package otus.homework.dagger
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 import java.util.*
 
 interface ColorGenerator {
