@@ -8,15 +8,15 @@
     tools:context=".MainActivity">
 
     <fragment
-        android:id="@+id/producerFragment"
-        android:name="ru.otus.daggerhomework.FragmentProducer"
+        android:id="@+id/receiverFragment"
+        android:name="ru.otus.daggerhomework.FragmentReceiver"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="50" />
 
     <fragment
-        android:id="@+id/receiverFragment"
-        android:name="ru.otus.daggerhomework.FragmentReceiver"
+        android:id="@+id/producerFragment"
+        android:name="ru.otus.daggerhomework.FragmentProducer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="50" />

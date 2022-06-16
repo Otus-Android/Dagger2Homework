@@ -3,7 +3,9 @@ package ru.otus.daggerhomework.di.activity
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Module
+import dagger.Provides
 import dagger.Subcomponent
+import kotlinx.coroutines.flow.MutableStateFlow
 import ru.otus.daggerhomework.MainActivity
 import ru.otus.daggerhomework.di.customscopes.ActivityScope
 import ru.otus.daggerhomework.di.fragment.FragmentProducerComponent
@@ -36,4 +38,9 @@ interface ActivityComponent {
         FragmentProducerComponent::class
     ]
 )
-class ActivityComponentModule
+class ActivityComponentModule {
+
+    @ActivityScope
+    @Provides
+    fun provideObserver(): MutableStateFlow<Int> = MutableStateFlow(0)
+}
