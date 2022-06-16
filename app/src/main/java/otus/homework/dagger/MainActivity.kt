@@ -1,15 +1,17 @@
 package otus.homework.dagger
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import otus.homework.dagger.di.ActivityComponent
+import otus.homework.dagger.di.DaggerActivityComponent
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var activityComponent: ActivityComponent
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        activityComponent = DaggerActivityComponent.factory().create(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        App.appComponent.injectInto(this)
-        Toast.makeText(App.appComponent.context, "context.toString()", Toast.LENGTH_LONG).show()
     }
 }

@@ -1,25 +1,34 @@
 package otus.homework.dagger.di
 
 import android.content.Context
+import androidx.lifecycle.MutableLiveData
+import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import otus.homework.dagger.ColorFlow
-import otus.homework.dagger.FragmentProducer
-import otus.homework.dagger.FragmentReceiver
 import javax.inject.Scope
 
 @ActivityScope
-@Component(dependencies = [AppComponent::class], modules = [ActivityModule::class])
+@Component(modules = [MainActivityModule::class])
 interface ActivityComponent {
-    var context: Context
-
-    fun injectInto(producer: FragmentProducer)
-    fun injectInto(receiver: FragmentReceiver)
 
     @Component.Factory
     interface Factory {
-        fun create(appComponent: AppComponent): ActivityComponent
+        fun create(@BindsInstance context: Context): ActivityComponent
+    }
+
+    fun activityContext(): Context
+
+    val observer: MutableLiveData<Int>
+}
+
+@Module
+class MainActivityModule {
+
+    @Provides
+    @ActivityScope
+    fun provideColorEvent(): MutableLiveData<Int> {
+        return MutableLiveData<Int>()
     }
 }
 
@@ -27,7 +36,7 @@ interface ActivityComponent {
 class ActivityModule {
     @get:Provides
     @ActivityScope
-    var observer = ColorFlow()
+    var observer = MutableLiveData<Int>()
 }
 
 @Scope

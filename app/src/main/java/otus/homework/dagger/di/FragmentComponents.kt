@@ -1,58 +1,55 @@
 package otus.homework.dagger.di
 
-import android.content.Context
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
+import dagger.Binds
 import dagger.Component
 import dagger.Module
-import dagger.Provides
-import otus.homework.dagger.MyViewModelFactory
-import otus.homework.dagger.ViewModelProducer
-import otus.homework.dagger.ViewModelReceiver
+import otus.homework.dagger.ColorGenerator
+import otus.homework.dagger.ColorGeneratorImpl
+import otus.homework.dagger.FragmentProducer
+import otus.homework.dagger.FragmentReceiver
 import javax.inject.Scope
 
 @FragmentScope
-@Component(dependencies = [ActivityComponent::class], modules = [FragmentReceiverModule::class])
+@Component(dependencies = [AppComponent::class, ActivityComponent::class], modules = [FragmentReceiverModule::class])
 interface FragmentReceiverComponent {
-    var context: Context
-    var vmReceiver: ViewModelReceiver
+
+    fun inject(fragmentReceiver: FragmentReceiver)
 
     @Component.Factory
     interface Factory {
-        fun create(activityComponent: ActivityComponent): FragmentReceiverComponent
+        fun create(
+            appComponent: AppComponent,
+            activityComponent: ActivityComponent
+        ): FragmentReceiverComponent
     }
 }
 
 @Module
-class FragmentReceiverModule(var context: Context) {
+interface FragmentReceiverModule {
 
-    @Provides
     @FragmentScope
-    fun provideVMReceiver(owner: ViewModelStoreOwner) : ViewModelReceiver {
-        return ViewModelProvider(owner, MyViewModelFactory(context))[ViewModelReceiver::class.java]
-    }
+    @Binds
+    fun bindColorGenerator(colorGeneratorImpl: ColorGeneratorImpl): ColorGenerator
 }
 
 @FragmentScope
 @Component(dependencies = [ActivityComponent::class], modules = [FragmentProducerModule::class])
 interface FragmentProducerComponent {
 
-    var context: Context
-    var vmProducer: ViewModelProducer
+    fun inject(fragmentProducer: FragmentProducer)
 
     @Component.Factory
     interface Factory {
         fun create(activityComponent: ActivityComponent): FragmentProducerComponent
     }
 }
-@Module
-class FragmentProducerModule(var context: Context) {
 
-    @Provides
+@Module
+interface FragmentProducerModule {
+
     @FragmentScope
-    fun provideVMReceiver(owner: ViewModelStoreOwner) : ViewModelProducer {
-        return ViewModelProvider(owner, MyViewModelFactory(context))[ViewModelProducer::class.java]
-    }
+    @Binds
+    fun bindColorGenerator(colorGeneratorImpl: ColorGeneratorImpl): ColorGenerator
 }
 
 @Scope
