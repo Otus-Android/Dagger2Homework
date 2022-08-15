@@ -8,8 +8,10 @@ import ru.otus.daggerhomework.ViewModelFactory
 @Module
 abstract class ViewModelModule {
 
+    @ActivityScope
     @Binds
     abstract fun bindViewModelFactory(
         factory: ViewModelFactory
     ): ViewModelProvider.Factory
+
 }

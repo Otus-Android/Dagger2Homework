@@ -1,6 +1,5 @@
 package ru.otus.daggerhomework.di
 
-import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
@@ -12,6 +11,5 @@ class ApplicationModule {
     @Singleton
     @Provides
     @Named("ApplicationContext")
-    fun provideApplicationContext(application: Application): Context =
-        application.applicationContext
+    fun provideApplicationContext(context: Context): Context = context
 }

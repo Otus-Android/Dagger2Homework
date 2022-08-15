@@ -16,9 +16,11 @@ class FragmentProducer : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    val viewModel by viewModels<ViewModelProducer> { viewModelFactory }
+    private val viewModel by viewModels<ViewModelProducer> { viewModelFactory }
 
     lateinit var fragmentComponent: FragmentProducerComponent
+
+    private var bColored: Button? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,8 +37,12 @@ class FragmentProducer : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<Button>(R.id.button).setOnClickListener {
+
+        bColored = view.findViewById(R.id.button)
+
+        bColored?.setOnClickListener {
             viewModel.generateColor()
         }
+
     }
 }

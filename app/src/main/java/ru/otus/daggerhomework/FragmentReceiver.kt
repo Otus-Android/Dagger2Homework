@@ -18,7 +18,7 @@ class FragmentReceiver : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    val viewModel by viewModels<ViewModelReceiver> { viewModelFactory }
+    private val viewModel by viewModels<ViewModelReceiver> { viewModelFactory }
 
     lateinit var fragmentComponent: FragmentReceiverComponent
 
@@ -45,7 +45,6 @@ class FragmentReceiver : Fragment() {
         viewModel.color.observe(viewLifecycleOwner) {
             populateColor(it)
         }
-        viewModel.observeColors()
     }
 
     private fun populateColor(@ColorInt color: Int) {
