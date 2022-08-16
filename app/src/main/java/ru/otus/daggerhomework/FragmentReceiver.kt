@@ -13,6 +13,7 @@ import javax.inject.Inject
 class FragmentReceiver : Fragment() {
 
     @Inject
+    @AppName
     lateinit var applicationContext: Context
     private lateinit var frame: View
 

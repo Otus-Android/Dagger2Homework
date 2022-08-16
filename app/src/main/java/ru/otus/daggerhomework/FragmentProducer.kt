@@ -12,6 +12,7 @@ import javax.inject.Inject
 class FragmentProducer : Fragment() {
 
     @Inject
+    @AppName
     lateinit var applicationContext: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
