@@ -1,5 +1,6 @@
 package ru.otus.daggerhomework
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +8,20 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
 
+    @Inject
+    lateinit var applicationContext: Context
     private lateinit var frame: View
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        DaggerFragmentReceiverComponent.builder()
+            .applicationComponent((requireActivity().application as App).getAppComponent()).build()
+            .inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
