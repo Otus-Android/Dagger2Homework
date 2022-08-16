@@ -5,13 +5,18 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Qualifier
 import javax.inject.Scope
 
 @ActivityScope
 @Component(modules = [ColorStateModule::class])
 interface MainActivityComponent {
+
+    fun provideColorSharedFlow(): MutableStateFlow<Int>
+    fun provideColorGenerator(): ColorGenerator
+    @ActivityName
+    fun provideContext(): Context
 
     @Component.Factory
     interface Factory {
@@ -24,7 +29,10 @@ object ColorStateModule {
 
     @Provides
     @ActivityScope
-    fun provideColorSharedFlow() = MutableSharedFlow<Int>()
+    fun provideColorSharedFlow() = MutableStateFlow<Int>(0)
+
+    @Provides
+    fun provideColorGenerator(): ColorGenerator = ColorGeneratorImpl()
 }
 
 @Scope

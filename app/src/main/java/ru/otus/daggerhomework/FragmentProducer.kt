@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import dagger.Lazy
 import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
@@ -15,11 +17,16 @@ class FragmentProducer : Fragment() {
     @AppName
     lateinit var applicationContext: Context
 
+    @Inject
+    internal lateinit var viewModelFactory: Lazy<ViewModelProducer.Factory>
+    private val viewModel: ViewModelProducer by viewModels { viewModelFactory.get() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DaggerFragmentProducerComponent.builder()
-            .applicationComponent((requireActivity().application as App).getAppComponent()).build()
-            .inject(this)
+            .applicationComponent((requireActivity().application as App).getAppComponent())
+            .mainActivityComponent((requireActivity() as MainActivity).activityComponent())
+            .build().inject(this)
     }
 
     override fun onCreateView(
@@ -34,6 +41,7 @@ class FragmentProducer : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.button).setOnClickListener {
             //отправить результат через livedata в другой фрагмент
+            viewModel.generateColor()
         }
     }
 }
