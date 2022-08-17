@@ -1,14 +1,23 @@
 package ru.otus.daggerhomework
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import ru.otus.daggerhomework.di.DaggerFragmentReceiverComponent
+import ru.otus.daggerhomework.di.ViewModelFactoryReceiver
+import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactoryReceiver
+
+    private val viewModelReceiver: ViewModelReceiver by viewModels { viewModelFactory }
 
     private lateinit var frame: View
 
@@ -27,5 +36,16 @@ class FragmentReceiver : Fragment() {
 
     fun populateColor(@ColorInt color: Int) {
         frame.setBackgroundColor(color)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        DaggerFragmentReceiverComponent
+            .factory()
+            .create(
+                (requireActivity().applicationContext as App).component,
+                (requireActivity() as MainActivity).appComponent
+            )
+            .inject(this)
     }
 }
