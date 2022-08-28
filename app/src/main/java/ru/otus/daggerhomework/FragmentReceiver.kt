@@ -1,31 +1,48 @@
 package ru.otus.daggerhomework
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
 
-    private lateinit var frame: View
+  private lateinit var frame: View
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_b, container, true)
-    }
+  @Inject
+  lateinit var viewModelReceiver: ViewModelReceiver
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        frame = view.findViewById(R.id.frame)
-    }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    (activity as MainActivity).getActivityComponent()?.fragmentReceiverComponentFactory()?.create()?.inject(this)
+    viewModelReceiver.observeColors(this::populateColor)
+    Log.d("asdf", "activity component ${(activity as MainActivity).getActivityComponent()!!.getStateFlow()}")
 
-    fun populateColor(@ColorInt color: Int) {
-        frame.setBackgroundColor(color)
-    }
+  }
+
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
+    return inflater.inflate(R.layout.fragment_b, container, false)
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    frame = view.findViewById(R.id.frame)
+  }
+
+  private fun populateColor(@ColorInt color: Int) {
+    frame.setBackgroundColor(color)
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    viewModelReceiver.clear()
+  }
 }
