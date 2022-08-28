@@ -7,14 +7,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.di.quialifiers.ApplicationContext
 import javax.inject.Inject
 
 class ViewModelReceiver @Inject constructor(
   @ApplicationContext private val context: Context,
-  private val source: MutableStateFlow<Int>
+  private val source: StateFlow<Int>
 ) {
 
   private val coroutineScope = CoroutineScope(Job() + Dispatchers.Main)

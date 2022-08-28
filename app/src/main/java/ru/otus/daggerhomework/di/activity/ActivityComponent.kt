@@ -10,11 +10,9 @@ import ru.otus.daggerhomework.di.fragment.FragmentReceiverComponent
 import ru.otus.daggerhomework.di.quialifiers.ActivityContext
 import javax.inject.Singleton
 
-@Singleton
+@PerActivity
 @Subcomponent(modules = [ActivityModule::class])
 interface ActivityComponent {
-
-  fun getStateFlow(): MutableStateFlow<Int>
 
   fun fragmentProducerComponentFactory(): FragmentProducerComponent.Factory
 

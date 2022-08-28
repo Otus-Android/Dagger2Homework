@@ -37,5 +37,4 @@ class MainActivity : AppCompatActivity() {
   fun getActivityComponent(): ActivityComponent? {
     return activityComponent
   }
-
 }

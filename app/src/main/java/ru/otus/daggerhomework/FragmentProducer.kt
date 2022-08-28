@@ -17,7 +17,6 @@ class FragmentProducer : Fragment() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     (activity as MainActivity).getActivityComponent()?.fragmentProducerComponentFactory()?.create()?.inject(this)
-    Log.d("asdf", "activity component ${(activity as MainActivity).getActivityComponent()!!.getStateFlow()}")
   }
 
   override fun onCreateView(

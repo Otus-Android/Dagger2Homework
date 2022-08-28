@@ -3,14 +3,14 @@ package ru.otus.daggerhomework.di.activity
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.flow.MutableStateFlow
-import javax.inject.Singleton
+import kotlinx.coroutines.flow.StateFlow
 
 @Module
 object ActivityModule {
 
-  @Singleton
+  @PerActivity
   @Provides
-  fun provideSource(): MutableStateFlow<Int> {
+  fun provideSource(): StateFlow<Int> {
     return MutableStateFlow(0)
   }
 }
