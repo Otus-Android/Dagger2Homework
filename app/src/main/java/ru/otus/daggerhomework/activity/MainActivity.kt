@@ -12,7 +12,8 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var mainActivityComponent: MainActivityComponent
+    var mainActivityComponent: MainActivityComponent? = null
+        private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

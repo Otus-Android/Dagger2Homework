@@ -31,7 +31,7 @@ class FragmentReceiver : Fragment() {
     ): View? {
         DaggerFragmentReceiverComponent
             .factory()
-            .create((activity as MainActivity).mainActivityComponent)
+            .create(requireNotNull((activity as MainActivity).mainActivityComponent))
             .inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModelReceiver::class.java)
 

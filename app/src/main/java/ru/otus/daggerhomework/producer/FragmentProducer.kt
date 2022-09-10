@@ -27,7 +27,7 @@ class FragmentProducer : Fragment() {
     ): View? {
         DaggerFragmentProducerComponent
             .factory()
-            .create((activity as MainActivity).mainActivityComponent)
+            .create(requireNotNull((activity as MainActivity).mainActivityComponent))
             .inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModelProducer::class.java)
         return inflater.inflate(layout.fragment_a, container, false)

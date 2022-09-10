@@ -3,7 +3,7 @@ package ru.otus.daggerhomework.activity.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import ru.otus.daggerhomework.ActivityScope
 import ru.otus.daggerhomework.application.di.ApplicationComponent
 import ru.otus.daggerhomework.application.di.ApplicationContext
@@ -16,8 +16,8 @@ interface MainActivityComponent {
     fun provideActivityContext(): Context
     @ApplicationContext
     fun provideApplicationContext(): Context
-
-    fun provideColorStateFlow(): MutableStateFlow<Int?>
+    @ColorState
+    fun provideColorStateFlow(): StateFlow<Int?>
 
     @Component.Factory
     interface Factory {

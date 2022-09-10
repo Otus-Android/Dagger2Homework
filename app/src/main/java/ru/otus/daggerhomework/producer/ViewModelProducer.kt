@@ -11,8 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.activity.di.ActivityContext
-import ru.otus.daggerhomework.application.di.ApplicationContext
-import ru.otus.daggerhomework.receiver.ViewModelReceiver
+import ru.otus.daggerhomework.producer.di.ProducerColorState
 import javax.inject.Inject
 
 @SuppressLint("StaticFieldLeak")
@@ -33,7 +32,7 @@ class ViewModelProducer(
     class Factory @Inject constructor(
         private val colorGenerator: ColorGenerator,
         @ActivityContext private val context: Context,
-        private val colorState: MutableStateFlow<Int?>
+        @ProducerColorState private val colorState: MutableStateFlow<Int?>
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return ViewModelProducer(colorGenerator, context, colorState) as T
