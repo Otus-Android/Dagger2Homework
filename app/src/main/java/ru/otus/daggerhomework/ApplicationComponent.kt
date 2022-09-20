@@ -4,10 +4,14 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Qualifier
+import javax.inject.Scope
 import javax.inject.Singleton
 
 @Qualifier
 annotation class QualifierAppContext
+
+@Scope
+annotation class FragmentScope
 
 @Singleton
 @Component
