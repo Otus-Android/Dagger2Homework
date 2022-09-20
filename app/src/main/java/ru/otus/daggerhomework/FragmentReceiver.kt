@@ -6,11 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import dagger.Lazy
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,13 +17,11 @@ class FragmentReceiver : Fragment() {
     private lateinit var frame: View
 
     @Inject
-    internal lateinit var viewModelFactory: Lazy<ViewModelReceiver.Factory>
-    private val viewModel: ViewModelReceiver by viewModels { viewModelFactory.get() }
+    lateinit var viewModel: ViewModelReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DaggerFragmentReceiverComponent.builder()
-            .applicationComponent((requireActivity().application as App).getAppComponent())
             .mainActivityComponent((requireActivity() as MainActivity).activityComponent())
             .build().inject(this)
     }
