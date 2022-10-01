@@ -13,16 +13,14 @@ import javax.inject.Inject
 class ViewModelProducer @Inject constructor(
     private val colorGenerator: ColorGenerator,
     @ActivityContext private val context: Context,
-    private val colorObserver: ColorObserver
-) : ViewModel() {
+    private val colorEmitter: ColorEmitter
+) {
 
-    fun generateColor() {
+    suspend fun generateColor() {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
         Toast.makeText(context, "Color sent", Toast.LENGTH_LONG).show()
 
         val color = colorGenerator.generateColor()
-        viewModelScope.launch {
-            colorObserver.sendColor(color)
-        }
+        colorEmitter.sendColor(color)
     }
 }

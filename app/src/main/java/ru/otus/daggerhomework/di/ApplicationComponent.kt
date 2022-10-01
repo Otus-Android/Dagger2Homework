@@ -21,6 +21,4 @@ interface ApplicationComponent {
 object AppSubcomponentsModule
 
 @Qualifier
-@MustBeDocumented
-@Retention(AnnotationRetention.RUNTIME)
 annotation class AppContext

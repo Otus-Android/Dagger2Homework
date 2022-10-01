@@ -42,7 +42,9 @@ class FragmentReceiver : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         frame = view.findViewById(R.id.frame)
 
-        viewModelReceiver.observeColors()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModelReceiver.observeColors()
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -55,7 +57,7 @@ class FragmentReceiver : Fragment() {
         }
     }
 
-    fun populateColor(@ColorInt color: Int) {
+    private fun populateColor(@ColorInt color: Int) {
         frame.setBackgroundColor(color)
     }
 }

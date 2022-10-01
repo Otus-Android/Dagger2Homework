@@ -5,8 +5,7 @@ import dagger.Binds
 import dagger.BindsInstance
 import dagger.Module
 import dagger.Subcomponent
-import ru.otus.daggerhomework.viewModel.ColorObserver
-import ru.otus.daggerhomework.viewModel.ColorObserverImpl
+import ru.otus.daggerhomework.viewModel.*
 import javax.inject.Qualifier
 
 @ActivityScope
@@ -42,7 +41,15 @@ interface MainActivityModule {
 
     @ActivityScope
     @Binds
-    fun bindColorObserver(customObserverImpl: ColorObserverImpl): ColorObserver
+    fun bindColorStorage(colorManagerImpl: ColorStorageImpl): ColorStorage
+
+    @ActivityScope
+    @Binds
+    fun bindColorObserver(colorObserverImpl: ColorObserverImpl): ColorObserver
+
+    @ActivityScope
+    @Binds
+    fun bindColorEmitter(colorEmitterImpl: ColorEmitterImpl): ColorEmitter
 }
 
 @Qualifier

@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.viewModel.ViewModelProducer
 import javax.inject.Inject
 
@@ -35,7 +37,9 @@ class FragmentProducer : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.button).setOnClickListener {
-            viewModelProducer.generateColor()
+            lifecycleScope.launch {
+                viewModelProducer.generateColor()
+            }
         }
     }
 }
