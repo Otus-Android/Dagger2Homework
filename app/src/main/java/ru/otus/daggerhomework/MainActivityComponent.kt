@@ -1,11 +1,10 @@
 package ru.otus.daggerhomework
 
 import android.content.Context
-import dagger.BindsInstance
-import dagger.Component
-import dagger.Module
-import dagger.Provides
+import dagger.*
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Qualifier
 import javax.inject.Scope
 
@@ -37,18 +36,31 @@ interface MainActivityComponent {
 
     @EventObserver
     fun provideEventObserver(): MutableStateFlow<Event>
+
+    @EventObserverReceiver
+    fun provideEventObserverReceiver(): StateFlow<Event>
+
 }
 
 
 @Module
 interface MainActivityModule {
-
     companion object {
         @MainActivityScope
         @Provides
         @EventObserver
         fun provideEventObserver(): MutableStateFlow<Event> = MutableStateFlow(Event.Initial)
+
+        @EventObserverReceiver
+        @MainActivityScope
+        @Provides
+        fun provideEventObserverReceiver(@EventObserver eventObserver: MutableStateFlow<Event> ): StateFlow<Event> = eventObserver.asStateFlow()
     }
+}
+
+sealed class Event {
+    object Initial: Event()
+    class ChangeColor(val color: Int): Event()
 }
 
 @Scope
@@ -59,3 +71,6 @@ annotation class ActivityContext
 
 @Qualifier
 annotation class EventObserver
+
+@Qualifier
+annotation class EventObserverReceiver

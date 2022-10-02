@@ -4,23 +4,24 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
-class ViewModelProducer(
+class ViewModelProducer
+@Inject constructor(
     private val colorGenerator: ColorGenerator,
-    private val context: Context,
-    private val eventObserver: MutableStateFlow<Event>,
-): ViewModel() {
+    @ActivityContext private val context: Context,
+    @EventObserver private val eventObserver: MutableStateFlow<Event>,
+) {
+
+    private val viewModelProducerScope = ViewModelProducerScope()
+
     fun generateColor() {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
 
-        viewModelScope.launch {
+        viewModelProducerScope.launch {
             eventObserver.emit(Event.ChangeColor(colorGenerator.generateColor()))
         }
 
@@ -28,19 +29,14 @@ class ViewModelProducer(
 
         Toast.makeText(context, "Color sent", Toast.LENGTH_SHORT).show()
     }
+
+    fun cancelRunCoroutine() {
+        viewModelProducerScope.cancel()
+    }
 }
 
-class ViewModelProducerProviderFactory
-    @Inject constructor(
-        private val colorGenerator: ColorGenerator,
-        @ActivityContext private val context: Context,
-        @EventObserver private val eventObserver: MutableStateFlow<Event>,
-    )
-    : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ViewModelProducer::class.java))
-            return ViewModelProducer(colorGenerator, context, eventObserver) as T
-        else throw IllegalArgumentException()
-    }
+class ViewModelProducerScope : CoroutineScope {
+    override val coroutineContext: CoroutineContext
+        get() = Job() + Dispatchers.Main + CoroutineName("ViewModelProducerScope")
 }
 

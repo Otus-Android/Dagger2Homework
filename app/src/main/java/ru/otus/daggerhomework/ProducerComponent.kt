@@ -1,10 +1,8 @@
 package ru.otus.daggerhomework
 
-import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Component
 import dagger.Module
-import dagger.Provides
 import javax.inject.Scope
 
 @ProducerScope
@@ -31,17 +29,8 @@ interface ProducerComponent {
 
 @Module
 interface ProducerModule {
-
     @Binds
     fun bindColorGenerator(colorGenerator: ColorGeneratorImpl): ColorGenerator
-
-    @Binds
-    fun bindViewModelFactory(viewModelProducerFactory: ViewModelProducerProviderFactory): ViewModelProvider.Factory
-
-    companion object {
-        @Provides
-        fun provideViewModelProducer(factory: ViewModelProvider.Factory) = factory.create(ViewModelProducer::class.java)
-    }
 }
 
 @Scope

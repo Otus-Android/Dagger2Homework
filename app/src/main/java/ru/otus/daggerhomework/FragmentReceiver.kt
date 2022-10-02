@@ -44,4 +44,9 @@ class FragmentReceiver : Fragment() {
     private fun populateColor(@ColorInt color: Int) {
         frame.setBackgroundColor(color)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModelReceiver.cancelRunCoroutine()
+    }
 }
