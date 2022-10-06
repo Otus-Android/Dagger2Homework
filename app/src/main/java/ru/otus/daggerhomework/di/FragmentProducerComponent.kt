@@ -8,14 +8,8 @@ import ru.otus.daggerhomework.ColorGeneratorImpl
 import ru.otus.daggerhomework.FragmentProducer
 
 @FragmentScope
-@Component(dependencies = [ActivityComponent::class], modules = [FragmentProducerModule::class])
+@Component(dependencies = [ActivityComponent::class])
 interface FragmentProducerComponent {
 
     fun inject(fragmentProducer: FragmentProducer)
-}
-
-@Module
-interface FragmentProducerModule {
-    @Binds
-    fun bindColorGenerator(colorGeneratorImpl: ColorGeneratorImpl): ColorGenerator
 }

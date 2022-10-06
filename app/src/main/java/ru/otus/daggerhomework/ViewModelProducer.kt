@@ -9,12 +9,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import ru.otus.daggerhomework.di.ActivityQualifier
 import ru.otus.daggerhomework.di.ActivityScope
 import javax.inject.Inject
 
 class ViewModelProducer @Inject constructor(
     private val colorGenerator: ColorGenerator,
-    @ActivityScope private val context: Context,
+    @ActivityQualifier private val context: Context,
     private val colorStateFlow: MutableStateFlow<Int>
 ) {
 
