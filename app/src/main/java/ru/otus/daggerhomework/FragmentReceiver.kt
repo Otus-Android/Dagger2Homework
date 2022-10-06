@@ -39,7 +39,6 @@ class FragmentReceiver : Fragment() {
         DaggerFragmentReceiverComponent
             .builder()
             .activityComponent((requireActivity() as MainActivity).appComponent)
-            .applicationComponent((requireActivity().applicationContext as App).getAppComponent())
             .build()
             .inject(this)
     }

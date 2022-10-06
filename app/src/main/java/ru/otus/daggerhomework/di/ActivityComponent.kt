@@ -17,8 +17,8 @@ interface ActivityComponent {
     @ActivityQualifier
     fun activityContext(): Context
 
-//    @AppQualifier
-//    fun provideAppContext(): Context
+    @AppQualifier
+    fun provideAppContext(): Context
 
     @Component.Factory
     interface Factory {
