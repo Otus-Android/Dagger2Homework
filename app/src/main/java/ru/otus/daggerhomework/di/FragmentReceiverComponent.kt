@@ -8,12 +8,4 @@ import ru.otus.daggerhomework.FragmentReceiver
 interface FragmentReceiverComponent {
 
     fun inject(fragmentReceiver: FragmentReceiver)
-
-    @Component.Factory
-    interface Factory {
-        fun create(
-            appComponent: ApplicationComponent,
-            mainActivityComponent: ActivityComponent
-        ): FragmentReceiverComponent
-    }
 }

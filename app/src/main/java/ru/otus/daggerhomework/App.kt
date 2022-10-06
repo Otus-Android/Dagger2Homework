@@ -6,6 +6,13 @@ import ru.otus.daggerhomework.di.DaggerApplicationComponent
 
 class App :Application() {
 
-    var component: ApplicationComponent = DaggerApplicationComponent.factory().create(this)
+    private lateinit var component: ApplicationComponent
+
+    override fun onCreate() {
+        super.onCreate()
+        component = DaggerApplicationComponent.factory().create(this)
+    }
+
+    fun getAppComponent() = component
 
 }

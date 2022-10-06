@@ -7,17 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import ru.otus.daggerhomework.di.DaggerFragmentReceiverComponent
-import ru.otus.daggerhomework.di.ViewModelFactoryReceiver
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactoryReceiver
-
-    private val viewModelReceiver: ViewModelReceiver by viewModels { viewModelFactory }
+    lateinit var viewModelReceiver: ViewModelReceiver
 
     private lateinit var frame: View
 
@@ -41,11 +37,10 @@ class FragmentReceiver : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         DaggerFragmentReceiverComponent
-            .factory()
-            .create(
-                (requireActivity().applicationContext as App).component,
-                (requireActivity() as MainActivity).appComponent
-            )
+            .builder()
+            .activityComponent((requireActivity() as MainActivity).appComponent)
+            .applicationComponent((requireActivity().applicationContext as App).getAppComponent())
+            .build()
             .inject(this)
     }
 }

@@ -7,17 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import ru.otus.daggerhomework.di.DaggerFragmentProducerComponent
-import ru.otus.daggerhomework.di.ViewModelFactoryProducer
 import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactoryProducer
-
-    private val viewModelProducer: ViewModelProducer by viewModels { viewModelFactory }
+    lateinit var viewModelProducer: ViewModelProducer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,8 +35,9 @@ class FragmentProducer : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         DaggerFragmentProducerComponent
-            .factory()
-            .create((requireActivity() as MainActivity).appComponent)
+            .builder()
+            .activityComponent((requireActivity() as MainActivity).appComponent)
+            .build()
             .inject(this)
     }
 }

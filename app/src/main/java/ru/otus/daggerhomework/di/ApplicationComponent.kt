@@ -3,17 +3,17 @@ package ru.otus.daggerhomework.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import dagger.Module
-import javax.inject.Named
+import javax.inject.Singleton
 
+@Singleton
 @Component
 interface ApplicationComponent {
 
-    @AppScope
+    @AppQualifier
     fun applicationContext(): Context
 
     @Component.Factory
     interface Factory {
-        fun create(@AppScope @BindsInstance appContext: Context): ApplicationComponent
+        fun create(@AppQualifier @BindsInstance appContext: Context): ApplicationComponent
     }
 }

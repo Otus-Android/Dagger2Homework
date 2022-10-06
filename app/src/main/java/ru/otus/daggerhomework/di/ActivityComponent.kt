@@ -8,15 +8,21 @@ import dagger.Provides
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @ActivityScope
-@Component(modules = [ActivityModule::class])
+@Component(modules = [ActivityModule::class], dependencies = [ApplicationComponent::class])
 interface ActivityComponent {
+    @ActivityQualifier
+    fun activityContext(): Context
+
+    @AppQualifier
+    fun provideAppContext(): Context
 
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance context: Context): ActivityComponent
+        fun create(
+            @BindsInstance @ActivityQualifier context: Context, applicationComponent: ApplicationComponent
+        ): ActivityComponent
     }
 
-    fun activityContext(): Context
 
     val observerFlow: MutableStateFlow<Int>
 }

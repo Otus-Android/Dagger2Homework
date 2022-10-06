@@ -8,4 +8,6 @@ annotation class ActivityScope
 @Scope
 annotation class FragmentScope
 @Qualifier
-annotation class AppScope
+annotation class AppQualifier
+@Qualifier
+annotation class ActivityQualifier
