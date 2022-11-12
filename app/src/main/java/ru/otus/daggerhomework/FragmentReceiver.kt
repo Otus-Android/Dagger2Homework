@@ -1,29 +1,26 @@
 package ru.otus.daggerhomework
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.coroutineScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import javax.inject.Inject
-import javax.inject.Provider
 
 class FragmentReceiver : Fragment() {
+    private var _fragmentReceiverComponent: FragmentReceiverComponent? = null
+    private val fragmentReceiverComponent: FragmentReceiverComponent get() = _fragmentReceiverComponent!!
+
+    private val selfViewModel: ViewModelReceiver by viewModelWithSavedState {
+        fragmentReceiverComponent.receiverViewModel().create(it)
+    }
 
     private lateinit var frame: View
-    @Inject
-    lateinit var appEventFlow: Provider<MutableSharedFlow<AppEvent>>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        (requireActivity() as MainActivity).mainActivityComponent.fragmentReceiverComponent()
-            .inject(this)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        _fragmentReceiverComponent = (requireActivity() as MainActivity).mainActivityComponent.fragmentReceiverComponent()
     }
 
     override fun onCreateView(
@@ -38,16 +35,19 @@ class FragmentReceiver : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         frame = view.findViewById(R.id.frame)
 
-        viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
-            appEventFlow.get().collect() {
-                when (it) {
-                    is AppEvent.ChangeColor -> populateColor(it.colorRgba)
-                }
+        selfViewModel.colorRgbaLiveData.observe(viewLifecycleOwner) {
+            if (it != null) {
+                populateColor(it)
             }
         }
     }
 
     fun populateColor(@ColorInt color: Int) {
         frame.setBackgroundColor(color)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        _fragmentReceiverComponent = null
     }
 }

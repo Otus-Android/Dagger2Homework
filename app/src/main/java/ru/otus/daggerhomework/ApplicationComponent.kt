@@ -12,6 +12,8 @@ import javax.inject.Singleton
 @Module
 interface ApplicationModule {
     @Binds
+    @Singleton
+    @ApplicationContext
     fun bindContext(appContext: Application): Context
 }
 

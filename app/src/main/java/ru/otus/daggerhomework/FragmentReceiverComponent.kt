@@ -9,5 +9,5 @@ interface FragmentReceiverComponent {
         fun create(): FragmentReceiverComponent
     }
 
-    fun inject(fragmentReceiver: FragmentReceiver)
+    fun receiverViewModel(): ViewModelReceiver.Factory
 }

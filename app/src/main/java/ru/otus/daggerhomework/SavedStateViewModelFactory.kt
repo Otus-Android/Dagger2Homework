@@ -18,7 +18,7 @@ class SavedStateViewModelFactory<T: ViewModel>(
     }
 }
 
-inline fun <reified T : ViewModel> Fragment.lazyViewModel(
+inline fun <reified T : ViewModel> Fragment.viewModelWithSavedState(
     noinline create: (stateHandle: SavedStateHandle) -> T
 ) = viewModels<T> {
     SavedStateViewModelFactory(this, create)

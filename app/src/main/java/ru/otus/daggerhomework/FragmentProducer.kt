@@ -8,11 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import javax.inject.Inject
-import javax.inject.Provider
 
 private const val TAG = "FragmentProducerTag"
 
@@ -20,7 +15,7 @@ class FragmentProducer : Fragment() {
     private var _fragmentProducerComponent: FragmentProducerComponent? = null
     private val fragmentProducerComponent: FragmentProducerComponent get() = _fragmentProducerComponent!!
 
-    private val selfViewModel: ViewModelProducer by lazyViewModel {
+    private val selfViewModel: ViewModelProducer by viewModelWithSavedState {
         fragmentProducerComponent.producerViewModel().create(it)
     }
 
@@ -38,7 +33,7 @@ class FragmentProducer : Fragment() {
         Log.d(TAG, "onCreate")
 
         @Suppress("DEPRECATION")
-        retainInstance = true
+        retainInstance = true // просто так чтобы фрагмент жил дольше чем активити.
     }
 
     override fun onCreateView(

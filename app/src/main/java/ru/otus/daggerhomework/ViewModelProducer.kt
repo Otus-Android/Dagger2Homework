@@ -8,16 +8,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import dagger.Lazy
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import javax.inject.Provider
 
 class ViewModelProducer @AssistedInject constructor(
     private val colorGenerator: ColorGenerator,
-    private val context: Context,
-    private val appEventFlow: Provider<MutableSharedFlow<AppEvent>>,
+    @ActivityContext private val context: Context,
+    private val appEventFlow: Lazy<MutableSharedFlow<AppEvent>>,
     @Assisted savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
@@ -25,7 +27,7 @@ class ViewModelProducer @AssistedInject constructor(
     val colorRgbaLiveData: LiveData<Int?> = _colorRgbaLiveData
 
     fun generateColor() {
-//        if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
+        if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
         Toast.makeText(context, "Color sent", Toast.LENGTH_LONG).show()
         val color = colorGenerator.generateColor()
         _colorRgbaLiveData.value = color

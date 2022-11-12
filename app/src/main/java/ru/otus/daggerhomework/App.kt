@@ -1,6 +1,9 @@
 package ru.otus.daggerhomework
 
 import android.app.Application
+import android.util.Log
+
+private const val TAG = "AppTag"
 
 class App :Application() {
     private lateinit var _applicationComponent: ApplicationComponent
@@ -8,7 +11,8 @@ class App :Application() {
 
     override fun onCreate() {
         super.onCreate()
-        _applicationComponent = DaggerApplicationComponent.factory().create(this)
+        Log.d(TAG, "onCreate")
 
+        _applicationComponent = DaggerApplicationComponent.factory().create(this)
     }
 }
