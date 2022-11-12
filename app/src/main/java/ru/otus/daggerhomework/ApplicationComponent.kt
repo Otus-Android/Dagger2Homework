@@ -6,6 +6,8 @@ import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
+import javax.inject.Scope
+import javax.inject.Singleton
 
 @Module
 interface ApplicationModule {
@@ -13,6 +15,7 @@ interface ApplicationModule {
     fun bindContext(appContext: Application): Context
 }
 
+@Singleton
 @Component(modules = [ApplicationModule::class])
 interface ApplicationComponent {
     @Component.Factory
@@ -22,3 +25,11 @@ interface ApplicationComponent {
 
     fun inject(mainActivity: MainActivity)
 }
+
+@Scope
+@Retention(AnnotationRetention.BINARY)
+annotation class PerActivity
+
+@Scope
+@Retention(AnnotationRetention.BINARY)
+annotation class PerFragment
