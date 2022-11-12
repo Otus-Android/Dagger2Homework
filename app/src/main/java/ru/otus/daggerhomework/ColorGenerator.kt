@@ -13,6 +13,7 @@ interface ColorGenerator {
 
 class ColorGeneratorImpl : ColorGenerator {
 
+    @ColorInt
     override fun generateColor(): Int {
         val rnd = Random()
         return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))

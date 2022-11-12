@@ -1,7 +1,11 @@
 package ru.otus.daggerhomework
 
-import dagger.Component
+import dagger.Subcomponent
 
-//@Component
+@Subcomponent
 interface FragmentReceiverComponent {
+    @Subcomponent.Factory
+    interface Factory {
+        fun create(): FragmentReceiverComponent
+    }
 }

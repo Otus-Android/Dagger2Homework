@@ -15,21 +15,16 @@ interface ApplicationModule {
     fun bindContext(appContext: Application): Context
 }
 
+@Module(subcomponents = [MainActivityComponent::class])
+interface ApplicationSubcomponentsModule
+
 @Singleton
-@Component(modules = [ApplicationModule::class])
+@Component(modules = [ApplicationModule::class, ApplicationSubcomponentsModule::class])
 interface ApplicationComponent {
     @Component.Factory
     interface Factory {
         fun create(@BindsInstance appContext: Application): ApplicationComponent
     }
 
-    fun inject(mainActivity: MainActivity)
+    fun mainActivityComponent(): MainActivityComponent.Factory
 }
-
-@Scope
-@Retention(AnnotationRetention.BINARY)
-annotation class PerActivity
-
-@Scope
-@Retention(AnnotationRetention.BINARY)
-annotation class PerFragment
