@@ -1,12 +1,23 @@
 package ru.otus.daggerhomework
 
-import dagger.Component
+import dagger.Binds
+import dagger.Module
 import dagger.Subcomponent
 
-@Subcomponent
+@Module
+interface FragmentProducerModule {
+    @Binds
+    fun bindsColorGenerator(colorGenerator: ColorGeneratorImpl): ColorGenerator
+}
+
+@Subcomponent(modules = [FragmentProducerModule::class])
 interface FragmentProducerComponent {
     @Subcomponent.Factory
     interface Factory {
         fun create(): FragmentProducerComponent
     }
+
+    fun inject(fragmentProducer: FragmentProducer)
+
+    fun producerViewModel(): ViewModelProducer.Factory
 }

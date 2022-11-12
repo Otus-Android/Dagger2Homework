@@ -3,14 +3,16 @@ package ru.otus.daggerhomework
 import dagger.Module
 import dagger.Provides
 import dagger.Subcomponent
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
 
 @Module
 interface MainActivityModule {
     companion object {
         @JvmStatic
         @Provides
-        fun providerEvent(): MutableStateFlow<AppEvent?> = MutableStateFlow(null)
+        @ActivityScope
+        fun providerEvent(): MutableSharedFlow<AppEvent> = MutableSharedFlow(0, 1, BufferOverflow.DROP_OLDEST)
     }
 }
 
@@ -26,4 +28,7 @@ interface MainActivityComponent {
     }
 
     fun inject(mainActivity: MainActivity)
+
+    fun fragmentProducerComponent(): FragmentProducerComponent
+    fun fragmentReceiverComponent(): FragmentReceiverComponent
 }

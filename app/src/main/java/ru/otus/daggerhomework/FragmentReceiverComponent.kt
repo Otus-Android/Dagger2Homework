@@ -8,4 +8,6 @@ interface FragmentReceiverComponent {
     interface Factory {
         fun create(): FragmentReceiverComponent
     }
+
+    fun inject(fragmentReceiver: FragmentReceiver)
 }
