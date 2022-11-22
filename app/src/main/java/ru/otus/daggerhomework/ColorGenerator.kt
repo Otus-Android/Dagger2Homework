@@ -6,7 +6,6 @@ import java.util.*
 import javax.inject.Inject
 
 interface ColorGenerator {
-
     @ColorInt
     fun generateColor(): Int
 }

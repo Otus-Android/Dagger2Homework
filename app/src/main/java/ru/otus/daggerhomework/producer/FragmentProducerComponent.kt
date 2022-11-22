@@ -1,10 +1,10 @@
 package ru.otus.daggerhomework.producer
 
-import android.content.Context
 import dagger.Component
-import ru.otus.daggerhomework.ActivityContext
-import ru.otus.daggerhomework.MainActivityComponent
+import ru.otus.daggerhomework.ScopeFragment
+import ru.otus.daggerhomework.main.MainActivityComponent
 
+@ScopeFragment
 @Component(
     modules = [ProducerModule::class],
     dependencies = [MainActivityComponent::class]
@@ -12,9 +12,6 @@ import ru.otus.daggerhomework.MainActivityComponent
 interface FragmentProducerComponent {
 
     fun inject(fragment: FragmentProducer)
-
-    @ActivityContext
-    fun provideActivityContext(): Context
 
     @Component.Factory
     interface Factory {

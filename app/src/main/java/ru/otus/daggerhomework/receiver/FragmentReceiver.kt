@@ -4,29 +4,42 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.ColorInt
-import ru.otus.daggerhomework.MainActivity
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.R
-import ru.otus.daggerhomework.ViewModelFragment
+import ru.otus.daggerhomework.ViewBindingFragment
 import ru.otus.daggerhomework.databinding.FragmentBBinding
+import ru.otus.daggerhomework.main.MainActivity
+import javax.inject.Inject
 
-class FragmentReceiver : ViewModelFragment<FragmentBBinding>(R.layout.fragment_b) {
+class FragmentReceiver : ViewBindingFragment<FragmentBBinding>(R.layout.fragment_b) {
 
-    companion object {
-        fun newInstance() = FragmentReceiver()
-    }
-
-    val viewModel: ViewModelReceiver by viewModel()
+    @Inject
+    lateinit var viewModelReceiver: ViewModelReceiver
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
         DaggerFragmentReceiverComponent.factory().create(
-            (activity as MainActivity).activityComponent).inject(this)
+            (activity as MainActivity).activityComponent
+        ).inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding = FragmentBBinding.bind(view)
-        viewModel.receiver.observe(viewLifecycleOwner, ::populateColor)
+
+        lifecycleScope.launch {
+            viewModelReceiver.observeColors()
+        }
+        lifecycleScope.launch {
+            viewModelReceiver.colorFlow.collect { color ->
+                if (color != null) {
+                    populateColor(color)
+                }
+            }
+        }
     }
 
     fun populateColor(@ColorInt color: Int) = binding?.run {

@@ -3,20 +3,18 @@ package ru.otus.daggerhomework.producer
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import ru.otus.daggerhomework.MainActivity
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.R
-import ru.otus.daggerhomework.ViewModelFragment
+import ru.otus.daggerhomework.ViewBindingFragment
 import ru.otus.daggerhomework.databinding.FragmentABinding
-import ru.otus.daggerhomework.receiver.FragmentReceiver
-import ru.otus.daggerhomework.setFragment
+import ru.otus.daggerhomework.main.MainActivity
+import javax.inject.Inject
 
-class FragmentProducer : ViewModelFragment<FragmentABinding>(R.layout.fragment_a) {
+class FragmentProducer : ViewBindingFragment<FragmentABinding>(R.layout.fragment_a) {
 
-    companion object {
-        fun newInstance() = FragmentProducer()
-    }
-
-    private val viewModel: ViewModelProducer by viewModel()
+    @Inject
+    lateinit var viewModelProducer: ViewModelProducer
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -30,8 +28,9 @@ class FragmentProducer : ViewModelFragment<FragmentABinding>(R.layout.fragment_a
 
         binding = FragmentABinding.bind(view).apply {
             button.setOnClickListener {
-                viewModel.generateColor()
-                setFragment(FragmentReceiver.newInstance())
+                lifecycleScope.launch {
+                    viewModelProducer.generateColor()
+                }
             }
         }
     }

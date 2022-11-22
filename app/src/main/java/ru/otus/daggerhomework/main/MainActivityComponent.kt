@@ -1,11 +1,17 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.main
 
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import kotlinx.coroutines.flow.MutableStateFlow
+import ru.otus.daggerhomework.*
+import javax.inject.Singleton
 
-@Component(dependencies = [ApplicationComponent::class])
+@Singleton
+@Component(
+    dependencies = [ApplicationComponent::class],
+    modules = [MainModule::class]
+)
 interface MainActivityComponent {
 
     fun inject(mainActivity: MainActivity)
@@ -16,14 +22,13 @@ interface MainActivityComponent {
     @ApplicationContext
     fun provideAppContext(): Context
 
-    fun provideObserver(): MutableStateFlow<Int?>
+    fun provideStateFlow(): MutableStateFlow<Int>
 
     @Component.Factory
     interface Factory {
         fun create(
             @BindsInstance @ActivityContext context: Context,
-            @BindsInstance stateFlow: MutableStateFlow<Int?> = MutableStateFlow(null),
-            appComponent: ApplicationComponent = (context.applicationContext as App).applicationComponent,
-            ): MainActivityComponent
+            appComponent: ApplicationComponent,
+        ): MainActivityComponent
     }
 }

@@ -1,20 +1,16 @@
 package ru.otus.daggerhomework.receiver
 
-import android.content.Context
 import dagger.Component
-import ru.otus.daggerhomework.ActivityContext
-import ru.otus.daggerhomework.MainActivityComponent
+import ru.otus.daggerhomework.ScopeFragment
+import ru.otus.daggerhomework.main.MainActivityComponent
 
+@ScopeFragment
 @Component(
-    modules = [ReceiverModule::class],
     dependencies = [MainActivityComponent::class]
 )
 interface FragmentReceiverComponent {
 
     fun inject(fragment: FragmentReceiver)
-
-    @ActivityContext
-    fun provideActivityContext(): Context
 
     @Component.Factory
     interface Factory {
