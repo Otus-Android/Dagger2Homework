@@ -1,0 +1,23 @@
+package ru.otus.daggerhomework.di.components
+
+import android.content.Context
+import dagger.Component
+import ru.otus.daggerhomework.FragmentReceiver
+import ru.otus.daggerhomework.IDataKeeper
+import ru.otus.daggerhomework.di.ActivityContext
+import ru.otus.daggerhomework.di.ApplicationContext
+import ru.otus.daggerhomework.di.FragmentScope
+
+@FragmentScope
+@Component(dependencies = [ActivityComponent::class])
+interface FragmentReceiverComponent {
+    fun inject(fragmentReceiver: FragmentReceiver)
+
+    @ApplicationContext
+    fun provideApplicationContext(): Context
+
+    @ActivityContext
+    fun provideActivityContext(): Context
+
+    fun provideDataKeeper(): IDataKeeper
+}
