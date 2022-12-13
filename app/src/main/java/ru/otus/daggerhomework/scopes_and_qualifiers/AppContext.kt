@@ -1,4 +1,4 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.scopes_and_qualifiers
 
 import javax.inject.Qualifier
 

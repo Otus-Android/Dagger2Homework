@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity
 
 class ViewModelProducer(
     private val colorGenerator: ColorGenerator,
-    private val context: Context
+    val context: Context
 ) {
 
     fun generateColor() {
