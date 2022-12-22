@@ -1,8 +1,6 @@
 package ru.otus.daggerhomework
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import ru.otus.daggerhomework.di.ActivityContext
-import ru.otus.daggerhomework.di.ApplicationContext
 import ru.otus.daggerhomework.di.components.DaggerFragmentReceiverComponent
-import ru.otus.daggerhomework.di.components.FragmentReceiverComponent
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -24,28 +19,26 @@ class FragmentReceiver : Fragment() {
     @Inject
     lateinit var dataKeeper: Provider<IDataKeeper>
 
-    @Inject
-    @ApplicationContext
-    lateinit var applicationContext: Context
-
     private lateinit var frame: View
-    private lateinit var fragmentReceiverComponent: FragmentReceiverComponent
     private lateinit var viewModelReceiver: ViewModelReceiver
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val activityComponent = (requireActivity() as MainActivity).activityComponent
+        val fragmentReceiverComponent = DaggerFragmentReceiverComponent
+            .builder()
+            .activityComponent(activityComponent)
+            .build()
+        fragmentReceiverComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val activityComponent = (requireActivity() as MainActivity).activityComponent
-        fragmentReceiverComponent = DaggerFragmentReceiverComponent
-            .builder()
-            .activityComponent(activityComponent)
-            .build()
-        fragmentReceiverComponent.inject(this)
-
         viewModelReceiver = ViewModelReceiver(
-            applicationContext,
+            requireContext().applicationContext,
             dataKeeper.get()
         )
         lifecycleScope.launch {

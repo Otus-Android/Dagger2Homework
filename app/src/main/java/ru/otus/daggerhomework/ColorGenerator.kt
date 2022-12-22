@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.util.Log
 import androidx.annotation.ColorInt
 import java.util.*
+import javax.inject.Inject
 
 interface ColorGenerator {
 
@@ -11,7 +12,7 @@ interface ColorGenerator {
     fun generateColor(): Int
 }
 
-class ColorGeneratorImpl : ColorGenerator {
+class ColorGeneratorImpl @Inject constructor() : ColorGenerator {
 
     override fun generateColor(): Int {
         val rnd = Random()

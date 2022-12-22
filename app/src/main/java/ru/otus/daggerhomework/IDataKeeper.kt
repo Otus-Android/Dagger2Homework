@@ -5,8 +5,6 @@ import kotlinx.coroutines.flow.StateFlow
 import ru.otus.daggerhomework.di.ActivityScope
 import javax.inject.Inject
 
-
-@ActivityScope
 interface IDataKeeper {
 
     suspend fun saveData(newData: Int)
@@ -14,7 +12,6 @@ interface IDataKeeper {
     fun getFlow(): StateFlow<Int>
 }
 
-@ActivityScope
 class DataKeeper @Inject constructor() : IDataKeeper {
 
     private val _colorData = MutableStateFlow<Int>(0)

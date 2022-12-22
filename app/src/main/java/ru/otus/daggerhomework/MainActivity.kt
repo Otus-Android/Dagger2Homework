@@ -13,9 +13,6 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var activityComponent: ActivityComponent
 
-    @Inject
-    lateinit var dataKeeper: Provider<IDataKeeper>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

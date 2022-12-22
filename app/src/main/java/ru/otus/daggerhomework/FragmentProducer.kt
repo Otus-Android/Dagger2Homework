@@ -1,6 +1,5 @@
 package ru.otus.daggerhomework
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +8,6 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import ru.otus.daggerhomework.di.ActivityContext
-import ru.otus.daggerhomework.di.ApplicationContext
 import ru.otus.daggerhomework.di.components.DaggerFragmentProducerComponent
 import ru.otus.daggerhomework.di.components.FragmentProducerComponent
 import javax.inject.Inject
@@ -22,28 +19,30 @@ class FragmentProducer : Fragment() {
     lateinit var dataKeeper: Provider<IDataKeeper>
 
     @Inject
-    @ActivityContext
-    lateinit var activityContext: Context
+    lateinit var colorGenerator: Provider<ColorGenerator>
 
-    lateinit var fragmentProducerComponent: FragmentProducerComponent
-    private val colorGenerator = ColorGeneratorImpl()
     lateinit var viewModelProducer: ViewModelProducer
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val activityComponent = (requireActivity() as MainActivity).activityComponent
+        val fragmentProducerComponent = DaggerFragmentProducerComponent
+            .builder()
+            .activityComponent(activityComponent)
+            .build()
+
+        fragmentProducerComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val activityComponent = (requireActivity() as MainActivity).activityComponent
-        fragmentProducerComponent = DaggerFragmentProducerComponent
-            .builder()
-            .activityComponent(activityComponent)
-            .build()
 
-        fragmentProducerComponent.inject(this)
         viewModelProducer = ViewModelProducer(
-            colorGenerator,
-            activityContext,
+            colorGenerator.get(),
+            requireContext(),
             dataKeeper.get()
         )
 
