@@ -1,14 +1,18 @@
 package ru.otus.daggerhomework.components
 
-import dagger.Subcomponent
-import ru.otus.daggerhomework.scopes_and_qualifiers.FragmentReceiverScope
+import dagger.Component
+import ru.otus.daggerhomework.FragmentReceiver
+import ru.otus.daggerhomework.modules.ReceiverCacheModule
+import ru.otus.daggerhomework.scopes_and_qualifiers.FragmentScope
 
-@FragmentReceiverScope
-@Subcomponent
+@FragmentScope
+@Component(dependencies = [MainActivityComponent::class], modules = [ReceiverCacheModule::class])
 interface FragmentReceiverComponent {
 
-    @Subcomponent.Factory
+    fun inject(fragmentReceiver: FragmentReceiver)
+
+    @Component.Factory
     interface Factory {
-        fun create(): FragmentReceiverComponent
+        fun create(mainActivityComponent: MainActivityComponent): FragmentReceiverComponent
     }
 }

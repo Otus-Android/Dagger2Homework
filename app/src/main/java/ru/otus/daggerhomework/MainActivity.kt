@@ -2,6 +2,7 @@ package ru.otus.daggerhomework
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ru.otus.daggerhomework.components.DaggerMainActivityComponent
 import ru.otus.daggerhomework.components.MainActivityComponent
 
 class MainActivity : AppCompatActivity() {
@@ -11,7 +12,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mainActivityComponent = App.applicationComponent.mainActivityComponent().create(this)
-        mainActivityComponent.inject(this)
+        mainActivityComponent = DaggerMainActivityComponent
+            .factory()
+            .create(App.applicationComponent, this)
+
+        supportFragmentManager.beginTransaction()
+            .add(R.id.first_container, FragmentProducer())
+            .add(R.id.second_container, FragmentReceiver())
+            .commit()
     }
 }

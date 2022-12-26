@@ -2,28 +2,39 @@ package ru.otus.daggerhomework.components
 
 import android.content.Context
 import dagger.BindsInstance
-import dagger.Subcomponent
+import dagger.Component
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.MainActivity
-import ru.otus.daggerhomework.modules.ActivityComponentModule
+import ru.otus.daggerhomework.modules.CacheModule
+import ru.otus.daggerhomework.modules.ColorGeneratorModule
 import ru.otus.daggerhomework.scopes_and_qualifiers.ActivityContext
 import ru.otus.daggerhomework.scopes_and_qualifiers.ActivityScope
+import ru.otus.daggerhomework.scopes_and_qualifiers.AppContext
 
 @ActivityScope
-@Subcomponent(modules = [ActivityComponentModule::class])
+@Component(
+    dependencies = [ApplicationComponent::class],
+    modules = [CacheModule::class, ColorGeneratorModule::class])
 interface MainActivityComponent {
 
     @ActivityContext
-    fun getActivityContext(): Context
+    fun provideActivityContext(): Context
+
+    @AppContext
+    fun provideApplicationContext(): Context
+
+    fun provideCache(): MutableStateFlow<Int>
+
+    fun bindColorGenerator(): ColorGenerator
 
     fun inject(mainActivity: MainActivity)
 
-    fun getEventCache(): MutableStateFlow<Int>
-
-    @Subcomponent.Factory
+    @Component.Factory
     interface Factory {
+
         fun create(
+            applicationComponent: ApplicationComponent,
             @BindsInstance
             @ActivityContext
             context: Context): MainActivityComponent
