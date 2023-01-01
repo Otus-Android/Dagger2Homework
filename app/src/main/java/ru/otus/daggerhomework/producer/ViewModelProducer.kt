@@ -1,7 +1,6 @@
 package ru.otus.daggerhomework.producer
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import ru.otus.daggerhomework.ActivityContext
@@ -16,7 +15,6 @@ class ViewModelProducer @Inject constructor(
 ) {
 
     fun generateColor() {
-        Log.d("#####", "colorGenerator: ${colorGenerator.hashCode()}")
         val color = colorGenerator.generateColor()
         colorSharedViewModel.setColor(color)
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
