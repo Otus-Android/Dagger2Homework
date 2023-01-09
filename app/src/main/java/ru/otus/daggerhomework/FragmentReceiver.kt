@@ -22,7 +22,17 @@ class FragmentReceiver : Fragment() {
 
     @Inject
     lateinit var viewModelReceiver: ViewModelReceiver
-    lateinit var receiverComponent: FragmentReceiverComponent
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        val receiverComponent = DaggerFragmentReceiverComponent
+            .factory()
+            .create(
+                (requireActivity() as MainActivity).mainActivityComponent
+            )
+        receiverComponent.inject(this)
+
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,21 +46,12 @@ class FragmentReceiver : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         frame = view.findViewById(R.id.frame)
 
-        receiverComponent = DaggerFragmentReceiverComponent
-            .factory()
-            .create(
-                (requireActivity() as MainActivity).mainActivityComponent
-            )
-        receiverComponent.inject(this)
-
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModelReceiver.observeColors()
                 viewModelReceiver.stateFlow.collect(this@FragmentReceiver::populateColor)
             }
         }
-
-        Log.v("sflow", "hash ${viewModelReceiver.stateFlow.hashCode()}")
     }
 
     fun populateColor(@ColorInt color: Int) {
