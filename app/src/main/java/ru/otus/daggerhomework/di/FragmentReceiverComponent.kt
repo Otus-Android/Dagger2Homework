@@ -2,8 +2,7 @@ package ru.otus.daggerhomework.di
 
 import dagger.Subcomponent
 import ru.otus.daggerhomework.FragmentReceiver
-
-@Subcomponent(modules = [MainModule::class])
+@Subcomponent
 interface FragmentReceiverComponent {
     @Subcomponent.Factory
     interface Factory {

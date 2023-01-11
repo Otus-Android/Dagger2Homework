@@ -2,9 +2,8 @@ package ru.otus.daggerhomework.di
 
 import dagger.Subcomponent
 import ru.otus.daggerhomework.FragmentProducer
-import ru.otus.daggerhomework.ViewModelProducer
 
-@Subcomponent(modules = [MainModule::class])
+@Subcomponent
 interface FragmentProducerComponent {
     @Subcomponent.Factory
     interface Factory {
