@@ -2,6 +2,7 @@ package ru.otus.daggerhomework
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import ru.otus.daggerhomework.di.DaggerApplicationComponent
+import ru.otus.daggerhomework.di.DaggerFragmentProducerComponent
+import ru.otus.daggerhomework.di.FragmentProducerComponent
 import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
@@ -18,8 +21,10 @@ class FragmentProducer : Fragment() {
 
     //private val viewModel by activityViewModels<ViewModelProducer>
 
-    /*@Inject
-    lateinit var applicationContext: Context*/
+    @Inject
+    lateinit var applicationContext: Context
+
+    lateinit var fragmentProducerComponent: FragmentProducerComponent
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +36,14 @@ class FragmentProducer : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        fragmentProducerComponent =
+            DaggerFragmentProducerComponent
+                .factory()
+                .create((activity?.application as App).appComponent)
 
+        fragmentProducerComponent.inject(this)
+
+        Log.d("F", applicationContext.toString())
 
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.button).setOnClickListener {
