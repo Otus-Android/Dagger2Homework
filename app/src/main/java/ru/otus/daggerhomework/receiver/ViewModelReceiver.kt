@@ -5,12 +5,14 @@ import android.content.Context
 import android.widget.Toast
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.emitAll
 import ru.otus.daggerhomework.ApplicationContext
+import ru.otus.daggerhomework.GetColorValue
 import javax.inject.Inject
 
 class ViewModelReceiver @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val stateFlow: MutableStateFlow<Int>
+    private val stateFlow: GetColorValue
 ) {
 
     private val _colorFlow = MutableStateFlow<Int?>(null)
@@ -19,8 +21,6 @@ class ViewModelReceiver @Inject constructor(
     suspend fun observeColors() {
         if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
         Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
-        stateFlow.collect {
-            _colorFlow.emit(it)
-        }
+        _colorFlow.emitAll(stateFlow.getValue())
     }
 }
