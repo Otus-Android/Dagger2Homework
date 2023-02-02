@@ -1,6 +1,8 @@
 package ru.otus.daggerhomework
 
 import android.app.Application
+import ru.otus.daggerhomework.di.DaggerMainActivityComponent
+import ru.otus.daggerhomework.di.MainActivityComponent
 
 class App: Application() {
 
@@ -12,6 +14,8 @@ class App: Application() {
             DaggerApplicationComponent
                 .factory()
                 .create(this)
+
+
 
         super.onCreate()
     }
