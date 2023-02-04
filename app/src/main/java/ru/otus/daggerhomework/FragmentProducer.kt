@@ -9,6 +9,16 @@ import androidx.fragment.app.Fragment
 
 class FragmentProducer : Fragment() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        (requireActivity() as MainActivity)
+            .mainActivityComponent
+            .fragmentProducerComponent()
+            .create()
+            .inject(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

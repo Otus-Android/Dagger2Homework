@@ -4,13 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 
 class FragmentReceiver : Fragment() {
 
     private lateinit var frame: View
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        (requireActivity() as MainActivity)
+            .mainActivityComponent
+            .fragmentReceiverComponent()
+            .create()
+            .inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
