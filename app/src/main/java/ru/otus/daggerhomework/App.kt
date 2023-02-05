@@ -11,6 +11,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        applicationComponent = DaggerApplicationComponent.create()
+        applicationComponent = DaggerApplicationComponent.factory().create(this)
     }
 }

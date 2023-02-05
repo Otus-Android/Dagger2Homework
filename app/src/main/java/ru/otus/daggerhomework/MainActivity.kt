@@ -3,6 +3,8 @@ package ru.otus.daggerhomework
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ru.otus.daggerhomework.di.MainActivityComponent
+import ru.otus.daggerhomework.fragments.producer.FragmentProducer
+import ru.otus.daggerhomework.fragments.recevier.FragmentReceiver
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,11 +16,13 @@ class MainActivity : AppCompatActivity() {
         mainActivityComponent = (application as App)
             .applicationComponent
             .mainActivityComponent()
-            .create()
-
-        //mainActivityComponent.inject(this)
+            .create(this)
 
         setContentView(R.layout.activity_main)
 
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.containerFrameA, FragmentProducer())
+            .replace(R.id.containerFrameB, FragmentReceiver())
+            .commitAllowingStateLoss()
     }
 }
