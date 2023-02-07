@@ -1,19 +1,23 @@
 package ru.otus.daggerhomework
 
 import android.app.Application
-import ru.otus.daggerhomework.di.ApplicationComponent
-import ru.otus.daggerhomework.di.ApplicationModule
-import ru.otus.daggerhomework.di.DaggerApplicationComponent
+import ru.otus.daggerhomework.di.DaggerMainActivityComponent
+import ru.otus.daggerhomework.di.MainActivityComponent
 
-class App :Application() {
+class App: Application() {
 
-    lateinit var appComponent: ApplicationComponent
+    lateinit var applicationComponent: ApplicationComponent
 
     override fun onCreate() {
-        super.onCreate()
-        appComponent =
+
+        applicationComponent =
             DaggerApplicationComponent
                 .factory()
-                .create(ApplicationModule(applicationContext))
+                .create(this)
+
+
+
+        super.onCreate()
     }
+
 }

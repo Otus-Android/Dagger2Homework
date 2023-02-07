@@ -1,8 +1,9 @@
 package ru.otus.daggerhomework
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import ru.otus.daggerhomework.di.*
+import androidx.appcompat.app.AppCompatActivity
+import ru.otus.daggerhomework.di.DaggerMainActivityComponent
+import ru.otus.daggerhomework.di.MainActivityComponent
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,7 +11,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        mainActivityComponent = DaggerMainActivityComponent.factory().create(MainActivityModule(this))
+        mainActivityComponent =
+            DaggerMainActivityComponent
+                .factory()
+                .create((application as App).applicationComponent, this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

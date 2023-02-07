@@ -1,6 +1,6 @@
 package ru.otus.daggerhomework
 
-import android.content.Context
+import android.app.Application
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,23 +8,48 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import ru.otus.daggerhomework.di.DaggerApplicationComponent
 import ru.otus.daggerhomework.di.DaggerFragmentProducerComponent
+import ru.otus.daggerhomework.di.DaggerMainActivityComponent
 import ru.otus.daggerhomework.di.FragmentProducerComponent
+import java.util.*
 import javax.inject.Inject
+
+private const val TAG = "FragmentProducer"
 
 class FragmentProducer : Fragment() {
 
-    private val viewModel by viewModels<ViewModelProducer>()
+    @Inject lateinit var app: Application
+    @Inject lateinit var mainActivity: MainActivity
 
-    //private val viewModel by activityViewModels<ViewModelProducer>
+    lateinit var observer: Observer
+    lateinit var colorGenerator: ColorGenerator
 
-    @Inject
-    lateinit var applicationContext: Context
+    private val viewModelProducer by viewModels<ViewModelProducer> {
+        ViewModelProducerFactory(observer, colorGenerator, mainActivity)
+    }
 
     lateinit var fragmentProducerComponent: FragmentProducerComponent
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        val mainActivityComponent =
+            DaggerMainActivityComponent.factory().create(
+                (requireActivity().application as App).applicationComponent,
+                mainActivity
+            )
+
+        fragmentProducerComponent =
+            DaggerFragmentProducerComponent
+                .factory()
+                .create(mainActivityComponent)
+
+        fragmentProducerComponent.inject(this)
+
+        Log.d(TAG, app.toString())
+
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,19 +60,10 @@ class FragmentProducer : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        fragmentProducerComponent =
-            DaggerFragmentProducerComponent
-                .factory()
-                .create((activity?.application as App).appComponent)
-
-        fragmentProducerComponent.inject(this)
-
-        Log.d("F", applicationContext.toString())
-
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.button).setOnClickListener {
             //отправить результат через livedata в другой фрагмент
+            viewModelProducer.generateColor()
         }
     }
 }
