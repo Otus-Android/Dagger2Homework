@@ -7,10 +7,15 @@ import dagger.Component
 @Component
 interface ApplicationComponent {
 
+  @ApplicationContext
   fun context(): Context
 
   @Component.Factory
   interface Factory {
-    fun create(@BindsInstance context: Context): ApplicationComponent
+    fun create(
+      @BindsInstance
+      @ApplicationContext
+      context: Context
+    ): ApplicationComponent
   }
 }
