@@ -5,6 +5,7 @@ import dagger.BindsInstance
 import dagger.Component
 
 @Component
+@PerMainActivity
 interface MainActivityComponent {
 
   @ActivityContext
