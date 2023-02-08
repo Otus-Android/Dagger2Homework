@@ -1,13 +1,16 @@
 package ru.otus.daggerhomework.di
 
+import dagger.Binds
 import dagger.Component
-import ru.otus.daggerhomework.ApplicationComponent
-import ru.otus.daggerhomework.FragmentProducer
+import ru.otus.daggerhomework.*
 
-@Component(dependencies = [MainActivityComponent::class])
+@FragmentScope
+@Component(dependencies = [MainActivityComponent::class], modules = [FragmentProducerModule::class])
 interface FragmentProducerComponent {
 
     fun inject(fragmentProducer: FragmentProducer)
+
+    //fun provideEventBus(): EventBus
 
     @Component.Factory
     interface Factory {

@@ -5,25 +5,29 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import java.util.*
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
 class ViewModelProducer(
-    private val observer: Observer,
+    private val eventBus: EventBus,
     private val colorGenerator: ColorGenerator,
     private val context: Context
 ):ViewModel() {
 
     fun generateColor() {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
+        viewModelScope.launch {
+            eventBus.postEvent(colorGenerator.generateColor())
+        }
         Toast.makeText(context, "Color sent", Toast.LENGTH_LONG).show()
     }
 }
 
-class ViewModelProducerFactory(private val observer: Observer,
+class ViewModelProducerFactory(private val eventBus: EventBus,
                                private val colorGenerator: ColorGenerator,
                                private val context: Context) :
     ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return ViewModelProducer(observer, colorGenerator, context) as T //super.create(modelClass)
+        return ViewModelProducer(eventBus, colorGenerator, context) as T //super.create(modelClass)
     }
 }

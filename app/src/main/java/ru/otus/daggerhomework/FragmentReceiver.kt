@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collect
 import ru.otus.daggerhomework.di.DaggerFragmentReceiverComponent
 import ru.otus.daggerhomework.di.DaggerMainActivityComponent
 import ru.otus.daggerhomework.di.FragmentReceiverComponent
@@ -20,33 +22,26 @@ private const val TAG = "FragmentReceiver"
 class FragmentReceiver : Fragment() {
 
     @Inject lateinit var app: Application
-    @Inject lateinit var mainActivity: MainActivity
+    @Inject lateinit var eventBus: EventBus
 
     private lateinit var frame: View
 
-    lateinit var observer: Observer
-
     private val viewModelReceiver by viewModels<ViewModelReceiver> {
-        ViewModelReceiverFactory(observer, app)
+        ViewModelReceiverFactory(eventBus, app)
     }
 
     private lateinit var fragmentReceiverComponent: FragmentReceiverComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        val mainActivityComponent =
-            DaggerMainActivityComponent
-                .factory()
-                .create((requireActivity().application as App).applicationComponent, mainActivity)
-
         fragmentReceiverComponent =
             DaggerFragmentReceiverComponent
                 .factory()
-                .create(mainActivityComponent)
+                .create((requireActivity() as MainActivity).mainActivityComponent)
 
         fragmentReceiverComponent.inject(this)
 
-        Log.d(TAG, app.toString())
+        Log.d(TAG, eventBus.toString())
 
         super.onCreate(savedInstanceState)
     }
@@ -56,12 +51,20 @@ class FragmentReceiver : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_b, container, true)
+        return inflater.inflate(R.layout.fragment_b, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
         frame = view.findViewById(R.id.frame)
+
+        lifecycleScope.launchWhenStarted {
+            viewModelReceiver.eventBus.events.collect {
+                populateColor(it)
+            }
+        }
+
     }
 
     fun populateColor(@ColorInt color: Int) {
