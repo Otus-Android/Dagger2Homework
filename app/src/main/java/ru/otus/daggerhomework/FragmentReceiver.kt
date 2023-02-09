@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.lifecycleScope
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
@@ -38,7 +41,15 @@ class FragmentReceiver : Fragment() {
         frame = view.findViewById(R.id.frame)
     }
 
-    fun populateColor(@ColorInt color: Int) {
+    override fun onResume() {
+        super.onResume()
+        viewModelReceiver.color.observe(this) {
+            populateColor(it)
+        }
+        lifecycleScope.launchWhenResumed { viewModelReceiver.observeColors() }
+    }
+
+    private fun populateColor(@ColorInt color: Int) {
         frame.setBackgroundColor(color)
     }
 }
