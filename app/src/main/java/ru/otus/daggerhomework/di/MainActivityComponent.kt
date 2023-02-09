@@ -16,7 +16,7 @@ import javax.inject.Singleton
 @ActivityScope
 @Component(
     dependencies = [ApplicationComponent::class],
-    modules = [ProducerObserver::class]
+    modules = [ProducerObserver::class, FragmentModules::class]
 )
 interface MainActivityComponent {
 
@@ -28,9 +28,9 @@ interface MainActivityComponent {
         ): MainActivityComponent
     }
 
-    fun fragmentProducerComponent(): FragmentProducerComponent
+    fun fragmentProducerComponent(): FragmentProducerComponent.Builder
 
-    fun fragmentReceiverComponent(): FragmentReceiverComponent
+    fun fragmentReceiverComponent(): FragmentReceiverComponent.Builder
 
 
 }
@@ -38,18 +38,18 @@ interface MainActivityComponent {
 @Module
 object ProducerObserver{
 
-    @Singleton
+    @ActivityScope
     @Provides
-    fun provideBase(): MutableLiveData<Int> {
+    fun provideProducer(): MutableLiveData<Int> {
         return MutableLiveData<Int>()
     }
-
+/*
     @Provides
     fun provideProducer(
         provideBase: MutableLiveData<Int>
     ): MutableLiveData<Int> {
         return provideBase
-    }
+    }*/
 
     @Provides
     fun provideObserver(
@@ -60,6 +60,9 @@ object ProducerObserver{
     }
 
 }
+
+@Module(subcomponents = [FragmentProducerComponent::class])
+class FragmentModules
 
 @Scope
 annotation class ActivityScope

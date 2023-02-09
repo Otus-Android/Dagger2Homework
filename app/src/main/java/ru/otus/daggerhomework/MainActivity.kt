@@ -16,17 +16,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         mainActivityComponent = DaggerMainActivityComponent.factory().create(this, appComponent)
 
         val navController = Navigation.findNavController(this, R.id.navigation)
-
         val navbar = findViewById<BottomNavigationView>(R.id.navbar)
 
+        navController.setGraph(R.navigation.main_navigation)
+
         navbar.setOnItemSelectedListener {
-            /*if (navbar.selectedItemId == it.itemId){
-                return@setOnItemSelectedListener false
-            }*/
             when(it.itemId){
                 R.id.toProducer -> {navController.navigate(R.id.showProducer)}
                 R.id.toReceiver -> {navController.navigate(R.id.showReceiver)}
