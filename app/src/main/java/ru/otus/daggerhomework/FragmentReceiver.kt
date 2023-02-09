@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
@@ -28,7 +29,8 @@ class FragmentReceiver : Fragment() {
 
 
     @Inject
-    lateinit var receiverLiveData: LiveData<Int>
+    lateinit var viewModelFactory: ViewModelReceiverFactory
+    private val viewModel: ViewModelReceiver  by viewModels { viewModelFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,11 +38,15 @@ class FragmentReceiver : Fragment() {
 
         (requireActivity() as MainActivity).mainActivityComponent.fragmentReceiverComponent().build().inject(this)
 
+        viewModel.receiver.observe(viewLifecycleOwner){
+            populateColor(it)
+        }
+        /*
         receiverLiveData.observe(viewLifecycleOwner){
             frame.setBackgroundColor(it)
             Log.d("RECEIVE", it.toString())
             Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-        }
+        }*/
 
     }
 

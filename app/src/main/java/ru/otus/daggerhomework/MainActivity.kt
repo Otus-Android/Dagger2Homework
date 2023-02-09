@@ -2,6 +2,7 @@ package ru.otus.daggerhomework
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.otus.daggerhomework.di.DaggerMainActivityComponent
@@ -10,7 +11,7 @@ import ru.otus.daggerhomework.di.appComponent
 
 //import ru.otus.daggerhomework.di.appComponent
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : FragmentActivity() {
 
     lateinit var mainActivityComponent: MainActivityComponent
     override fun onCreate(savedInstanceState: Bundle?) {
