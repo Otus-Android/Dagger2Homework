@@ -27,14 +27,14 @@ class FragmentProducer : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_a, container, true)
+        return inflater.inflate(R.layout.fragment_a, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.button).setOnClickListener {
             //отправить результат через livedata в другой фрагмент
-            viewModelProducer.generateColor()
+//            viewModelProducer.generateColor()
         }
     }
 }

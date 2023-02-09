@@ -14,5 +14,9 @@ class MainActivity : AppCompatActivity() {
         mainActivityComponent = DaggerMainActivityComponent
             .factory()
             .create(this, (application as App).applicationComponent)
+
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragment_producer, FragmentProducer())
+            .commit()
     }
 }
