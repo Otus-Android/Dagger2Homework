@@ -4,7 +4,11 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 
-@Component(dependencies = [ApplicationComponent::class])
+@ActivityScope
+@Component(
+  modules = [ColorRepositoryModule::class],
+  dependencies = [ApplicationComponent::class]
+)
 interface MainActivityComponent {
 
   @ActivityContext
@@ -12,6 +16,8 @@ interface MainActivityComponent {
 
   @ApplicationContext
   fun applicationContext(): Context
+
+  fun colorRepository(): ColorRepository
 
   fun inject(mainActivity: MainActivity)
 

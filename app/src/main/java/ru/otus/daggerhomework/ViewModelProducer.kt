@@ -6,9 +6,10 @@ import androidx.fragment.app.FragmentActivity
 import javax.inject.Inject
 
 class ViewModelProducer @Inject constructor(
-    private val colorGenerator: ColorGenerator,
     @ActivityContext
-    private val context: Context
+    private val context: Context,
+    private val colorGenerator: ColorGenerator,
+    private val colorRepository: ColorRepository
 ) {
 
     fun generateColor() {
