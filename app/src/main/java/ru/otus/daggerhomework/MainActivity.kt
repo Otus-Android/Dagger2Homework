@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_producer, FragmentProducer())
+            .add(R.id.fragment_receiver, FragmentReceiver())
             .commit()
     }
 }

@@ -34,7 +34,7 @@ class FragmentProducer : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.button).setOnClickListener {
             //отправить результат через livedata в другой фрагмент
-//            viewModelProducer.generateColor()
+            viewModelProducer.generateColor()
         }
     }
 }
