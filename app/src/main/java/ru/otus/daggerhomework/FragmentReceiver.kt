@@ -9,12 +9,8 @@ import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.flow.collect
 import ru.otus.daggerhomework.di.DaggerFragmentReceiverComponent
-import ru.otus.daggerhomework.di.DaggerMainActivityComponent
 import ru.otus.daggerhomework.di.FragmentReceiverComponent
-import java.util.*
 import javax.inject.Inject
 
 private const val TAG = "FragmentReceiver"
@@ -59,11 +55,10 @@ class FragmentReceiver : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         frame = view.findViewById(R.id.frame)
 
-        lifecycleScope.launchWhenStarted {
-            viewModelReceiver.eventBus.events.collect {
-                populateColor(it)
-            }
+        viewModelReceiver.color.observe(viewLifecycleOwner) {
+            populateColor(it)
         }
+        viewModelReceiver.observeColors()
 
     }
 

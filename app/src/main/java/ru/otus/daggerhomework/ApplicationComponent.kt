@@ -3,8 +3,6 @@ package ru.otus.daggerhomework
 import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
-import ru.otus.daggerhomework.di.ApplicationModule
-import ru.otus.daggerhomework.di.MainActivityModule
 import javax.inject.Scope
 import javax.inject.Singleton
 
@@ -15,10 +13,12 @@ annotation class ActivityScope
 annotation class FragmentScope
 
 @Singleton
-@Component(modules = [ApplicationModule::class])
+@Component
 interface ApplicationComponent {
 
     fun provideApplication(): Application
+
+    fun inject(app: App)
 
     @Component.Factory
     interface Factory {

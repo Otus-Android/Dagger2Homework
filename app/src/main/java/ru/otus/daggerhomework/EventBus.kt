@@ -12,9 +12,4 @@ class EventBus {
         _events.send(color)
     }
 
-    override fun toString(): String {
-        return "EventBus(_events=$_events, events=$events)"
-    }
-
-
 }
