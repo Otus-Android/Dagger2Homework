@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/producerFragment">
+
+    <fragment
+        android:id="@+id/producerFragment"
+        android:name="ru.otus.daggerhomework.FragmentProducer"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_a">
+
+        <action
+            android:id="@+id/showProducer"
+            app:popUpTo="@+id/producerFragment" />
+
+        <action
+            android:id="@+id/showReceiver"
+            app:destination="@+id/receiverFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true"
+            app:popUpTo="@+id/receiverFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/receiverFragment"
+        android:name="ru.otus.daggerhomework.FragmentReceiver"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_b">
+
+
+        <action
+            android:id="@+id/showReceiver"
+            app:popUpTo="@+id/receiverFragment" />
+
+        <action
+            android:id="@+id/showProducer"
+            app:destination="@+id/producerFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true"
+            app:popUpTo="@+id/producerFragment" />
+
+    </fragment>
+
+</navigation>
