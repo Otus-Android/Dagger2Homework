@@ -19,7 +19,10 @@ class FragmentReceiver : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        DaggerFragmentReceiverComponent.builder().build().inject(this)
+        DaggerFragmentReceiverComponent
+            .factory()
+            .create((requireActivity() as MainActivity).mainActivityComponent)
+            .inject(this)
     }
 
     override fun onCreateView(

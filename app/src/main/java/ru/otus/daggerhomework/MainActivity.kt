@@ -5,13 +5,14 @@ import android.os.Bundle
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var mainActivityComponent: MainActivityComponent
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        DaggerMainActivityComponent
+        mainActivityComponent = DaggerMainActivityComponent
             .factory()
-            .create(this, (applicationContext as App).applicationComponent)
-            .inject(this)
+            .create(this, (application as App).applicationComponent)
     }
 }

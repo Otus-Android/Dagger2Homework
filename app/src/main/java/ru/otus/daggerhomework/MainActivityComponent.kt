@@ -19,8 +19,6 @@ interface MainActivityComponent {
 
   fun colorRepository(): ColorRepository
 
-  fun inject(mainActivity: MainActivity)
-
   @Component.Factory
   interface Factory {
     fun create(

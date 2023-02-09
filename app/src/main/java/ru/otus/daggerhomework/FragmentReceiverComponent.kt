@@ -7,4 +7,9 @@ import dagger.Component
 interface FragmentReceiverComponent {
 
   fun inject(fragmentReceiver: FragmentReceiver)
+
+  @Component.Factory
+  interface Factory {
+    fun create(mainActivityComponent: MainActivityComponent): FragmentReceiverComponent
+  }
 }

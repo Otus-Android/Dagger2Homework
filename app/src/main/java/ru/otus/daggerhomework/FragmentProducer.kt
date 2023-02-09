@@ -16,7 +16,10 @@ class FragmentProducer : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        DaggerFragmentProducerComponent.builder().build().inject(this)
+        DaggerFragmentProducerComponent
+            .factory()
+            .create((requireActivity() as MainActivity).mainActivityComponent)
+            .inject(this)
     }
 
     override fun onCreateView(

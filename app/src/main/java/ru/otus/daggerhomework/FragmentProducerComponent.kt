@@ -10,4 +10,9 @@ import dagger.Component
 interface FragmentProducerComponent {
 
   fun inject(fragmentProducer: FragmentProducer)
+
+  @Component.Factory
+  interface Factory {
+    fun create(mainActivityComponent: MainActivityComponent): FragmentProducerComponent
+  }
 }
