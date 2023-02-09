@@ -18,8 +18,6 @@ class ViewModelReceiver @Inject constructor(
 
     suspend fun observeColors() {
         if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
-        Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
-
         colorRepository.getColorFlow().collect {
             _color.value = it
         }
