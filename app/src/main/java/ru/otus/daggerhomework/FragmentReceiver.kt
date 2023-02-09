@@ -8,10 +8,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
 
     private lateinit var frame: View
+
+    @Inject
+    lateinit var viewModelReceiver: ViewModelReceiver
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
