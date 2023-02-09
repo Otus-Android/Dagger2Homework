@@ -36,6 +36,7 @@ class FragmentReceiver : Fragment() {
         (requireActivity() as MainActivity).mainActivityComponent.fragmentReceiverComponent().build().inject(this)
 
         receiverLiveData.observe(viewLifecycleOwner){
+            frame.setBackgroundColor(it)
             Log.d("RECEIVE", it.toString())
             Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
         }

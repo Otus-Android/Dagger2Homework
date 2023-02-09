@@ -21,6 +21,7 @@ class FragmentProducer : Fragment() {
     }
 
     @Inject lateinit var produceLiveData: MutableLiveData<Int>
+    @Inject lateinit var colorGenerator: ColorGenerator
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,7 +29,7 @@ class FragmentProducer : Fragment() {
         (requireActivity() as MainActivity).mainActivityComponent.fragmentProducerComponent().build().inject(this)
 
         view.findViewById<Button>(R.id.button).setOnClickListener {
-            produceLiveData.postValue(123)
+            produceLiveData.postValue(colorGenerator.generateColor())
             //отправить результат через livedata в другой фрагмент
         }
     }

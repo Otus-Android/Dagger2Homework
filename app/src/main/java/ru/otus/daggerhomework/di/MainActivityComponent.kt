@@ -8,6 +8,8 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import ru.otus.daggerhomework.ColorGenerator
+import ru.otus.daggerhomework.ColorGeneratorImpl
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Scope
@@ -16,7 +18,7 @@ import javax.inject.Singleton
 @ActivityScope
 @Component(
     dependencies = [ApplicationComponent::class],
-    modules = [ProducerObserver::class, FragmentModules::class]
+    modules = [ProducerObserver::class, FragmentModules::class, ColorsGeneratorModule::class]
 )
 interface MainActivityComponent {
 
@@ -58,6 +60,22 @@ object ProducerObserver{
         // val observer: LiveData<Int> = producer
         return provideBase
     }
+
+}
+
+@Module
+object ColorsGeneratorModule {
+
+    @ActivityScope
+    @Provides
+    fun provideGenerator(): ColorGenerator {
+        return ColorGeneratorImpl()
+    }
+/*
+    @Binds
+    abstract fun bindGenerator(colorGenerator: ColorGeneratorImpl): ColorGenerator/* {
+        return colorGenerator
+    }*/*/
 
 }
 
