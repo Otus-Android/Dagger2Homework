@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
 
         DaggerMainActivityComponent
             .factory()
-            .create(this)
+            .create(this, (applicationContext as App).applicationComponent)
             .inject(this)
     }
 }

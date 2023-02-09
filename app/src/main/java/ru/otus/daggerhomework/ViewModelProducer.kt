@@ -3,9 +3,11 @@ package ru.otus.daggerhomework
 import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import javax.inject.Inject
 
-class ViewModelProducer(
+class ViewModelProducer @Inject constructor(
     private val colorGenerator: ColorGenerator,
+    @ActivityContext
     private val context: Context
 ) {
 

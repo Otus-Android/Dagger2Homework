@@ -2,7 +2,10 @@ package ru.otus.daggerhomework
 
 import dagger.Component
 
-@Component(dependencies = [ApplicationComponent::class])
+@Component(
+  modules = [ColorGeneratorModule::class],
+  dependencies = [MainActivityComponent::class]
+)
 interface FragmentProducerComponent {
 
   fun inject(fragmentProducer: FragmentProducer)

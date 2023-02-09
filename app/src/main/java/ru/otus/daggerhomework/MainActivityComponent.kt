@@ -4,12 +4,14 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 
-@Component
-@PerMainActivity
+@Component(dependencies = [ApplicationComponent::class])
 interface MainActivityComponent {
 
   @ActivityContext
-  fun context(): Context
+  fun activityContext(): Context
+
+  @ApplicationContext
+  fun applicationContext(): Context
 
   fun inject(mainActivity: MainActivity)
 
@@ -18,7 +20,8 @@ interface MainActivityComponent {
     fun create(
       @BindsInstance
       @ActivityContext
-      context: Context
+      context: Context,
+      applicationComponent: ApplicationComponent
     ): MainActivityComponent
   }
 }
