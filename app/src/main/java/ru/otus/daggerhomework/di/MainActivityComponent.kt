@@ -7,6 +7,7 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.flow.MutableStateFlow
+import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.MainActivity
 
 
@@ -18,6 +19,11 @@ import ru.otus.daggerhomework.MainActivity
 interface MainActivityComponent {
 
     fun provideObserver(): MutableStateFlow<Int>
+
+    fun provideColorGenerator():ColorGenerator
+
+    @ApplicationContext
+    fun provideApplicationContext():Context
 
     @ActivityContext
     fun provideActivityContext():Context

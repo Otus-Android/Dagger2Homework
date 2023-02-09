@@ -1,20 +1,22 @@
 package ru.otus.daggerhomework.di
 
 import android.content.Context
+import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
-import dagger.Provides
-import ru.otus.daggerhomework.Sump
-import javax.inject.Named
-import javax.inject.Qualifier
+import ru.otus.daggerhomework.ColorGenerator
+import ru.otus.daggerhomework.ColorGeneratorImpl
 import javax.inject.Singleton
 
 @Singleton
-@Component
+@Component(modules = [BindsColorGenerator::class])
 interface ApplicationComponent {
     @ApplicationContext
     fun provideAppContext(): Context
+
+    fun provideColorGenerator(): ColorGenerator
+
 
 
     @Component.Factory
@@ -23,5 +25,10 @@ interface ApplicationComponent {
     }
 }
 
+@Module
+interface BindsColorGenerator {
+    @Binds
+    fun bindsColorGenerator(colorGenerator: ColorGeneratorImpl): ColorGenerator
+}
 
 

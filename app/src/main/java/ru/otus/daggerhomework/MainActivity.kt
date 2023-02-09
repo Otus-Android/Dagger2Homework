@@ -19,9 +19,13 @@ class MainActivity : AppCompatActivity() {
         )
         activityComponent.inject(this)
 
-
+        /** Повесим оба фрагмента на экран*/
         supportFragmentManager.beginTransaction()
             .add(R.id.container_fragment,FragmentProducer())
+            .commit()
+
+        supportFragmentManager.beginTransaction()
+            .add(R.id.container_fragmentB,FragmentReceiver())
             .commit()
     }
 }

@@ -13,4 +13,4 @@ annotation class ActivityContext
 annotation class MainActivityScope
 
 @Scope
-annotation class ProducerComponentScope
+annotation class FragmentScope

@@ -7,28 +7,35 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import ru.otus.daggerhomework.di.DaggerFragmentProducerComponent
-import ru.otus.daggerhomework.di.FragmentProducerComponent
-import ru.otus.daggerhomework.di.MainActivityComponent
+import ru.otus.daggerhomework.di.DaggerFragmentComponent
+import ru.otus.daggerhomework.di.FragmentComponent
+import ru.otus.daggerhomework.di.ViewModelFactory
 import javax.inject.Inject
 import kotlin.random.Random
 
 class FragmentProducer : Fragment() {
 
-    lateinit var fragmentComponent: FragmentProducerComponent
+    lateinit var fragmentComponent: FragmentComponent
 
     @Inject
-    lateinit var state:MutableStateFlow<Int>
+    lateinit var state: MutableStateFlow<Int>
+
+    @Inject
+    lateinit var factoryViewModel: ViewModelFactory
+    val viewModel by viewModels<ViewModelProducer> {
+        factoryViewModel
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        fragmentComponent = DaggerFragmentProducerComponent.factory().create(
+        fragmentComponent = DaggerFragmentComponent.factory().create(
             (requireActivity() as MainActivity).activityComponent
         )
-        fragmentComponent.inject(this)
+        fragmentComponent.injectFragmentProducer(this)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,7 +48,7 @@ class FragmentProducer : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.button).setOnClickListener {
             //отправить результат через livedata в другой фрагмент
-            state.value = Random.nextInt(1,10)
+            viewModel.generateColor()
         }
     }
 }
