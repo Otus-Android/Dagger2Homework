@@ -1,15 +1,17 @@
 package ru.otus.daggerhomework.di
 
-import android.content.Context
 import dagger.Module
 import dagger.Provides
+import ru.otus.daggerhomework.ActivityScope
+import ru.otus.daggerhomework.EventBus
 
 @Module
-class MainActivityModule(private val activityContext: Context) {
+class MainActivityModule {
 
     @Provides
-    fun getActivityContext(): Context {
-        return activityContext
+    @ActivityScope
+    fun provideChannel(): EventBus {
+        return EventBus()
     }
 
 }

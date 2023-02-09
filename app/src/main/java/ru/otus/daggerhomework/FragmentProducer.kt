@@ -10,9 +10,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import ru.otus.daggerhomework.di.DaggerFragmentProducerComponent
-import ru.otus.daggerhomework.di.DaggerMainActivityComponent
 import ru.otus.daggerhomework.di.FragmentProducerComponent
-import java.util.*
 import javax.inject.Inject
 
 private const val TAG = "FragmentProducer"
@@ -20,33 +18,25 @@ private const val TAG = "FragmentProducer"
 class FragmentProducer : Fragment() {
 
     @Inject lateinit var app: Application
-    @Inject lateinit var mainActivity: MainActivity
-
-    lateinit var observer: Observer
-    lateinit var colorGenerator: ColorGenerator
+    @Inject lateinit var eventBus: EventBus
+    @Inject lateinit var colorGenerator: ColorGenerator
 
     private val viewModelProducer by viewModels<ViewModelProducer> {
-        ViewModelProducerFactory(observer, colorGenerator, mainActivity)
+        ViewModelProducerFactory(eventBus, colorGenerator, requireActivity())
     }
 
     lateinit var fragmentProducerComponent: FragmentProducerComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        val mainActivityComponent =
-            DaggerMainActivityComponent.factory().create(
-                (requireActivity().application as App).applicationComponent,
-                mainActivity
-            )
-
         fragmentProducerComponent =
             DaggerFragmentProducerComponent
                 .factory()
-                .create(mainActivityComponent)
+                .create((requireActivity() as MainActivity).mainActivityComponent)
 
         fragmentProducerComponent.inject(this)
 
-        Log.d(TAG, app.toString())
+        Log.d(TAG, eventBus.toString())
 
         super.onCreate(savedInstanceState)
     }
@@ -56,7 +46,7 @@ class FragmentProducer : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_a, container, true)
+        return inflater.inflate(R.layout.fragment_a, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

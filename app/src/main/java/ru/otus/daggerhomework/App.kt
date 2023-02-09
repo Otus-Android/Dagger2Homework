@@ -15,8 +15,6 @@ class App: Application() {
                 .factory()
                 .create(this)
 
-
-
         super.onCreate()
     }
 

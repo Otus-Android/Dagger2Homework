@@ -3,11 +3,13 @@ package ru.otus.daggerhomework.di
 import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
-import ru.otus.daggerhomework.App
+import ru.otus.daggerhomework.ActivityScope
 import ru.otus.daggerhomework.ApplicationComponent
+import ru.otus.daggerhomework.EventBus
 import ru.otus.daggerhomework.MainActivity
 
-@Component(dependencies = [ApplicationComponent::class])
+@ActivityScope
+@Component(dependencies = [ApplicationComponent::class], modules = [MainActivityModule::class])
 interface MainActivityComponent {
 
     fun inject(mainActivity: MainActivity)
@@ -15,6 +17,8 @@ interface MainActivityComponent {
     fun provideMainActivity(): MainActivity
 
     fun provideApplication(): Application
+
+    fun provideEventBus(): EventBus
 
     @Component.Factory
     interface Factory {

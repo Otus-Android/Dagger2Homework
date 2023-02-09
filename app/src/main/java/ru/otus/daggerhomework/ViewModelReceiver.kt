@@ -5,11 +5,12 @@ import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import java.util.*
-import javax.inject.Inject
 
-class ViewModelReceiver (// @Inject constructor(
-    private val observer: Observer,
+class ViewModelReceiver (
+    val eventBus: EventBus,
     private val context: Context
 ): ViewModel() {
 
@@ -19,10 +20,10 @@ class ViewModelReceiver (// @Inject constructor(
     }
 }
 
-class ViewModelReceiverFactory(private val observer: Observer,
+class ViewModelReceiverFactory(private val eventBus: EventBus,
                                private val context: Context) :
     ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return ViewModelReceiver(observer, context) as T
+        return ViewModelReceiver(eventBus, context) as T
     }
 }
