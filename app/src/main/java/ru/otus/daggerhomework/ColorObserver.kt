@@ -4,7 +4,6 @@ import androidx.annotation.ColorInt
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import ru.otus.daggerhomework.di.PerActivity
 import javax.inject.Inject
 
 interface ColorObserver {
@@ -14,7 +13,6 @@ interface ColorObserver {
 
 }
 
-@PerActivity
 class ColorObserverImpl @Inject constructor() : ColorObserver {
 
     private val _colorFlow = MutableStateFlow(0)
