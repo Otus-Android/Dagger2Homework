@@ -5,13 +5,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
 
-interface ColorRepository {
+interface ColorReceiver {
     fun getColorLiveData(): LiveData<Int>
+}
+
+interface ColorProducer {
     fun setColor(@ColorInt color: Int)
 }
 
 @ActivityScope
-class ColorRepositoryImpl @Inject constructor() : ColorRepository {
+class ColorRepositoryImpl @Inject constructor() : ColorReceiver, ColorProducer {
 
     private val colorLiveData = MutableLiveData(0)
 

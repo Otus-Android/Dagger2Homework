@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class ViewModelReceiver @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val colorRepository: ColorRepository
+    private val colorReceiver: ColorReceiver
 ) {
 
     fun observeColors() {
@@ -17,6 +17,6 @@ class ViewModelReceiver @Inject constructor(
     }
 
     fun getColorsLiveData(): LiveData<Int> {
-        return colorRepository.getColorLiveData()
+        return colorReceiver.getColorLiveData()
     }
 }

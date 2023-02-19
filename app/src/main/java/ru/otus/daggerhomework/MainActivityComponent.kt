@@ -19,7 +19,9 @@ interface MainActivityComponent {
     @ApplicationContext
     fun applicationContext(): Context
 
-    fun colorRepository(): ColorRepository
+    fun colorReceiver(): ColorReceiver
+
+    fun colorProducer(): ColorProducer
 
     @Component.Factory
     interface Factory {
@@ -36,6 +38,9 @@ interface MainActivityComponent {
 interface MainActivityModule {
 
     @Binds
-    fun bindColorRepository(colorRepositoryImpl: ColorRepositoryImpl): ColorRepository
+    fun bindColorRepository(colorRepositoryImpl: ColorRepositoryImpl): ColorReceiver
+
+    @Binds
+    fun bindColorMutableRepository(colorRepositoryImpl: ColorRepositoryImpl): ColorProducer
 
 }

@@ -8,7 +8,7 @@ import javax.inject.Inject
 class ViewModelProducer @Inject constructor(
     private val colorGenerator: ColorGenerator,
     @ActivityContext private val context: Context,
-    private val colorRepository: ColorRepository,
+    private val colorProducer: ColorProducer,
 ) {
 
     fun generateColor() {
@@ -16,6 +16,6 @@ class ViewModelProducer @Inject constructor(
         Toast.makeText(context, "Color sent", Toast.LENGTH_LONG).show()
 
         val color = colorGenerator.generateColor()
-        colorRepository.setColor(color)
+        colorProducer.setColor(color)
     }
 }
