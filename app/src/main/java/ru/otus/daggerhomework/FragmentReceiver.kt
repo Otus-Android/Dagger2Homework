@@ -19,11 +19,13 @@ class FragmentReceiver : Fragment() {
 
     @Inject lateinit var app: Application
     @Inject lateinit var eventBus: EventBus
+    @Inject lateinit var viewModelFactory: ViewModelReceiverFactory
 
     private lateinit var frame: View
 
     private val viewModelReceiver by viewModels<ViewModelReceiver> {
-        ViewModelReceiverFactory(eventBus, app)
+        //ViewModelReceiverFactory(eventBus, app)
+        viewModelFactory
     }
 
     private lateinit var fragmentReceiverComponent: FragmentReceiverComponent

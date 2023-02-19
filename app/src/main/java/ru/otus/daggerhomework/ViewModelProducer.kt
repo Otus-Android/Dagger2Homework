@@ -7,12 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class ViewModelProducer(
     private val eventBus: EventBus,
     private val colorGenerator: ColorGenerator,
     private val context: Context
-):ViewModel() {
+): ViewModel() {
 
     fun generateColor() {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
@@ -23,7 +24,7 @@ class ViewModelProducer(
     }
 }
 
-class ViewModelProducerFactory(private val eventBus: EventBus,
+class ViewModelProducerFactory @Inject constructor(private val eventBus: EventBus,
                                private val colorGenerator: ColorGenerator,
                                private val context: Context) :
     ViewModelProvider.NewInstanceFactory() {

@@ -20,9 +20,11 @@ class FragmentProducer : Fragment() {
     @Inject lateinit var app: Application
     @Inject lateinit var eventBus: EventBus
     @Inject lateinit var colorGenerator: ColorGenerator
+    @Inject lateinit var viewModelFactory: ViewModelProducerFactory
 
     private val viewModelProducer by viewModels<ViewModelProducer> {
-        ViewModelProducerFactory(eventBus, colorGenerator, requireActivity())
+        //ViewModelProducerFactory(eventBus, colorGenerator, requireActivity())
+        viewModelFactory
     }
 
     lateinit var fragmentProducerComponent: FragmentProducerComponent
@@ -35,8 +37,6 @@ class FragmentProducer : Fragment() {
                 .create((requireActivity() as MainActivity).mainActivityComponent)
 
         fragmentProducerComponent.inject(this)
-
-        Log.d(TAG, eventBus.toString())
 
         super.onCreate(savedInstanceState)
     }

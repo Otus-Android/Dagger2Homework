@@ -5,11 +5,12 @@ import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class ViewModelReceiver (
-    val eventBus: EventBus,
-    private val context: Context
-): ViewModel() {
+    private val eventBus: EventBus,
+    private val context: Application
+): AndroidViewModel(context) {
 
     private val _color = MutableLiveData<Int>()
     val color: LiveData<Int>
@@ -26,8 +27,8 @@ class ViewModelReceiver (
     }
 }
 
-class ViewModelReceiverFactory(private val eventBus: EventBus,
-                               private val context: Context) :
+class ViewModelReceiverFactory @Inject constructor(private val eventBus: EventBus,
+                                                   private val context: Application) :
     ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return ViewModelReceiver(eventBus, context) as T
