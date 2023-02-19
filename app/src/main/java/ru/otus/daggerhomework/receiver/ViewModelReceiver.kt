@@ -17,8 +17,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class ViewModelReceiver @Inject constructor(
-    @Named("ApplicationContext") private val context: Context,
-    private val colorFlow: MutableSharedFlow<Int>,
+    private val colorFlow: SharedFlow<Int>,
     private val stateFlow: MutableSharedFlow<State>
 ) : ViewModel() {
     private val _colorFlow = MutableSharedFlow<Int>(replay = 1)
@@ -27,7 +26,6 @@ class ViewModelReceiver @Inject constructor(
     init {
         viewModelScope.launch {
             colorFlow.collect {
-                if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
                 _colorFlow.tryEmit(it)
                 stateFlow.tryEmit(
                     Success(

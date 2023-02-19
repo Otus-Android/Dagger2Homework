@@ -5,15 +5,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import ru.otus.daggerhomework.components.State
 import javax.inject.Inject
 import javax.inject.Named
 
 class ViewModelFactory @Inject constructor(
-    @Named("ApplicationContext") private val context: Context,
     private val colorFlow: MutableSharedFlow<Int>,
     private val stateFlow: MutableStateFlow<State>
 ): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
-        ViewModelReceiver(context, colorFlow, stateFlow) as T
+        ViewModelReceiver(colorFlow, stateFlow) as T
 }

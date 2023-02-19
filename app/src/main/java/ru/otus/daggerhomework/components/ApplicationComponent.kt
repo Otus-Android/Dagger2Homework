@@ -10,7 +10,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Named
 import javax.inject.Singleton
 
-@Component(modules = [DataModule::class])
+//@Component(modules = [DataModule::class])
+@Component
 @Singleton
 interface ApplicationComponent {
 
@@ -19,19 +20,19 @@ interface ApplicationComponent {
         fun create(
             @BindsInstance
             @Named("ApplicationContext")
-            appContext: Context,
-            dataModule: DataModule,
+            appContext: Context
+            //dataModule: DataModule,
         ): ApplicationComponent
     }
 
     @Named("ApplicationContext")
     fun provideContext(): Context
-    fun provideColorFlow(): MutableSharedFlow<Int>
-    fun provideStateFlow(): MutableStateFlow<State>
+    /*fun provideColorFlow(): MutableSharedFlow<Int>
+    fun provideStateFlow(): MutableStateFlow<State>*/
 }
 
 
-@Module
+/*@Module
 @Named("DataModule")
 class DataModule {
     private val colorFlow = MutableSharedFlow<Int>(replay = 1)
@@ -45,8 +46,4 @@ class DataModule {
     @Provides
     @Singleton
     fun provideStateFlow(): MutableStateFlow<State> = stateFlow
-}
-
-sealed interface State
-data class Success(val message: String) : State
-object Empty : State
+}*/
