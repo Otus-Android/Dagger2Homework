@@ -24,6 +24,7 @@ interface FragmentProducerComponent {
 interface FragmentProducerModule {
 
     @Binds
+    @FragmentScope
     fun bindColorGenerator(colorGeneratorImpl: ColorGeneratorImpl): ColorGenerator
 
 }

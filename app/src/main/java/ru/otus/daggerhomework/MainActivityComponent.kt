@@ -38,9 +38,11 @@ interface MainActivityComponent {
 interface MainActivityModule {
 
     @Binds
+    @ActivityScope
     fun bindColorRepository(colorRepositoryImpl: ColorRepositoryImpl): ColorReceiver
 
     @Binds
+    @ActivityScope
     fun bindColorMutableRepository(colorRepositoryImpl: ColorRepositoryImpl): ColorProducer
 
 }
