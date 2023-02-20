@@ -9,11 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 import javax.inject.Named
 
-class ViewModelProducer(
+class ViewModelProducer @Inject constructor(
     private val colorGenerator: ColorGenerator,
     private val context: Context,
     private val producer: MutableLiveData<Int>
-): ViewModel() {
+)/*: ViewModel()*/ {
 
     fun generateColor() {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
@@ -21,7 +21,7 @@ class ViewModelProducer(
         Toast.makeText(context, "Color sent", Toast.LENGTH_LONG).show()
     }
 }
-
+/*
 class ViewModelProducerFactory @Inject constructor(
     private val colorGenerator: ColorGenerator,
     @Named("activityContext") private val context: Context,
@@ -36,4 +36,4 @@ class ViewModelProducerFactory @Inject constructor(
 
 
 
-}
+}*/

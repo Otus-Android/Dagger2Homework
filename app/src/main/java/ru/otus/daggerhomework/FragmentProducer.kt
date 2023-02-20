@@ -21,14 +21,17 @@ class FragmentProducer : Fragment() {
         return inflater.inflate(R.layout.fragment_a, container, false)
     }
 
+
+    //lateinit var viewModelFactory: ViewModelProducerFactory*/
     @Inject
-    lateinit var viewModelFactory: ViewModelProducerFactory
-    private val viewModel: ViewModelProducer  by viewModels { viewModelFactory }
+    lateinit var viewModel: ViewModelProducer//ViewModelProducer  by viewModels { viewModelFactory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         (requireActivity() as MainActivity).mainActivityComponent.fragmentProducerComponent().build().inject(this)
+
+
 
         view.findViewById<Button>(R.id.button).setOnClickListener {
             viewModel.generateColor()

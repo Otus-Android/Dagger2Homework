@@ -10,17 +10,17 @@ import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 import javax.inject.Named
 
-class ViewModelReceiver(
+class ViewModelReceiver @Inject constructor(
     private val context: Context,
     val receiver: LiveData<Int>
-): ViewModel() {
+)/*: ViewModel()*/ {
 
     fun observeColors() {
         if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
         Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
     }
 }
-
+/*
 class ViewModelReceiverFactory @Inject constructor(
     @Named("appContext") private val context: Context,
     private val receiver: LiveData<Int>
@@ -34,4 +34,4 @@ class ViewModelReceiverFactory @Inject constructor(
 
 
 
-}
+}*/

@@ -29,8 +29,7 @@ class FragmentReceiver : Fragment() {
 
 
     @Inject
-    lateinit var viewModelFactory: ViewModelReceiverFactory
-    private val viewModel: ViewModelReceiver  by viewModels { viewModelFactory }
+    lateinit var viewModel: ViewModelReceiver
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

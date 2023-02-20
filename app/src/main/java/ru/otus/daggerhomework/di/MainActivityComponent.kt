@@ -10,6 +10,8 @@ import dagger.Module
 import dagger.Provides
 import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.ColorGeneratorImpl
+import ru.otus.daggerhomework.ViewModelProducer
+import ru.otus.daggerhomework.ViewModelReceiver
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Scope
@@ -79,7 +81,43 @@ object ColorsGeneratorModule {
 
 }
 
-@Module(subcomponents = [FragmentProducerComponent::class])
+@Module
+object ViewModelModule {
+
+    @ActivityScope
+    @Provides
+    fun provideProducerVM(
+        colorGenerator: ColorGenerator,
+        @Named("activityContext") context: Context,
+        producer: MutableLiveData<Int>
+    ): ViewModelProducer {
+        return ViewModelProducer(
+            colorGenerator,
+            context,
+            producer
+        )
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideReceiverVM(
+        @Named("appContext") context: Context,
+        receiver: MutableLiveData<Int>
+    ): ViewModelReceiver {
+        return ViewModelReceiver(
+            context,
+            receiver
+        )
+    }
+/*
+    @Binds
+    abstract fun bindGenerator(colorGenerator: ColorGeneratorImpl): ColorGenerator/* {
+        return colorGenerator
+    }*/*/
+
+}
+
+@Module(subcomponents = [FragmentProducerComponent::class, FragmentReceiverComponent::class], includes = [ViewModelModule::class])
 class FragmentModules
 
 @Scope
