@@ -4,16 +4,19 @@ import androidx.annotation.ColorInt
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import ru.otus.daggerhomework.di.PerActivity
 import javax.inject.Inject
 
-interface ColorObserver {
-
-    fun getColorFlow(): StateFlow<Int>
+interface ColorProducer {
     fun updateColor(@ColorInt color: Int)
-
 }
 
-class ColorObserverImpl @Inject constructor() : ColorObserver {
+interface ColorReceiver {
+    fun getColorFlow(): StateFlow<Int>
+}
+
+@PerActivity
+class ColorObserver @Inject constructor() : ColorProducer, ColorReceiver {
 
     private val _colorFlow = MutableStateFlow(0)
 

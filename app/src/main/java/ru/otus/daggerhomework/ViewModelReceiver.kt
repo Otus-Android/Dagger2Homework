@@ -9,10 +9,10 @@ import javax.inject.Inject
 
 class ViewModelReceiver @Inject constructor(
     @AppContext private val context: Context,
-    colorObserver: ColorObserver
+    colorReceiver: ColorReceiver
 ) {
 
-    val colorFlow: StateFlow<Int> = colorObserver.getColorFlow()
+    val colorFlow: StateFlow<Int> = colorReceiver.getColorFlow()
 
     fun observeColors() {
         if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")

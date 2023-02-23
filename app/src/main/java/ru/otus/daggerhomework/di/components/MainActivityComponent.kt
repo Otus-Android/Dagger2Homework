@@ -3,7 +3,8 @@ package ru.otus.daggerhomework.di.components
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import ru.otus.daggerhomework.ColorObserver
+import ru.otus.daggerhomework.ColorProducer
+import ru.otus.daggerhomework.ColorReceiver
 import ru.otus.daggerhomework.di.ActivityContext
 import ru.otus.daggerhomework.di.AppContext
 import ru.otus.daggerhomework.di.PerActivity
@@ -22,7 +23,8 @@ interface MainActivityComponent {
     @ActivityContext
     fun provideActivityContext(): Context
 
-    fun provideColorObserver(): ColorObserver
+    fun provideColorProducer(): ColorProducer
+    fun provideColorReceiver(): ColorReceiver
 
     companion object {
         fun createComponent(
