@@ -11,7 +11,6 @@ interface ColorRepository {
   fun setColor(@ColorInt color: Int)
 }
 
-@ActivityScope
 class ColorRepositoryImpl @Inject constructor(): ColorRepository {
 
   private val _stateFlow = MutableStateFlow(0)

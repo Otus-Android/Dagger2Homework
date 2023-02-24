@@ -2,9 +2,7 @@ package ru.otus.daggerhomework
 
 import android.app.Application
 import android.content.Context
-import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ViewModelReceiver @Inject constructor(
@@ -13,13 +11,8 @@ class ViewModelReceiver @Inject constructor(
     private val colorRepository: ColorRepository
 ) {
 
-    private val _color = MutableLiveData<Int>()
-    val color: LiveData<Int> = _color
-
-    suspend fun observeColors() {
+    fun observeColors(): Flow<Int> {
         if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
-        colorRepository.getColorFlow().collect {
-            _color.value = it
-        }
+        return colorRepository.getColorFlow()
     }
 }
