@@ -2,16 +2,16 @@ package ru.otus.daggerhomework
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 import java.util.*
+import javax.inject.Inject
 
-interface ColorGenerator {
+interface IColorGenerator {
 
     @ColorInt
     fun generateColor(): Int
 }
 
-class ColorGeneratorImpl : ColorGenerator {
+class ColorGenerator @Inject constructor() : IColorGenerator {
 
     override fun generateColor(): Int {
         val rnd = Random()
