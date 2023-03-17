@@ -2,18 +2,19 @@ package ru.otus.daggerhomework
 
 import dagger.Component
 
+@FragmentScope
 @Component(
-    dependencies = [ApplicationComponent::class]
+    dependencies = [MainActivityComponent::class]
 )
 interface FragmentProducerComponent {
 
     companion object {
 
         fun init(
-            applicationComponent: ApplicationComponent
+            mainActivityComponent: MainActivityComponent
         ): FragmentProducerComponent {
             return DaggerFragmentProducerComponent.factory()
-                .create(applicationComponent)
+                .create(mainActivityComponent)
         }
     }
 
@@ -21,7 +22,7 @@ interface FragmentProducerComponent {
     interface Factory {
 
         fun create(
-            applicationComponent: ApplicationComponent
+            mainActivityComponent: MainActivityComponent
         ): FragmentProducerComponent
     }
 
