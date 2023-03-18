@@ -14,6 +14,9 @@ class FragmentProducer : Fragment() {
     @Inject
     lateinit var channel: Channel<Int>
 
+    @Inject
+    lateinit var viewModel: ViewModelProducer
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -21,13 +24,11 @@ class FragmentProducer : Fragment() {
     ): View? {
         FragmentProducerComponent.init((requireActivity() as MainActivity).getActivityComponent())
             .inject(this)
-        return inflater.inflate(R.layout.fragment_a, container, true)
+        return inflater.inflate(R.layout.fragment_a, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<Button>(R.id.button).setOnClickListener {
-            //отправить результат через livedata в другой фрагмент
-        }
+        view.findViewById<Button>(R.id.button).setOnClickListener { viewModel.generateColor() }
     }
 }

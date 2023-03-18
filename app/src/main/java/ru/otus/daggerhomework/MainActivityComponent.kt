@@ -6,32 +6,40 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.channels.Channel
+import javax.inject.Qualifier
 import javax.inject.Scope
 
 @ActivityScope
 @Component(
+    dependencies = [ApplicationComponent::class],
     modules = [MainActivityModule::class]
 )
 interface MainActivityComponent {
 
     companion object {
 
-        fun init(context: Context): MainActivityComponent {
+        fun init(applicationComponent: ApplicationComponent, context: Context): MainActivityComponent {
             return DaggerMainActivityComponent.factory()
-                .create(context)
+                .create(applicationComponent, context)
         }
     }
 
     @Component.Factory
     interface Factory {
+
         fun create(
-            @BindsInstance context: Context
+            applicationComponent: ApplicationComponent,
+            @BindsInstance @ActivityContext context: Context
         ): MainActivityComponent
     }
 
     fun inject(activity: MainActivity)
 
-    fun provideContext(): Context
+    @AppContext
+    fun provideAppContext(): Context
+
+    @ActivityContext
+    fun provideActivityContext(): Context
 
     fun provideChannel(): Channel<Int>
 }
@@ -46,3 +54,6 @@ object MainActivityModule {
 
 @Scope
 annotation class ActivityScope
+
+@Qualifier
+annotation class ActivityContext
