@@ -1,11 +1,13 @@
 package ru.otus.daggerhomework
 
 import android.content.Context
+import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ReceiveChannel
 import javax.inject.Qualifier
 import javax.inject.Scope
 
@@ -42,14 +44,23 @@ interface MainActivityComponent {
     fun provideActivityContext(): Context
 
     fun provideChannel(): Channel<Int>
+
+    fun provideReceiveChannel(): ReceiveChannel<Int>
 }
 
 @Module
-object MainActivityModule {
+interface MainActivityModule {
 
-    @Provides
+    companion object {
+
+        @Provides
+        @ActivityScope
+        fun provideChannel(): Channel<Int> = Channel()
+    }
+
+    @Binds
     @ActivityScope
-    fun provideChannel(): Channel<Int> = Channel()
+    fun bindReceiveChannel(channel: Channel<Int>): ReceiveChannel<Int>
 }
 
 @Scope

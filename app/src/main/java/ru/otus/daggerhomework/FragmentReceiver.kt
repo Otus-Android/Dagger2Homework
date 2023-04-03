@@ -8,14 +8,14 @@ import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
 
-    @Inject lateinit var channel: Channel<Int>
+    @Inject lateinit var channel: ReceiveChannel<Int>
 
     @Inject lateinit var viewModel: ViewModelReceiver
 
