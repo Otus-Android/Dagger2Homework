@@ -15,7 +15,7 @@ import dagger.Module
 )
 @FragmentScope
 interface FragmentProducerComponent {
-    fun providesColorProvider(): ColorProvider
+    fun providesColorReceiver(): ColorReceiver
     fun inject(fragmentProducer: FragmentProducer)
 
     companion object {

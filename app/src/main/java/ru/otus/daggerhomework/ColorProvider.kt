@@ -3,16 +3,11 @@ package ru.otus.daggerhomework
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-interface ColorProvider {
-    val colorState: Flow<Int>
-    suspend fun sendColor(color: Int)
-}
+class ColorProvider @Inject constructor(): ColorReceiver, ColorProducer {
+    private val _color = MutableSharedFlow<Int>()
+    override val color: SharedFlow<Int> = _color
 
-class ColorProviderImpl @Inject constructor(): ColorProvider {
-    private val _colorState = MutableSharedFlow<Int>()
-    override val colorState: SharedFlow<Int> = _colorState
-
-    override suspend fun sendColor(color: Int) {
-        _colorState.emit(color)
+    override suspend fun receiveColor(color: Int) {
+        _color.emit(color)
     }
 }

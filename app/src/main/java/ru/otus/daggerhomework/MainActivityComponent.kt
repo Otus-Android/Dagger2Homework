@@ -1,13 +1,12 @@
 package ru.otus.daggerhomework
 
 import android.app.Activity
-import android.app.Application
-import dagger.Binds
+import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import javax.inject.Scope
+import javax.inject.Qualifier
 
 @Component(
     dependencies = [
@@ -19,15 +18,20 @@ import javax.inject.Scope
 )
 @ActivityScope
 interface MainActivityComponent {
-    fun providesApplication(): Application
-    fun providesActivity(): Activity
-    fun providesColorProvider(): ColorProvider
+    @ApplicationContext
+    fun providesApplicationContext(): Context
+    @ActivityContext
+    fun providesActivityContext(): Context
+    fun providesColorReceiver(): ColorReceiver
+    fun providesColorProducer(): ColorProducer
 
     @Component.Factory
     interface Factory {
         fun create(
             applicationComponent: ApplicationComponent,
-            @BindsInstance activity: Activity,
+            @BindsInstance
+            @ActivityContext
+            activityContext: Context,
         ): MainActivityComponent
     }
 
@@ -42,8 +46,16 @@ interface MainActivityComponent {
 }
 
 @Module
-interface MainActivityModule {
+class MainActivityModule {
     @ActivityScope
-    @Binds
-    fun bindColorProvider(@BindsInstance colorProvider: ColorProviderImpl): ColorProvider
+    @Provides
+    fun providesColorProvider() = ColorProvider()
+
+    @Provides
+    fun providesColorReceiver(colorProvider: ColorProvider): ColorReceiver = colorProvider
+    @Provides
+    fun providesColorProducer(colorProvider: ColorProvider): ColorProducer = colorProvider
 }
+
+@Qualifier
+annotation class ActivityContext

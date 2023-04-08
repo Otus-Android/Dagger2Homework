@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
     @Inject
-    lateinit var viewModelProducerFactory: ViewModelProducer.Factory
-    private val viewModelProducer: ViewModelProducer by viewModels { viewModelProducerFactory }
+    lateinit var viewModelProducer: ViewModelProducer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,5 +31,10 @@ class FragmentProducer : Fragment() {
         view.findViewById<Button>(R.id.button).setOnClickListener {
             viewModelProducer.generateColor()
         }
+    }
+
+    override fun onDestroy() {
+        viewModelProducer.onCleared()
+        super.onDestroy()
     }
 }

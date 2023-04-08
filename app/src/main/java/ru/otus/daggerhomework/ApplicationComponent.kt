@@ -1,15 +1,24 @@
 package ru.otus.daggerhomework
 
-import android.app.Application
+import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Qualifier
 
 @Component
 interface ApplicationComponent {
-    fun providesApplication(): Application
+    @ApplicationContext
+    fun providesApplication(): Context
 
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance application: Application): ApplicationComponent
+        fun create(
+            @BindsInstance
+            @ApplicationContext
+            application: Context
+        ): ApplicationComponent
     }
 }
+
+@Qualifier
+annotation class ApplicationContext
