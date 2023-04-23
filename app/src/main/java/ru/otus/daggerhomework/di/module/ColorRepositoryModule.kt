@@ -1,13 +1,17 @@
 package ru.otus.daggerhomework.di.module
 
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
+import ru.otus.daggerhomework.di.PerActivity
 import ru.otus.daggerhomework.repository.ColorRepository
 import ru.otus.daggerhomework.repository.ColorRepositoryImpl
 
 @Module
-interface ColorRepositoryModule {
+class ColorRepositoryModule {
 
-    @Binds
-    fun getRepository(repository: ColorRepositoryImpl) : ColorRepository
+    @Provides
+    @PerActivity
+    fun provideColorRepository() : ColorRepository {
+        return ColorRepositoryImpl()
+    }
 }

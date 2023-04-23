@@ -9,9 +9,13 @@ import ru.otus.daggerhomework.di.ActivityContext
 import ru.otus.daggerhomework.di.AppContext
 import ru.otus.daggerhomework.di.PerActivity
 import ru.otus.daggerhomework.di.module.ColorRepositoryModule
+import ru.otus.daggerhomework.di.module.UseCaseModule
+import ru.otus.daggerhomework.repository.ColorRepository
+import ru.otus.daggerhomework.usecases.ProvideColorsUseCase
+import ru.otus.daggerhomework.usecases.SetColorsUseCase
 
 @Component(
-    modules = [ColorRepositoryModule::class],
+    modules = [ColorRepositoryModule::class, UseCaseModule::class],
     dependencies = [ApplicationComponent::class]
 )
 @PerActivity
@@ -25,7 +29,10 @@ interface MainActivityComponent {
 
     fun inject(mainActivity: MainActivity)
 
-    fun provideRepository() : ColorRepositoryImpl
+    fun provideRepository() : ColorRepository
+
+    fun provideSetColorUseCase() : SetColorsUseCase
+    fun provideColorUseCase() : ProvideColorsUseCase
 
     companion object {
         fun create(
