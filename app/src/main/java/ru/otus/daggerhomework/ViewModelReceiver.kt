@@ -1,7 +1,6 @@
 package ru.otus.daggerhomework
 
 import android.app.Application
-import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
