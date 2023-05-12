@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">DaggerHomework</string>
     <string name="generate_color">Generate Color</string>
+    <string name="hint_text">Try to generate color</string>
 </resources>

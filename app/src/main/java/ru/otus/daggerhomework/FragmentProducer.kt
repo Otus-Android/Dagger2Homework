@@ -1,13 +1,23 @@
 package ru.otus.daggerhomework
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
+    @Inject
+    internal lateinit var selfViewModel: ViewModelProducer
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (activity as MainActivity).mainActivityComponent.fragmentProducerComponent().create().inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,6 +31,7 @@ class FragmentProducer : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.button).setOnClickListener {
             //отправить результат через livedata в другой фрагмент
+            selfViewModel.generateColor()
         }
     }
 }
