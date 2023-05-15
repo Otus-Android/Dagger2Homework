@@ -6,6 +6,8 @@ import ru.otus.daggerhomework.di.MainActivityComponent
 
 class MainActivity : AppCompatActivity() {
     lateinit var mainActivityComponent: MainActivityComponent
+        private set
+
     override fun onCreate(savedInstanceState: Bundle?) {
         mainActivityComponent = (application as App).applicationComponent
             .mainActivityComponent()
