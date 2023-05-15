@@ -1,17 +1,18 @@
 package ru.otus.daggerhomework.di
 
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import ru.otus.daggerhomework.AppEvent
+import ru.otus.daggerhomework.ViewModelReceiver
 import javax.inject.Singleton
 
+/**
+ * Модуль подключен в ApplicationComponent, так как используется Jetpack ViewModel [ViewModelReceiver]
+ * которая живет дольше, MainActivity и MainActivityComponent
+ */
 @Module
 object EventModule {
     @Singleton
