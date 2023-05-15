@@ -7,7 +7,7 @@ import ru.otus.daggerhomework.FragmentProducerComponent
 import ru.otus.daggerhomework.FragmentReceiverComponent
 
 @MainActivityScope
-@Subcomponent(modules = [EventModule::class, MainActivitySubcomponents::class])
+@Subcomponent(modules = [MainActivitySubcomponents::class, ColorGeneratorModule::class])
 interface MainActivityComponent {
     @Subcomponent.Factory
     interface Factory {

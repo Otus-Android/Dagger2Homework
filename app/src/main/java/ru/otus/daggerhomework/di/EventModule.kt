@@ -10,10 +10,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import ru.otus.daggerhomework.AppEvent
+import javax.inject.Singleton
 
 @Module
 object EventModule {
-    @MainActivityScope
+    @Singleton
     @Provides
     fun provideMutableEventFlow() = MutableSharedFlow<AppEvent>(0, 1, BufferOverflow.DROP_OLDEST)
 
