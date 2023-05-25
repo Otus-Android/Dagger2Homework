@@ -1,15 +1,34 @@
 package ru.otus.daggerhomework
 
-import android.app.Application
-import android.content.Context
-import android.widget.Toast
+import android.app.*
+import android.content.*
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
+import javax.inject.*
 
-class ViewModelReceiver(
-    private val context: Context
+class ViewModelReceiver @Inject constructor(
+    @ApplicationContext
+    private val context: Context,
+    private val flow: StateFlow<Int?>
 ) {
 
+    private val _colorFlow: MutableStateFlow<Int?> = MutableStateFlow(null)
+    val colorFlow: StateFlow<Int?> = _colorFlow
+    private val scope = CoroutineScope(Dispatchers.Main + Job())
+
     fun observeColors() {
-        if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
-        Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
+        if (context !is Application) throw RuntimeException("Здесь нужен контекст")
+
+        scope.launch {
+            flow.collect { color ->
+                color?.let {
+                    _colorFlow.value = it
+                }
+            }
+        }
+    }
+
+    fun onCleared() {
+        scope.cancel()
     }
 }
