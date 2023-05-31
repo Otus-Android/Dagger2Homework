@@ -5,14 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
 
@@ -20,7 +17,9 @@ class FragmentReceiver : Fragment() {
     private lateinit var fragmentReceiverComponent: FragmentReceiverComponent
 
     private val selfViewModel: ViewModelReceiver by viewModels {
-        AssistedViewModelFactory { fragmentReceiverComponent.viewModelReceiver().create() }
+        AssistedSavedStateViewModelFactory(this) {
+            fragmentReceiverComponent.viewModelReceiver().create(it)
+        }
     }
 
     override fun onAttach(context: Context) {
