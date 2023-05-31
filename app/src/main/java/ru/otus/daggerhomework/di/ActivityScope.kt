@@ -3,4 +3,4 @@ package ru.otus.daggerhomework.di
 import javax.inject.Scope
 
 @Scope
-annotation class MainActivityScope
+annotation class ActivityScope
