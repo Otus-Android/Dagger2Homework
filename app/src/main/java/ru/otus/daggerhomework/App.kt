@@ -5,13 +5,12 @@ import ru.otus.daggerhomework.di.ApplicationComponent
 import ru.otus.daggerhomework.di.DaggerApplicationComponent
 
 class App :Application() {
-    val applicationComponent: ApplicationComponent by lazy(LazyThreadSafetyMode.NONE) {
-        DaggerApplicationComponent.factory().create(this)
-    }
+    lateinit var applicationComponent: ApplicationComponent
+        private set
 
     override fun onCreate() {
         super.onCreate()
 
-        applicationComponent
+        applicationComponent = DaggerApplicationComponent.factory().create(this)
     }
 }
