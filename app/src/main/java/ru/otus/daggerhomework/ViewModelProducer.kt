@@ -3,6 +3,7 @@ package ru.otus.daggerhomework
 import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -22,13 +23,16 @@ class ViewModelProducer @Inject constructor(
     private val context: Context
 ) {
 
-    private val producerScope = CoroutineScope(Dispatchers.Main + Job())
+    private val producerScope = CoroutineScope(Dispatchers.Main + Job() + CoroutineExceptionHandler { _, throwable ->
+        Toast.makeText(context, String.format("%s", throwable.message), Toast.LENGTH_LONG).show()
+    })
+
     fun generateColor() {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
 
         producerScope.launch {
-            val color = async { colorGenerator.generateColor() }
-            flow.value = color.await().also {
+            val color = colorGenerator.generateColor()
+            flow.value = color.also {
                 Toast.makeText(context, String.format("Color sent %s", it), Toast.LENGTH_LONG).show()
             }
         }

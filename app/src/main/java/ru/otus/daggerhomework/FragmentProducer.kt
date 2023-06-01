@@ -1,5 +1,6 @@
 package ru.otus.daggerhomework
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,10 +26,14 @@ class FragmentProducer : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        DaggerFragmentProducerComponent.factory()
-            .create((requireActivity() as MainActivity).mainActivityComponent).inject(this)
         view.findViewById<Button>(R.id.button).setOnClickListener {
             viewModelProducer.generateColor()
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        DaggerFragmentProducerComponent.factory()
+            .create((requireActivity() as MainActivity).mainActivityComponent).inject(this)
     }
 }

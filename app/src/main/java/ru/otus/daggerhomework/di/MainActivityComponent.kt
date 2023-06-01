@@ -4,6 +4,7 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import ru.otus.daggerhomework.MainActivity
 import ru.otus.daggerhomework.di.Constants.ACTIVITY_CONTEXT
 import javax.inject.Named
@@ -27,7 +28,9 @@ interface MainActivityComponent {
     @Named(Constants.APP_CONTEXT)
     fun provideContext(): Context
 
-    fun provideFlow(): MutableStateFlow<Int?>
+    fun provideFlow(): StateFlow<Int?>
+
+    fun provideMutableFlow(): MutableStateFlow<Int?>
 
     fun inject(mainActivity: MainActivity)
 }

@@ -15,7 +15,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class ViewModelReceiver @Inject constructor(
-    private val flow: MutableStateFlow<Int?>,
+    private val flow: StateFlow<Int?>,
     @Named(APP_CONTEXT)
     private val context: Context
 ) {
