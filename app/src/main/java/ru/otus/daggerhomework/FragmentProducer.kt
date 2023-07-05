@@ -7,12 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import ru.otus.daggerhomework.di.DaggerFragmentProducerComponent
 import ru.otus.daggerhomework.di.FragmentProducerComponent
 import javax.inject.Inject
-
-private const val TAG = "FragmentProducer"
 
 class FragmentProducer : Fragment() {
 
@@ -20,11 +17,7 @@ class FragmentProducer : Fragment() {
     @Inject lateinit var eventBus: EventBus
     @Inject lateinit var colorGenerator: ColorGenerator
     @Inject lateinit var viewModelFactory: ViewModelProducerFactory
-
-    private val viewModelProducer by viewModels<ViewModelProducer> {
-        //ViewModelProducerFactory(eventBus, colorGenerator, requireActivity())
-        viewModelFactory
-    }
+    @Inject lateinit var viewModelProducer: ViewModelProducer
 
     lateinit var fragmentProducerComponent: FragmentProducerComponent
 

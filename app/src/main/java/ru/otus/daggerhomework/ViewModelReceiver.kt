@@ -2,28 +2,37 @@ package ru.otus.daggerhomework
 
 import android.app.Application
 import android.widget.Toast
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ViewModelReceiver (
+class ViewModelReceiver @Inject constructor(
     private val eventBus: EventBus,
     private val context: Application
-): AndroidViewModel(context) {
+) {
 
+    private val scope = MainScope()
     private val _color = MutableLiveData<Int>()
     val color: LiveData<Int>
         get() = _color
 
     fun observeColors() {
+
         if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
-        viewModelScope.launch {
+
+        scope.launch {
             eventBus.events.collect {
                 _color.value = it
+                Toast.makeText(context, "Color received", Toast.LENGTH_SHORT).show()
             }
         }
-        Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
+
     }
+
 }
 
 class ViewModelReceiverFactory @Inject constructor(private val eventBus: EventBus,
