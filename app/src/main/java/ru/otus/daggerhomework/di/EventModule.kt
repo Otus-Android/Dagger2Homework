@@ -11,14 +11,10 @@ import ru.otus.daggerhomework.AppEvent
 import ru.otus.daggerhomework.ViewModelReceiver
 import javax.inject.Singleton
 
-/**
- * Модуль подключен в ApplicationComponent, так как используется Jetpack ViewModel [ViewModelReceiver]
- * которая живет дольше, MainActivity и MainActivityComponent
- */
 @Module
 interface EventModule {
     companion object {
-        @Singleton
+        @ActivityScope
         @Provides
         fun provideMutableEventFlow() = MutableSharedFlow<AppEvent>(0, 1, BufferOverflow.DROP_OLDEST)
     }

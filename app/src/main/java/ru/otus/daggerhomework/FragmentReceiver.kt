@@ -10,17 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
 
     private lateinit var frame: View
     private lateinit var fragmentReceiverComponent: FragmentReceiverComponent
-
-    private val selfViewModel: ViewModelReceiver by viewModels {
-        AssistedSavedStateViewModelFactory(this) {
-            fragmentReceiverComponent.viewModelReceiver().create(it)
-        }
-    }
+    @Inject
+    internal lateinit var viewModelReceiver: ViewModelReceiver
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -28,6 +25,7 @@ class FragmentReceiver : Fragment() {
         fragmentReceiverComponent = (activity as MainActivity).mainActivityComponent
             .fragmentReceiverComponent()
             .create()
+        fragmentReceiverComponent.inject(this)
 
     }
     override fun onCreateView(
@@ -43,12 +41,17 @@ class FragmentReceiver : Fragment() {
         frame = view.findViewById(R.id.frame)
 
         viewLifecycleOwner.lifecycleScope.launch {
-            selfViewModel.colorState.collect { color ->
+            viewModelReceiver.colorState.collect { color ->
                 if (color != null) {
                     populateColor(color)
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModelReceiver.clear()
     }
 
     fun populateColor(@ColorInt color: Int) {

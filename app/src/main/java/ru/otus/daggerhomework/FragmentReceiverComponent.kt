@@ -10,6 +10,4 @@ interface FragmentReceiverComponent {
     }
 
     fun inject(fragment: FragmentReceiver)
-
-    fun viewModelReceiver(): ViewModelReceiver.Factory
 }
