@@ -3,8 +3,6 @@ package ru.otus.daggerhomework
 import android.app.Application
 import android.content.Context
 import android.widget.Toast
-import androidx.lifecycle.SavedStateHandle
-import dagger.assisted.AssistedFactory
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -17,7 +15,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 import ru.otus.daggerhomework.di.ApplicationContext
 import javax.inject.Inject
-import javax.inject.Provider
 
 class ViewModelReceiver @Inject constructor(
     @ApplicationContext private val context: Context,
