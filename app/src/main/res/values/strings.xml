@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">DaggerHomework</string>
     <string name="generate_color">Generate Color</string>
+
+    <string name="application_context_requirement">You need application context</string>
+    <string name="activity_context_requirement">You need activity context</string>
+
+    <string name="color_sent">Color sent: %1$d</string>
+    <string name="color_received">Color received: %1$d</string>
+
+    <string name="empty">Empty</string>
 </resources>

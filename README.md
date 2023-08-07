@@ -1,3 +1,7 @@
+# Dagger2
+
+## Задача
+
 ### Реализуйте ApplicationComponent
 Это корень нашего дерева компонентов. Инициализируется в классе App, прокидывает в граф через Component Dependencies/Subcomponents ниже по графу следующие сущности:
 - Context(Application) до FragmentProducerComponent и FragmentReceiverComponent. 
@@ -12,3 +16,8 @@
 Коммуникацию между Producer и Receiver осуществите через канал/StateFlow/Subject либо другую реализацию обсервера которая уже есть в графе. ViewModelProducer должна отправлять эвенты, ViewModelReceiver должна получать эвенты. Обсерверы должны прокидываться в конструкторы вьюмоделей и существовать в единственном экземпляре в Activity.
 Флоу отправки эвента выглядит следующим образом:
 Клик на кнопку button в FragmentProducer -> вызов метода вьюмодели -> проброс евента в обсервер -> евент ловится на стороне ViewModelReceiver -> евент передается FragmentReceiver и вызывается функция ru.otus.daggerhomework.FragmentReceiver#populateColor
+
+## Решение
+
+Решение базируется на Component Dependencies.
+В качестве канала коммуникации между франментами использован Channel. 
