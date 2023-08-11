@@ -1,4 +1,4 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.producer
 
 import android.graphics.Color
 import androidx.annotation.ColorInt

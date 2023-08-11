@@ -1,4 +1,4 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.producer
 
 import android.content.Context
 import android.widget.Toast
