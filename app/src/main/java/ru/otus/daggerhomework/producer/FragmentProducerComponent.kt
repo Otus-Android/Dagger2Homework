@@ -6,7 +6,8 @@ import ru.otus.daggerhomework.ApplicationComponent
 import ru.otus.daggerhomework.activity.MainActivity
 
 @Component(
-    dependencies = [ApplicationComponent::class, EventUpdateProvider::class]
+    dependencies = [ApplicationComponent::class, EventUpdateProvider::class, ActivityContextProvider::class],
+    modules = [FragmentProducerModule::class]
 )
 interface FragmentProducerComponent {
 
@@ -14,9 +15,11 @@ interface FragmentProducerComponent {
 
     companion object {
         fun create(app: App, activity: MainActivity): FragmentProducerComponent {
+            val activityComponent = activity.getActivityComponent()
             return DaggerFragmentProducerComponent.builder()
                 .applicationComponent(app.getAppComponent())
-                .eventUpdateProvider(activity.getActivityComponent())
+                .eventUpdateProvider(activityComponent)
+                .activityContextProvider(activityComponent)
                 .build()
         }
     }

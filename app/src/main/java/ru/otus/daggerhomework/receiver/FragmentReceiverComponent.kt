@@ -7,6 +7,7 @@ import ru.otus.daggerhomework.activity.MainActivity
 
 @Component(
     dependencies = [ApplicationComponent::class, EventProvider::class],
+    modules = [FragmentReceiverModule::class]
 )
 interface FragmentReceiverComponent {
     fun inject(fragmentReceiver: FragmentReceiver)

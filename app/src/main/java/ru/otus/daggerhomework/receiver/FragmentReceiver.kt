@@ -9,10 +9,14 @@ import androidx.fragment.app.Fragment
 import ru.otus.daggerhomework.App
 import ru.otus.daggerhomework.R
 import ru.otus.daggerhomework.activity.MainActivity
+import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
 
     private lateinit var frame: View
+
+    @Inject
+    lateinit var viewModel: ViewModelReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
