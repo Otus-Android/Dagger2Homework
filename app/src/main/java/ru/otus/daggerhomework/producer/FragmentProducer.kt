@@ -8,13 +8,15 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import ru.otus.daggerhomework.App
 import ru.otus.daggerhomework.R
+import ru.otus.daggerhomework.activity.MainActivity
 
 class FragmentProducer : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FragmentProducerComponent.create(
-            requireActivity().application as App
+            requireActivity().application as App,
+            requireActivity() as MainActivity
         ).inject(this)
     }
 

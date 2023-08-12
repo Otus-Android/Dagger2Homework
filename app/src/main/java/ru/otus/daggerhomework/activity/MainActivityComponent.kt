@@ -3,10 +3,14 @@ package ru.otus.daggerhomework.activity
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import ru.otus.daggerhomework.producer.EventUpdateProvider
 import ru.otus.daggerhomework.qualifier.ActivityContext
+import ru.otus.daggerhomework.receiver.EventProvider
 
-@Component
-interface MainActivityComponent {
+@Component(
+    modules = [MainActivityModule::class]
+)
+interface MainActivityComponent: EventUpdateProvider, EventProvider {
     @Component.Factory
     interface ContextFactory {
         fun create(@BindsInstance @ActivityContext context: Context) : MainActivityComponent
