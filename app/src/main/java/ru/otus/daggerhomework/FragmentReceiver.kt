@@ -5,10 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
+
+    @Inject
+    lateinit var viewModel: ViewModelReceiver
 
     private lateinit var frame: View
 
@@ -22,10 +31,25 @@ class FragmentReceiver : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        DaggerFragmentReceiverComponent
+            .factory()
+            .create(requireActivity().applicationContext, (requireActivity() as MainActivity).mainActivityComponent)
+            .inject(this)
+
         frame = view.findViewById(R.id.frame)
+
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.colorFlow.collect {
+                    populateColor(it)
+                    viewModel.observeColors()
+                }
+            }
+        }
     }
 
-    fun populateColor(@ColorInt color: Int) {
+    private fun populateColor(@ColorInt color: Int) {
         frame.setBackgroundColor(color)
     }
 }
