@@ -1,18 +1,19 @@
-package ru.otus.daggerhomework.receiver
+package ru.otus.daggerhomework.feature.di
 
 import android.content.Context
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.flow.StateFlow
-import ru.otus.daggerhomework.activity.Event
 import ru.otus.daggerhomework.qualifier.AppContext
+import ru.otus.daggerhomework.feature.viewmodels.ReceiverViewModel
 
 @Module
-object FragmentReceiverModule {
+object ReceiverFragmentModule {
 
     @Provides
     fun createReceiverViewModel(
         @AppContext context: Context,
-        stateEvent: StateFlow<Event>
-    ) = ViewModelReceiver(context, stateEvent)
+        stateColor: StateFlow<Int?>,
+    ) =
+        ReceiverViewModel(context, stateColor)
 }

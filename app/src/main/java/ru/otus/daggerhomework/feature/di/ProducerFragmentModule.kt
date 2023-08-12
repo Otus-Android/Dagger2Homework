@@ -1,15 +1,17 @@
-package ru.otus.daggerhomework.producer
+package ru.otus.daggerhomework.feature.di
 
 import android.content.Context
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.flow.MutableStateFlow
-import ru.otus.daggerhomework.activity.Event
+import ru.otus.daggerhomework.feature.models.ColorGenerator
+import ru.otus.daggerhomework.feature.models.ColorGeneratorImpl
 import ru.otus.daggerhomework.qualifier.ActivityContext
+import ru.otus.daggerhomework.feature.viewmodels.ProducerViewModel
 
 @Module
-interface FragmentProducerModule {
+interface ProducerFragmentModule {
 
     @Binds
     fun createColorGenerator(colorGenerator: ColorGeneratorImpl): ColorGenerator
@@ -20,7 +22,8 @@ interface FragmentProducerModule {
         fun createProducerViewModel(
             @ActivityContext context: Context,
             colorGenerator: ColorGenerator,
-            eventUpdater: MutableStateFlow<Event?>
-        ) = ViewModelProducer(context, colorGenerator, eventUpdater)
+            colorUpdater: MutableStateFlow<Int?>
+        ) =
+            ProducerViewModel(context, colorGenerator, colorUpdater)
     }
 }

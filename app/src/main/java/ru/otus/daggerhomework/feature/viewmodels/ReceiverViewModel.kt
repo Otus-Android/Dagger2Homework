@@ -1,17 +1,16 @@
-package ru.otus.daggerhomework.receiver
+package ru.otus.daggerhomework.feature.viewmodels
 
 import android.app.Application
 import android.content.Context
 import android.widget.Toast
 import kotlinx.coroutines.flow.StateFlow
-import ru.otus.daggerhomework.activity.Event
 
-class ViewModelReceiver(
+class ReceiverViewModel(
     private val context: Context,
-    private val stateEvent: StateFlow<Event>
+    val stateColor: StateFlow<Int?>
 ) {
 
-    fun observeColors() {
+    fun onColorPopulate() {
         if (context !is Application) {
             throw RuntimeException("Здесь нужен контекст апликейшена")
         }

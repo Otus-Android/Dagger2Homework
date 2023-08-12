@@ -4,7 +4,9 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.otus.daggerhomework.qualifier.AppContext
+import javax.inject.Singleton
 
+@Singleton
 @Component
 interface ApplicationComponent {
 

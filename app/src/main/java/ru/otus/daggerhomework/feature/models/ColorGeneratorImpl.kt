@@ -1,15 +1,9 @@
-package ru.otus.daggerhomework.producer
+package ru.otus.daggerhomework.feature.models
 
 import android.graphics.Color
-import androidx.annotation.ColorInt
+import ru.otus.daggerhomework.feature.models.ColorGenerator
 import java.util.*
 import javax.inject.Inject
-
-interface ColorGenerator {
-
-    @ColorInt
-    fun generateColor(): Int
-}
 
 class ColorGeneratorImpl @Inject constructor() : ColorGenerator {
 

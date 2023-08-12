@@ -3,22 +3,26 @@ package ru.otus.daggerhomework.activity
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import ru.otus.daggerhomework.producer.ActivityContextProvider
-import ru.otus.daggerhomework.producer.EventUpdateProvider
+import ru.otus.daggerhomework.ApplicationComponent
+import ru.otus.daggerhomework.feature.providers.ActivityContextProvider
+import ru.otus.daggerhomework.feature.providers.ColorUpdateProvider
 import ru.otus.daggerhomework.qualifier.ActivityContext
-import ru.otus.daggerhomework.receiver.EventProvider
+import ru.otus.daggerhomework.feature.providers.ColorProvider
+import ru.otus.daggerhomework.scope.ActivityScope
 
+@ActivityScope
 @Component(
-    modules = [MainActivityModule::class]
+    modules = [MainActivityModule::class],
+    dependencies = [ApplicationComponent::class]
 )
-interface MainActivityComponent: ActivityContextProvider, EventUpdateProvider, EventProvider {
+interface MainActivityComponent : ActivityContextProvider, ColorUpdateProvider, ColorProvider {
     @Component.Factory
     interface ContextFactory {
-        fun create(@BindsInstance @ActivityContext context: Context) : MainActivityComponent
+        fun create(
+            appComponent: ApplicationComponent,
+            @BindsInstance @ActivityContext context: Context
+        ): MainActivityComponent
     }
 
-    companion object {
-        fun getMainActivityComponent(context: Context) : MainActivityComponent =
-            DaggerMainActivityComponent.factory().create(context)
-    }
+    fun inject(mainActivity: MainActivity)
 }

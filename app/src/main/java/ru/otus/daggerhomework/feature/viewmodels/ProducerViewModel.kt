@@ -1,19 +1,24 @@
-package ru.otus.daggerhomework.producer
+package ru.otus.daggerhomework.feature.viewmodels
 
 import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import kotlinx.coroutines.flow.MutableStateFlow
-import ru.otus.daggerhomework.activity.Event
+import ru.otus.daggerhomework.feature.models.ColorGenerator
 
-class ViewModelProducer(
+class ProducerViewModel(
     private val context: Context,
     private val colorGenerator: ColorGenerator,
-    private val eventUpdater: MutableStateFlow<Event?>
+    private val colorUpdater: MutableStateFlow<Int?>
 ) {
 
-    fun generateColor() {
-        if (context !is FragmentActivity)  {
+    fun onButtonClick() {
+        colorUpdater.tryEmit(colorGenerator.generateColor())
+        onColorGenerated()
+    }
+
+    private fun onColorGenerated() {
+        if (context !is FragmentActivity) {
             throw RuntimeException("Здесь нужен контекст активити")
         }
         Toast.makeText(context, "Color sent", Toast.LENGTH_LONG).show()

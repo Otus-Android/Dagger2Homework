@@ -1,4 +1,4 @@
-package ru.otus.daggerhomework.producer
+package ru.otus.daggerhomework.feature.providers
 
 import android.content.Context
 import ru.otus.daggerhomework.qualifier.ActivityContext

@@ -5,17 +5,18 @@ import dagger.Provides
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-
-class Event
+import ru.otus.daggerhomework.scope.ActivityScope
 
 @Module
 object MainActivityModule {
 
+    @ActivityScope
     @Provides
-    fun provideMutableStateEvent(): MutableStateFlow<Event?> =
+    fun provideMutableStateColor(): MutableStateFlow<Int?> =
         MutableStateFlow(null)
 
+    @ActivityScope
     @Provides
-    fun updateEvent(event: MutableStateFlow<Event>): StateFlow<Event> =
-        event.asStateFlow()
+    fun updateColor(colorState: MutableStateFlow<Int?>): StateFlow<Int?> =
+        colorState.asStateFlow()
 }
