@@ -5,6 +5,7 @@ import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
+import dagger.Provides
 import kotlinx.coroutines.flow.MutableStateFlow
 import ru.otus.daggerhomework.di.ActivityContext
 import ru.otus.daggerhomework.di.ActivityScope
@@ -22,8 +23,7 @@ interface MainActivityComponent {
         interface Factory{
         fun create(
             @BindsInstance @ActivityContext context: Context,
-            component: ApplicationComponent,
-            @BindsInstance stateFlow: MutableStateFlow<Int>
+            component: ApplicationComponent
         ):MainActivityComponent
     }
     @ActivityContext
@@ -35,10 +35,19 @@ interface MainActivityComponent {
     fun provideColorGenerate(): ColorGenerator
 
     fun provideObserver(): MutableStateFlow<Int>
+
 }
 
 @Module
 interface ActivityModule{
     @Binds
     fun bindColorGenerator(colorGenerator: ColorGeneratorImpl):ColorGenerator
+
+    companion object{
+        @Provides
+        fun provideStateFlow(): MutableStateFlow<Int>{
+            return MutableStateFlow(0)
+        }
+    }
+
 }

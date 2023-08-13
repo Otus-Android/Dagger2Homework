@@ -32,6 +32,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init(){
-        mainActivityComponent =  DaggerMainActivityComponent.factory().create(this,(application as App).appComponent, MutableStateFlow(0))
+        mainActivityComponent =  DaggerMainActivityComponent.factory().create(this,(application as App).appComponent)
     }
 }

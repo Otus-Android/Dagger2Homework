@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class ViewModelReceiver(
     private val context: Context,
-    private val stateFlow: MutableStateFlow<Int>
+    private val stateFlow: StateFlow<Int>
 ):ViewModel() {
 
     private val _receiver = MutableStateFlow(value = 0)
