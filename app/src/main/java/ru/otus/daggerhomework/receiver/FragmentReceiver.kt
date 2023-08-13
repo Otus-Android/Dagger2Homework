@@ -1,7 +1,6 @@
 package ru.otus.daggerhomework.receiver
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +12,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.MainActivity
 import ru.otus.daggerhomework.R
-import ru.otus.daggerhomework.producer.DaggerFragmentProducerComponent
-import ru.otus.daggerhomework.producer.ViewModelProducer
-import ru.otus.daggerhomework.producer.ViewModelProducerFactory
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
@@ -32,19 +28,21 @@ class FragmentReceiver : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         initDagger()
-        viewModelReceiver = ViewModelProvider(this,viewModelReceiverFactory).get(ViewModelReceiver::class.java)
+        viewModelReceiver =
+            ViewModelProvider(this, viewModelReceiverFactory).get(ViewModelReceiver::class.java)
         viewModelReceiver.observeColors()
         return inflater.inflate(R.layout.fragment_b, container, false)
     }
 
-    private fun initDagger(){
-        DaggerFragmentReceiverComponent.factory().create((activity as MainActivity).mainActivityComponent).inject(this)
+    private fun initDagger() {
+        DaggerFragmentReceiverComponent.factory()
+            .create((activity as MainActivity).mainActivityComponent).inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         frame = view.findViewById(R.id.frame)
-        lifecycleScope.launch{
+        lifecycleScope.launch {
             viewModelReceiver.receiver.collect {
                 populateColor(it)
             }

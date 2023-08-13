@@ -15,8 +15,7 @@ import javax.inject.Inject
 class FragmentProducer : Fragment() {
 
     @Inject
-    lateinit var viewModelProducerFactory: ViewModelProducerFactory
-    private lateinit var viewModelProducer: ViewModelProducer
+    lateinit var viewModelProducer: ViewModelProducer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +23,7 @@ class FragmentProducer : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         initDagger()
-        viewModelProducer = ViewModelProvider(this,viewModelProducerFactory).get(ViewModelProducer::class.java)
+
         return inflater.inflate(R.layout.fragment_a, container, false)
 
     }

@@ -8,18 +8,19 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.ColorGenerator
+import ru.otus.daggerhomework.di.ActivityContext
+import javax.inject.Inject
 
-class ViewModelProducer(
+class ViewModelProducer @Inject constructor(
     private val colorGenerator: ColorGenerator,
-    private val context: Context,
+    @ActivityContext private val context: Context,
     private val stateFlow: MutableStateFlow<Int>
-): ViewModel() {
+) {
 
     fun generateColor() {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
         Toast.makeText(context, "Color sent", Toast.LENGTH_LONG).show()
-        viewModelScope.launch {
-            stateFlow.value = colorGenerator.generateColor()
-        }
+        stateFlow.value = colorGenerator.generateColor()
+
     }
 }
