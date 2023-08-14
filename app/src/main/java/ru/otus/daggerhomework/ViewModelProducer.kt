@@ -7,19 +7,19 @@ import androidx.fragment.app.FragmentActivity
 import javax.inject.Inject
 
 class ViewModelProducer @Inject constructor(
-    private val observer: CustomObserver,
+    private val producer: CustomProducer,
     private val colorGenerator: ColorGenerator,
     private val context: Context
 ) {
 
     init {
-        Log.d("TAG", "ViewModelProducer: $observer")
+        Log.d("TAG", "ViewModelProducer: $producer")
     }
 
     fun generateColor() {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
 
-        observer.produceColor(colorGenerator.generateColor())
+        producer.produceColor(colorGenerator.generateColor())
 
         Toast.makeText(context, "Color sent", Toast.LENGTH_LONG).show()
     }

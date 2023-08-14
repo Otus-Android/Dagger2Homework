@@ -1,21 +1,31 @@
 package ru.otus.daggerhomework
 
 import android.content.Context
+import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
+import dagger.Module
 import javax.inject.Scope
 
 
-@Component(dependencies = [ApplicationComponent::class])
+@Component(dependencies = [ApplicationComponent::class], modules = [MainActivityModule::class])
 @ActivityScope
 interface MainActivityComponent {
 
     fun provideObserver(): CustomObserver
+    fun provideProducer(): CustomProducer
 
     @Component.Factory
     interface Factory {
         fun create(@BindsInstance applicationContext: Context, applicationComponent: ApplicationComponent): MainActivityComponent
     }
+
+}
+
+@Module
+interface MainActivityModule {
+    @Binds
+    fun provideReceiver(customProducer: CustomProducer): CustomObserver
 
 }
 
