@@ -10,6 +10,8 @@ import javax.inject.Singleton
 @Singleton
 interface ApplicationComponent {
 
+    fun provideApplicationContext(): Context
+
     @Component.Factory
     interface Factory {
         fun create(@BindsInstance applicationContext: Context): ApplicationComponent

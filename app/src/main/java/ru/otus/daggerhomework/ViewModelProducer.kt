@@ -9,7 +9,7 @@ import javax.inject.Inject
 class ViewModelProducer @Inject constructor(
     private val producer: CustomProducer,
     private val colorGenerator: ColorGenerator,
-    private val context: Context
+    @ActivityContext private val context: Context
 ) {
 
     init {

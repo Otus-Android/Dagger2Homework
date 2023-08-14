@@ -1,7 +1,5 @@
 package ru.otus.daggerhomework
 
-import android.content.Context
-import dagger.BindsInstance
 import dagger.Component
 
 
@@ -13,7 +11,7 @@ interface FragmentReceiverComponent {
 
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance context: Context, mainActivityComponent: MainActivityComponent): FragmentReceiverComponent
+        fun create(mainActivityComponent: MainActivityComponent): FragmentReceiverComponent
     }
 
 }

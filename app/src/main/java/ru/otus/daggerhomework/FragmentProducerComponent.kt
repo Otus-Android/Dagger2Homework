@@ -5,6 +5,7 @@ import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
+import javax.inject.Qualifier
 
 
 @Component(dependencies = [MainActivityComponent::class], modules = [FragmentProducerModule::class])
@@ -15,7 +16,7 @@ interface FragmentProducerComponent {
 
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance context: Context, mainActivityComponent: MainActivityComponent): FragmentProducerComponent
+        fun create(@BindsInstance @ActivityContext context: Context, mainActivityComponent: MainActivityComponent): FragmentProducerComponent
     }
 
 }
@@ -27,3 +28,6 @@ interface FragmentProducerModule {
     fun bindColorGenerator(colorGeneratorImpl: ColorGeneratorImpl): ColorGenerator
 
 }
+
+@Qualifier
+annotation class ActivityContext

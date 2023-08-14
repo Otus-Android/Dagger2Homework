@@ -2,7 +2,6 @@ package ru.otus.daggerhomework
 
 import android.content.Context
 import dagger.Binds
-import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import javax.inject.Scope
@@ -12,12 +11,13 @@ import javax.inject.Scope
 @ActivityScope
 interface MainActivityComponent {
 
+    fun provideApplicationContext(): Context
     fun provideObserver(): CustomObserver
     fun provideProducer(): CustomProducer
 
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance applicationContext: Context, applicationComponent: ApplicationComponent): MainActivityComponent
+        fun create(applicationComponent: ApplicationComponent): MainActivityComponent
     }
 
 }

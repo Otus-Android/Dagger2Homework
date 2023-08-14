@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -34,7 +32,7 @@ class FragmentReceiver : Fragment() {
 
         DaggerFragmentReceiverComponent
             .factory()
-            .create(requireActivity().applicationContext, (requireActivity() as MainActivity).mainActivityComponent)
+            .create((requireActivity() as MainActivity).mainActivityComponent)
             .inject(this)
 
         frame = view.findViewById(R.id.frame)
