@@ -1,8 +1,9 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.producer
 
 import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import ru.otus.daggerhomework.ColorGenerator
 
 class ViewModelProducer(
     private val colorGenerator: ColorGenerator,
@@ -10,7 +11,9 @@ class ViewModelProducer(
 ) {
 
     fun generateColor() {
-        if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
+        if (context !is FragmentActivity) {
+            throw RuntimeException("Здесь нужен контекст активити")
+        }
         Toast.makeText(context, "Color sent", Toast.LENGTH_LONG).show()
     }
 }

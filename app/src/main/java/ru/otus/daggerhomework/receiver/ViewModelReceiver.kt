@@ -1,4 +1,4 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.receiver
 
 import android.app.Application
 import android.content.Context
@@ -9,7 +9,9 @@ class ViewModelReceiver(
 ) {
 
     fun observeColors() {
-        if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
+        if (context !is Application) {
+            throw RuntimeException("Здесь нужен контекст апликейшена")
+        }
         Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
     }
 }
