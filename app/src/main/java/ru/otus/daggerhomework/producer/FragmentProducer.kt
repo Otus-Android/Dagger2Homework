@@ -6,15 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import ru.otus.daggerhomework.App
+import ru.otus.daggerhomework.MainActivity
 import ru.otus.daggerhomework.R
+import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
+
+    @Inject
+    lateinit var viewModelProducer: ViewModelProducer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FragmentProducerComponent
-            .create(requireActivity().application as App)
+            .create((requireActivity() as MainActivity).mainActivityComponent)
             .inject(this)
     }
 
@@ -23,13 +27,14 @@ class FragmentProducer : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_a, container, true)
+        return inflater.inflate(R.layout.fragment_a, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.button).setOnClickListener {
             //отправить результат через livedata в другой фрагмент
+            viewModelProducer.generateColor()
         }
     }
 }

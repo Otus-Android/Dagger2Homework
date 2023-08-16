@@ -6,17 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
-import ru.otus.daggerhomework.App
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import ru.otus.daggerhomework.MainActivity
 import ru.otus.daggerhomework.R
+import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
 
     private lateinit var frame: View
 
+    @Inject
+    lateinit var viewModelReceiver: ViewModelReceiver
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FragmentReceiverComponent
-            .create(requireActivity().application as App)
+            .create((requireActivity() as MainActivity).mainActivityComponent)
             .inject(this)
     }
 
@@ -25,15 +32,18 @@ class FragmentReceiver : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_b, container, true)
+        return inflater.inflate(R.layout.fragment_b, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         frame = view.findViewById(R.id.frame)
+        viewModelReceiver.observeColors()
+            .onEach { populateColor(it) }
+            .launchIn(lifecycleScope)
     }
 
-    fun populateColor(@ColorInt color: Int) {
+    private fun populateColor(@ColorInt color: Int) {
         frame.setBackgroundColor(color)
     }
 }
