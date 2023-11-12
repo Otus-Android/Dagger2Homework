@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
@@ -15,13 +16,17 @@ class FragmentReceiver : Fragment() {
 
     @Inject
     lateinit var fragmentReceiverComponent: FragmentReceiverComponent
+
+    @Inject
+    lateinit var viewModelReceiver: ViewModelReceiver
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val mainActivityComponent = (activity as MainActivity).mainActivityComponent
-        fragmentReceiverComponent = DaggerFragmentReceiverComponent.factory().create(mainActivityComponent)
+        fragmentReceiverComponent =
+            DaggerFragmentReceiverComponent.factory().create(mainActivityComponent)
         fragmentReceiverComponent.inject(this)
-        println("FragmentReceiverContext" + fragmentReceiverComponent.context())
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,6 +38,11 @@ class FragmentReceiver : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         frame = view.findViewById(R.id.frame)
+        lifecycleScope.launch {
+            viewModelReceiver.observeColors().collect{
+                populateColor(it)
+            }
+        }
     }
 
     fun populateColor(@ColorInt color: Int) {

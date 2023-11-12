@@ -19,8 +19,8 @@ class MainActivity : AppCompatActivity() {
         val fragmentReceiver = FragmentReceiver()
 
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragments,fragmentProducer)
             .add(R.id.fragments,fragmentReceiver)
+            .add(R.id.fragments,fragmentProducer)
             .commit()
     }
 }

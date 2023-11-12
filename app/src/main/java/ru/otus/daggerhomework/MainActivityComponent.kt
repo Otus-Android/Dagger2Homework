@@ -1,9 +1,12 @@
 package ru.otus.daggerhomework
 
 import android.content.Context
+import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
+import dagger.Provides
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Qualifier
 import javax.inject.Scope
 
@@ -15,6 +18,10 @@ interface MainActivityComponent {
 
     @AppContext
     fun appContext(): Context
+
+    fun provideViewModelProducer(): ViewModelProducer
+
+    fun provideViewModelReceiver(): ViewModelReceiver
 
     @MainActivityContext
     fun activityContext(): Context
@@ -28,11 +35,19 @@ interface MainActivityComponent {
     }
 }
 
-
-
 @Module
 interface MainActivityModule {
 
+      companion object{
+         @Provides
+         @MainActivityScope
+         fun provideStateFlow(): MutableStateFlow<Int>{
+             return MutableStateFlow(544)
+         }
+     }
+
+    @Binds
+    fun provideColorGeneratorImpl(colorGeneratorImpl: ColorGeneratorImpl) :ColorGenerator
 }
 
 @Qualifier
