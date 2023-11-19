@@ -1,19 +1,25 @@
 package ru.otus.daggerhomework.di
 
 import dagger.Component
-import dagger.Provides
-import ru.otus.daggerhomework.FragmentProducer
+import ru.otus.daggerhomework.ui.FragmentProducer
+import ru.otus.daggerhomework.di.scopes.FragmentScope
 
-@Component(
-    modules = [ViewModelModule::class, ColorGeneratorModule::class],
-    dependencies = [ApplicationComponent::class])
+@FragmentScope
+@Component(modules = [ViewModelModule::class], dependencies = [MainActivityComponent::class])
 interface FragmentProducerComponent {
 
-    //fun inject(fragmentProducer: FragmentProducer)
+    fun inject(fragmentProducer: FragmentProducer)
 
     companion object {
-        fun getFragmentProducerComponent(applicationComponent: ApplicationComponent): FragmentProducerComponent {
-        return DaggerFragmentProducerComponent.builder().applicationComponent(applicationComponent).build()
+        fun getFragmentProducerComponent(mainActivityComponent: MainActivityComponent): FragmentProducerComponent {
+            return DaggerFragmentProducerComponent.factory().create(mainActivityComponent)
         }
+    }
+
+    @Component.Factory
+    interface Factory {
+        fun create(
+            mainActivityComponent: MainActivityComponent
+        ): FragmentProducerComponent
     }
 }

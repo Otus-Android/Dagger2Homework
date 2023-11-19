@@ -1,4 +1,4 @@
-package ru.otus.daggerhomework.di
+package ru.otus.daggerhomework.di.keys
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

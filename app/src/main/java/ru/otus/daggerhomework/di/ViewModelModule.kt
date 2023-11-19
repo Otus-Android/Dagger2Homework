@@ -2,11 +2,11 @@ package ru.otus.daggerhomework.di
 
 import androidx.lifecycle.ViewModel
 import dagger.Binds
-import dagger.MapKey
 import dagger.Module
 import dagger.multibindings.IntoMap
-import ru.otus.daggerhomework.ViewModelProducer
-import ru.otus.daggerhomework.ViewModelReceiver
+import ru.otus.daggerhomework.ui.ViewModelProducer
+import ru.otus.daggerhomework.ui.ViewModelReceiver
+import ru.otus.daggerhomework.di.keys.ViewModelKey
 
 @Module
 interface ViewModelModule {
@@ -18,5 +18,5 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(ViewModelReceiver::class)
     @Binds
-    fun bindChatContactsViewModel(viewModel: ViewModelReceiver): ViewModel
+    fun bindViewModelReceiver(viewModel: ViewModelReceiver): ViewModel
 }
