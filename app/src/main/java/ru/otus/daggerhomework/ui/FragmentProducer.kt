@@ -1,5 +1,6 @@
 package ru.otus.daggerhomework.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,11 +37,15 @@ class FragmentProducer : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fragmentProducerComponent.inject(this)
 
         view.findViewById<Button>(R.id.button).setOnClickListener {
             //отправить результат через livedata в другой фрагмент
             viewModelProducer.generateColor()
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        fragmentProducerComponent.inject(this)
     }
 }

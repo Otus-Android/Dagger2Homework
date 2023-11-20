@@ -1,5 +1,6 @@
 package ru.otus.daggerhomework.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,11 +39,15 @@ class FragmentReceiver : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fragmentReceiverComponent.inject(this)
 
         frame = view.findViewById(R.id.frame)
 
         viewModuleReceiver.observeColors(::populateColor)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        fragmentReceiverComponent.inject(this)
     }
 
     fun populateColor(@ColorInt color: Int) {
