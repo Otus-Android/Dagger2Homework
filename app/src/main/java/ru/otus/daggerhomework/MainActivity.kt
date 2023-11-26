@@ -1,12 +1,10 @@
 package ru.otus.daggerhomework
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import javax.inject.Inject
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject
     lateinit var mainActivityComponent: MainActivityComponent
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,6 +15,8 @@ class MainActivity : AppCompatActivity() {
 
         val fragmentProducer = FragmentProducer()
         val fragmentReceiver = FragmentReceiver()
+
+        println(mainActivityComponent.activityContext())
 
         supportFragmentManager.beginTransaction()
             .add(R.id.fragments,fragmentReceiver)

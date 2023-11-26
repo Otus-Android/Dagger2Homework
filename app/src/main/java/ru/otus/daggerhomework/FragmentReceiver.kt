@@ -14,11 +14,11 @@ class FragmentReceiver : Fragment() {
 
     private lateinit var frame: View
 
-    @Inject
     lateinit var fragmentReceiverComponent: FragmentReceiverComponent
 
     @Inject
     lateinit var viewModelReceiver: ViewModelReceiver
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val mainActivityComponent = (activity as MainActivity).mainActivityComponent

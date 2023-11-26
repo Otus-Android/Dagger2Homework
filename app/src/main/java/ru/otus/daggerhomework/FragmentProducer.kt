@@ -12,7 +12,6 @@ import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
 
-    @Inject
     lateinit var fragmentProducerComponent: FragmentProducerComponent
 
     @Inject
