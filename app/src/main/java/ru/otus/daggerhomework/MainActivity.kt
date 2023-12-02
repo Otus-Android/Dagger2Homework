@@ -1,12 +1,23 @@
 package ru.otus.daggerhomework
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import ru.otus.daggerhomework.di.activity.ActivityComponentHolder
+import ru.otus.daggerhomework.di.app.appComponent
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+//        supportFragmentManager.beginTransaction()
+//            .add(R.id.fragment_producer_container, FragmentProducer())
+//            .add(R.id.fragment_receiver_container, FragmentReceiver())
+//            .commit()
+
+        ActivityComponentHolder
+            .getActivityComponent(application.appComponent, this)
+            .inject(this)
     }
 }
