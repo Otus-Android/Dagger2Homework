@@ -7,6 +7,7 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.ColorGeneratorImpl
 import ru.otus.daggerhomework.MainActivity
@@ -51,6 +52,9 @@ interface MainActivityModule {
             return MutableStateFlow(544)
         }
     }
+
+    @Binds
+    fun provideColorState(colorState: MutableStateFlow<Int>): StateFlow<Int>
 
     @Binds
     fun provideColorGeneratorImpl(colorGeneratorImpl: ColorGeneratorImpl) : ColorGenerator

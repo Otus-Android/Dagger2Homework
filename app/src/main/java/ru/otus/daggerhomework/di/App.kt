@@ -4,8 +4,13 @@ import android.app.Application
 
 class App : Application() {
 
-    val applicationComponent: ApplicationComponent by lazy {
-        DaggerApplicationComponent.factory().create(this)
+    lateinit var applicationComponent: ApplicationComponent
+
+    override fun onCreate() {
+        super.onCreate()
+        applicationComponent = DaggerApplicationComponent
+            .factory()
+            .create(this)
     }
 }
 

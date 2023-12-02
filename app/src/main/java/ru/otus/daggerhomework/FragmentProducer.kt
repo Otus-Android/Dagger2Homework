@@ -14,18 +14,15 @@ import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
 
-    private val fragmentProducerComponent: FragmentProducerComponent by lazy {
-        DaggerFragmentProducerComponent
-            .factory()
-            .create((activity as MainActivity).mainActivityComponent)
-    }
-
     @Inject
     lateinit var viewModelProducer: ViewModelProducer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fragmentProducerComponent.inject(this)
+        DaggerFragmentProducerComponent
+            .factory()
+            .create((activity as MainActivity).mainActivityComponent)
+            .inject(this)
     }
 
     override fun onCreateView(
