@@ -4,7 +4,6 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import kotlinx.coroutines.channels.Channel
-import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.LocalEvent
 import ru.otus.daggerhomework.MainActivity
 import ru.otus.daggerhomework.di.app.ApplicationComponent
