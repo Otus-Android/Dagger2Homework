@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import ru.otus.daggerhomework.di.activity.ActivityComponentHolder
 import ru.otus.daggerhomework.di.app.appComponent
 import ru.otus.daggerhomework.di.fragments.FragmentReceiverComponent
+import ru.otus.daggerhomework.di.fragments.ViewModelFactory
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
@@ -17,7 +19,10 @@ class FragmentReceiver : Fragment() {
     private lateinit var frame: View
 
     @Inject
-    lateinit var viewModel: ViewModelReceiver
+    lateinit var vmFactory: ViewModelFactory
+    private val viewModel: ViewModelReceiver  by lazy {
+        ViewModelProvider(this, vmFactory)[ViewModelReceiver::class.java]
+    }
 
     private var currentColor: Int = 0xFFFFFF
 

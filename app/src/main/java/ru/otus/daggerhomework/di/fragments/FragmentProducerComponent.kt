@@ -7,7 +7,7 @@ import ru.otus.daggerhomework.di.activity.ActivityComponent
 
 @FragmentScope
 @Component(
-    modules = [FragmentProducerModule::class, ViewModelModule::class],
+    modules = [FragmentProducerModule::class],
     dependencies = [ActivityComponent::class]
 )
 interface FragmentProducerComponent {

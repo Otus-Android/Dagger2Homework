@@ -6,7 +6,7 @@ import ru.otus.daggerhomework.di.activity.ActivityComponent
 
 @FragmentScope
 @Component(
-    modules = [ViewModelModule::class],
+    modules = [FragmentReceiverModule::class],
     dependencies = [ActivityComponent::class])
 interface FragmentReceiverComponent {
 
