@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import ru.otus.daggerhomework.App
 import ru.otus.daggerhomework.R
 import ru.otus.daggerhomework.di.activity.ActivityComponent
-import ru.otus.daggerhomework.di.DaggerActivityComponent
+import ru.otus.daggerhomework.di.activity.DaggerActivityComponent
 
 class MainActivity : AppCompatActivity() {
 

@@ -11,7 +11,4 @@ import javax.inject.Scope
 annotation class ActivityScope
 
 @Scope
-annotation class FragmentReceiverScope
-
-@Scope
-annotation class FragmentProducerScope
+annotation class FragmentScope

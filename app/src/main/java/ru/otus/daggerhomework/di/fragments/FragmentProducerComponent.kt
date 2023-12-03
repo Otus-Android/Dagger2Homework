@@ -5,8 +5,7 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import ru.otus.daggerhomework.di.ActivityContext
-import ru.otus.daggerhomework.di.DaggerFragmentProducerComponent
-import ru.otus.daggerhomework.di.FragmentProducerScope
+import ru.otus.daggerhomework.di.FragmentScope
 import ru.otus.daggerhomework.di.activity.ActivityComponent
 import ru.otus.daggerhomework.domain.ColorGenerator
 import ru.otus.daggerhomework.domain.ColorGeneratorImpl
@@ -18,7 +17,7 @@ import ru.otus.daggerhomework.presentation.viewmodels.ProducerViewModel
  *
  * @author Евтушенко Максим 11.11.2023
  */
-@FragmentProducerScope
+@FragmentScope
 @Component(
     modules = [ColorModule::class, FragmentProducerViewModel::class],
     dependencies = [ActivityComponent::class]
