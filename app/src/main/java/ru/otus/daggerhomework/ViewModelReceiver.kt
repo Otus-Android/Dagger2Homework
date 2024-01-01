@@ -19,13 +19,13 @@ class ViewModelReceiver @Inject constructor(
 
     fun observeColors(populate: (color: Int) -> Unit) {
         if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
-        Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
 
         viewModelScope.launch {
             observer.receiveAsFlow().collect { event ->
                 when (event) {
                     is LocalEvent.ColorData -> {
                         populate(event.color)
+                        Toast.makeText(context, "Color received", Toast.LENGTH_SHORT).show()
                     }
 
                     is LocalEvent.Error -> {

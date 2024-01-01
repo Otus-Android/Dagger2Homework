@@ -25,11 +25,11 @@ class ViewModelProducer @Inject constructor(
 
     fun generateColor() {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
-        Toast.makeText(context, "Color sent", Toast.LENGTH_LONG).show()
 
         viewModelScope.launch {
             try {
                 observer.send(LocalEvent.ColorData(colorGenerator.generateColor()))
+                Toast.makeText(context, "Color sent", Toast.LENGTH_SHORT).show()
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {

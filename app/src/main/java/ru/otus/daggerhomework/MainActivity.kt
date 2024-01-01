@@ -12,8 +12,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 //        supportFragmentManager.beginTransaction()
-//            .add(R.id.fragment_producer_container, FragmentProducer())
-//            .add(R.id.fragment_receiver_container, FragmentReceiver())
+//            .replace(R.id.fragment_producer_container, FragmentProducer())
+//            .replace(R.id.fragment_receiver_container, FragmentReceiver())
 //            .commit()
 
         ActivityComponentHolder

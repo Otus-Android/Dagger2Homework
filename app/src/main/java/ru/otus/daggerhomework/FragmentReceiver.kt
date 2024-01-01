@@ -52,7 +52,7 @@ class FragmentReceiver : Fragment() {
 
     private fun populateColor(@ColorInt color: Int) {
         currentColor = color
-        frame.setBackgroundColor(color)
+        frame.setBackgroundColor(currentColor)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
