@@ -1,18 +1,20 @@
 package ru.otus.daggerhomework.di.fragments
 
-import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Module
-import dagger.multibindings.IntoMap
-import ru.otus.daggerhomework.ViewModelReceiver
+import ru.otus.daggerhomework.ViewModelMarkerInterface
+import ru.otus.daggerhomework.ViewModelReceiver2
 
 @Module
 interface FragmentReceiverModule {
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(key = ViewModelReceiver::class)
-    @FragmentScope
-    fun bindViewModelReceiver(impl: ViewModelReceiver): ViewModel
+//    @Binds
+//    @IntoMap
+//    @ViewModelKey(key = ViewModelReceiver::class)
+//    @FragmentScope
+//    fun bindViewModelReceiver(impl: ViewModelReceiver): ViewModel
 
+    @Binds
+    @FragmentScope
+    fun bindViewModelReceiver2(impl: ViewModelReceiver2): ViewModelMarkerInterface
 }
