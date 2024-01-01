@@ -10,12 +10,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ru.otus.daggerhomework.R
 import ru.otus.daggerhomework.di.FragmentProducerComponent
+import ru.otus.daggerhomework.di.qualifiers.ActivityQualifier
 import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    @ActivityQualifier
+    lateinit var contextActivity: Context
 
     private val viewModelProducer by lazy {
         ViewModelProvider(this, viewModelFactory)[ViewModelProducer::class.java]
@@ -40,7 +45,7 @@ class FragmentProducer : Fragment() {
 
         view.findViewById<Button>(R.id.button).setOnClickListener {
             //отправить результат через livedata в другой фрагмент
-            viewModelProducer.generateColor()
+            viewModelProducer.generateColor(contextActivity)
         }
     }
 

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ru.otus.daggerhomework.R
 import ru.otus.daggerhomework.di.FragmentReceiverComponent
+import ru.otus.daggerhomework.di.qualifiers.ApplicationQualifier
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
@@ -18,6 +19,10 @@ class FragmentReceiver : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    @ApplicationQualifier
+    lateinit var contextApp: Context
 
     private val viewModuleReceiver by lazy {
         ViewModelProvider(this, viewModelFactory)[ViewModelReceiver::class.java]
@@ -42,7 +47,7 @@ class FragmentReceiver : Fragment() {
 
         frame = view.findViewById(R.id.frame)
 
-        viewModuleReceiver.observeColors(::populateColor)
+        viewModuleReceiver.observeColors(contextApp, ::populateColor)
     }
 
     override fun onAttach(context: Context) {
@@ -50,7 +55,7 @@ class FragmentReceiver : Fragment() {
         fragmentReceiverComponent.inject(this)
     }
 
-    fun populateColor(@ColorInt color: Int) {
+    private fun populateColor(@ColorInt color: Int) {
         frame.setBackgroundColor(color)
     }
 }
