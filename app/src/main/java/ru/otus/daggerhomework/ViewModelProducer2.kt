@@ -7,32 +7,31 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.SendChannel
 import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.di.activity.ActivityContextQualifier
 import javax.inject.Inject
 
 class ViewModelProducer2 @Inject constructor(
-    private val observer: Channel<LocalEvent>,
+    private val observable: SendChannel<@JvmSuppressWildcards LocalEvent>,
     private val colorGenerator: ColorGenerator,
     @ActivityContextQualifier
     private val activityContext: Context
 ) : ViewModelMarkerInterface {
 
-    private val viewModelJob = SupervisorJob()
-    private val viewModelScope = CoroutineScope(Dispatchers.Main.immediate + viewModelJob)
+    private val viewModelScope = CoroutineScope(Dispatchers.Main.immediate + SupervisorJob())
 
     fun generateColor() {
         if (activityContext !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
 
         viewModelScope.launch {
             try {
-                observer.send(LocalEvent.ColorData(colorGenerator.generateColor()))
+                observable.send(LocalEvent.ColorData(colorGenerator.generateColor()))
                 Toast.makeText(activityContext, "Color sent", Toast.LENGTH_SHORT).show()
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                observer.send(LocalEvent.Error(e))
+                observable.send(LocalEvent.Error(e))
             }
         }
     }

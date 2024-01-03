@@ -1,30 +1,24 @@
 package ru.otus.daggerhomework.di.fragments
 
 import dagger.Component
+import kotlinx.coroutines.channels.ReceiveChannel
 import ru.otus.daggerhomework.FragmentReceiver
+import ru.otus.daggerhomework.LocalEvent
 import ru.otus.daggerhomework.di.activity.ActivityComponent
 
 @FragmentScope
 @Component(
-    modules = [FragmentReceiverModule::class],
+    modules = [FragmentReceiverModule::class, FragmentReceiverChannelModule::class],
     dependencies = [ActivityComponent::class])
 interface FragmentReceiverComponent {
 
     fun inject(fragment: FragmentReceiver)
 
-    @Component.Factory
-    interface FragmentReceiverComponentFactory {
-        fun create(activityComponent: ActivityComponent): FragmentReceiverComponent
-    }
+    fun provideReceiveChannel(): ReceiveChannel<@JvmSuppressWildcards LocalEvent>
 
-    companion object {
-        private var fragmentReceiverComponent: FragmentReceiverComponent? = null
-
-        fun getFragComponent(activityComponent: ActivityComponent): FragmentReceiverComponent {
-            return fragmentReceiverComponent ?: DaggerFragmentReceiverComponent
-                .factory().create(activityComponent).also {
-                    fragmentReceiverComponent = it
-                }
-        }
+    @Component.Builder
+    interface FragmentReceiverComponentBuilder {
+        fun setActivityComponent(activityComponent: ActivityComponent): FragmentReceiverComponentBuilder
+        fun build(): FragmentReceiverComponent
     }
 }

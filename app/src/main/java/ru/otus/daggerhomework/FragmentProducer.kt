@@ -9,27 +9,27 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import ru.otus.daggerhomework.di.activity.ActivityComponentHolder
 import ru.otus.daggerhomework.di.app.appComponent
-import ru.otus.daggerhomework.di.fragments.FragmentProducerComponent
+import ru.otus.daggerhomework.di.fragments.DaggerFragmentProducerComponent
 import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
-
-//    @Inject
-//    lateinit var vmFactory: ViewModelFactory
-//    private val viewModel: ViewModelProducer by lazy {
-//        ViewModelProvider(this, vmFactory)[ViewModelProducer::class.java]
-//    }
 
     @Inject
     lateinit var viewModel: ViewModelProducer2
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        FragmentProducerComponent
-            .getFragComponent(
+        DaggerFragmentProducerComponent
+            .builder()
+            .setActivityComponent(
                 ActivityComponentHolder
-                    .getActivityComponent(context.appComponent, requireActivity())
-            ).inject(this)
+                    .getActivityComponent(
+                        context.appComponent,
+                        requireActivity()
+                    )
+            )
+            .build()
+            .inject(this)
     }
 
     override fun onCreateView(
