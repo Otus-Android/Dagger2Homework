@@ -7,6 +7,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.SendChannel
 import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.di.activity.ActivityContextQualifier
@@ -34,5 +35,9 @@ class ViewModelProducer2 @Inject constructor(
                 observable.send(LocalEvent.Error(e))
             }
         }
+    }
+
+    fun cancelScope() {
+        viewModelScope.cancel()
     }
 }

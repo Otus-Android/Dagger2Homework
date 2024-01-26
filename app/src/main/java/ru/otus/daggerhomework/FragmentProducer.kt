@@ -46,4 +46,9 @@ class FragmentProducer : Fragment() {
             viewModel.generateColor()
         }
     }
+
+    override fun onDestroyView() {
+        viewModel.cancelScope()
+        super.onDestroyView()
+    }
 }

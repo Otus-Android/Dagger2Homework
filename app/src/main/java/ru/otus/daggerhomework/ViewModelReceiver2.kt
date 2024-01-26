@@ -6,9 +6,8 @@ import android.widget.Toast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.ReceiveChannel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.di.app.ApplicationContextQualifier
@@ -26,7 +25,7 @@ class ViewModelReceiver2 @Inject constructor(
         if (applicationContext !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
 
         viewModelScope.launch {
-            observer.consumeAsFlow().collect { event ->
+            observer.receiveAsFlow().collect { event ->
 
                 when (event) {
                     is LocalEvent.ColorData -> {
@@ -40,5 +39,9 @@ class ViewModelReceiver2 @Inject constructor(
                 }
             }
         }
+    }
+
+    fun cancelScope() {
+        viewModelScope.cancel()
     }
 }

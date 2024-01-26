@@ -68,6 +68,11 @@ class FragmentReceiver : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        viewModel.cancelScope()
+        super.onDestroyView()
+    }
+
     companion object {
         private const val COLOR_KEY = "color"
     }
