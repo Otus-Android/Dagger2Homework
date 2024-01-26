@@ -3,7 +3,6 @@ package ru.otus.daggerhomework
 import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
-import kotlinx.coroutines.flow.MutableSharedFlow
 import javax.inject.Inject
 
 class ViewModelProducer @Inject constructor(
