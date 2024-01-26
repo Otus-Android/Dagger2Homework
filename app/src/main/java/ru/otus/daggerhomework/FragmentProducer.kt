@@ -6,8 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
+
+    @Inject
+    lateinit var receiver: ViewModelProducer
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        DaggerFragmentProducerComponent.builder()
+            .applicationComponent(requireActivity().application.dangerCast<App>().appComponent)
+            .mainActivityComponent(requireActivity().dangerCast<MainActivity>().mainComponent)
+            .build()
+            .inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +35,9 @@ class FragmentProducer : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.button).setOnClickListener {
-            //отправить результат через livedata в другой фрагмент
+            lifecycleScope.launch {
+                receiver.generateColor()
+            }
         }
     }
 }
