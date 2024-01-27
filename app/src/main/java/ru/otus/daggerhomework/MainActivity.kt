@@ -1,5 +1,6 @@
 package ru.otus.daggerhomework
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
@@ -17,16 +18,15 @@ fun interface ColorReceiver {
 
 class MainActivity : AppCompatActivity() {
 
-    private val colorTransactionFlow = MutableStateFlow(0)
+    private val colorTransactionFlow = MutableStateFlow(Color.TRANSPARENT)
 
     lateinit var mainComponent: MainActivityComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         mainComponent = DaggerMainActivityComponent.factory()
             .create(
-                application.dangerCast<App>().appComponent,
+                appComponent,
                 this,
-                colorTransactionFlow,
                 colorProducer = colorTransactionFlow::emit,
                 colorReceiver = { colorTransactionFlow }
             )

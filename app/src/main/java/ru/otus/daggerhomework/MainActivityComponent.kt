@@ -17,7 +17,6 @@ interface MainActivityComponent {
             applicationComponent: ApplicationComponent,
             @BindsInstance @ActivityContext activityContext: Context,
 
-            @BindsInstance dataFlow: MutableSharedFlow<Int>,
             @BindsInstance colorReceiver: ColorReceiver,
             @BindsInstance colorProducer: ColorProducer
         ): MainActivityComponent
@@ -25,9 +24,6 @@ interface MainActivityComponent {
 
     @ActivityContext
     fun provideActivityContext(): Context
-
-
-    fun provideDataFlow(): MutableSharedFlow<Int>
 
     fun provideColorReceiver(): ColorReceiver
 
