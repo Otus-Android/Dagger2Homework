@@ -1,10 +1,9 @@
 package ru.otus.daggerhomework
 
-import android.content.Context
-import dagger.BindsInstance
-import dagger.Component
-import dagger.Subcomponent
 
+import dagger.Component
+
+@MyScope
 @Component(dependencies = [ApplicationComponent::class])
 interface FragmentReceiverComponent {
 

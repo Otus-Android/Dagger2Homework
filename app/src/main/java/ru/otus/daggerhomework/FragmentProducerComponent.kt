@@ -5,6 +5,7 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.Subcomponent
 
+@MyScope
 @Component(dependencies = [ApplicationComponent::class])
 interface FragmentProducerComponent {
 
