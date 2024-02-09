@@ -3,12 +3,12 @@ package ru.otus.daggerhomework.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import ru.otus.daggerhomework.presentation.activity.MainActivity
 import ru.otus.daggerhomework.util.EventFlow
+import ru.otus.daggerhomework.util.EventSender
 import javax.inject.Qualifier
 
 @ActivityScope
-@Component(dependencies = [ApplicationComponent::class])
+@Component(dependencies = [ApplicationComponent::class], modules = [MainActivityModule::class])
 interface MainActivityComponent {
 
     @get:AppContext
@@ -18,8 +18,7 @@ interface MainActivityComponent {
     val activityContext: Context
 
     val eventFlow: EventFlow
-
-    fun inject(target: MainActivity)
+    val eventProducer: EventSender
 
     @Component.Factory
     interface Factory {

@@ -10,20 +10,18 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import ru.otus.daggerhomework.di.AppContext
-import ru.otus.daggerhomework.util.EventFlow
 import ru.otus.daggerhomework.util.IntEvent
+import ru.otus.daggerhomework.util.EventFlow
 
 class ViewModelReceiver @AssistedInject constructor(
     @Assisted savedStateHandle: SavedStateHandle,
-    @AppContext val context: Context,
     val eventFlow: EventFlow
 ) : ViewModel() {
 
     private val _colorFlow = MutableStateFlow(0)
     val colorFlow = _colorFlow.asStateFlow()
 
-    suspend fun observeColors() {
+    suspend fun observeColors(context: Context) {
         if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
         eventFlow.events().collect {
             when (it) {

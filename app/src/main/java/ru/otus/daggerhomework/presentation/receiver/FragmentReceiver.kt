@@ -45,7 +45,7 @@ class FragmentReceiver : Fragment(R.layout.fragment_b) {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.observeColors()
+                viewModel.observeColors(component.appContext)
             }
         }
     }

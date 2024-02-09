@@ -28,7 +28,7 @@ class FragmentProducer : Fragment(R.layout.fragment_a) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.button).setOnClickListener {
-            viewModel.generateColor()
+            viewModel.generateColor(component.activityContext)
         }
     }
 }

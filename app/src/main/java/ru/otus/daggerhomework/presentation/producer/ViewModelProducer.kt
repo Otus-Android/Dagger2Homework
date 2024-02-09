@@ -10,19 +10,17 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
-import ru.otus.daggerhomework.di.ActivityContext
 import ru.otus.daggerhomework.util.ColorGenerator
-import ru.otus.daggerhomework.util.EventFlow
+import ru.otus.daggerhomework.util.EventSender
 import ru.otus.daggerhomework.util.IntEvent
 
 class ViewModelProducer @AssistedInject constructor(
     @Assisted savedStateHandle: SavedStateHandle,
     val colorGenerator: ColorGenerator,
-    @ActivityContext val context: Context,
-    val eventFlow: EventFlow
+    val eventFlow: EventSender
 ) : ViewModel() {
 
-    fun generateColor() {
+    fun generateColor(context: Context) {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
         viewModelScope.launch {
             val color = colorGenerator.generateColor()
