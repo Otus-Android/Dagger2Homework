@@ -12,22 +12,32 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import ru.otus.daggerhomework.util.IntEvent
 import ru.otus.daggerhomework.util.EventFlow
+import java.lang.ref.WeakReference
 
 class ViewModelReceiver @AssistedInject constructor(
     @Assisted savedStateHandle: SavedStateHandle,
+    @Assisted context: Context,
     val eventFlow: EventFlow
 ) : ViewModel() {
 
     private val _colorFlow = MutableStateFlow(0)
     val colorFlow = _colorFlow.asStateFlow()
 
-    suspend fun observeColors(context: Context) {
-        if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
-        eventFlow.events().collect {
-            when (it) {
-                is IntEvent -> {
-                    _colorFlow.value = it.value
-                    Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
+    private var contextReference: WeakReference<Context> = WeakReference(context)
+
+    fun updateContext(context: Context) {
+        contextReference = WeakReference(context)
+    }
+
+    suspend fun observeColors() {
+        contextReference.get()?.let { context ->
+            if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
+            eventFlow.events().collect {
+                when (it) {
+                    is IntEvent -> {
+                        _colorFlow.value = it.value
+                        Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }
@@ -36,6 +46,6 @@ class ViewModelReceiver @AssistedInject constructor(
     @AssistedFactory
     interface Factory {
 
-        fun create(savedStateHandle: SavedStateHandle): ViewModelReceiver
+        fun create(savedStateHandle: SavedStateHandle, context: Context): ViewModelReceiver
     }
 }

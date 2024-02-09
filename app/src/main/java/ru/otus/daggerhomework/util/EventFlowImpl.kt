@@ -6,16 +6,6 @@ import kotlinx.coroutines.flow.asSharedFlow
 import ru.otus.daggerhomework.di.ActivityScope
 import javax.inject.Inject
 
-interface EventFlow {
-
-    fun events(): Flow<Event>
-}
-
-interface EventSender {
-
-    suspend fun send(event: Event)
-}
-
 @ActivityScope
 class EventFlowImpl @Inject constructor() : EventFlow, EventSender {
 

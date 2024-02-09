@@ -9,13 +9,14 @@ import ru.otus.daggerhomework.R
 import ru.otus.daggerhomework.di.FragmentProducerComponent
 import ru.otus.daggerhomework.presentation.activity.MainActivity
 import ru.otus.daggerhomework.util.assistedViewModel
+import java.lang.ref.WeakReference
 
 class FragmentProducer : Fragment(R.layout.fragment_a) {
 
     lateinit var component: FragmentProducerComponent
 
-    val viewModel: ViewModelProducer by assistedViewModel {
-        savedStateHandle -> component.viewModelFactory.create(savedStateHandle)
+    val viewModel: ViewModelProducer by assistedViewModel { savedStateHandle ->
+        component.viewModelFactory.create(savedStateHandle, component.activityContext)
     }
 
     override fun onAttach(context: Context) {
@@ -23,6 +24,7 @@ class FragmentProducer : Fragment(R.layout.fragment_a) {
         component = FragmentProducerComponent.factory().create(
             (requireActivity() as MainActivity).mainActivityComponent
         )
+        viewModel.updateContext(component.activityContext)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

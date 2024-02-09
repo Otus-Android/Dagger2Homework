@@ -16,13 +16,14 @@ import ru.otus.daggerhomework.R
 import ru.otus.daggerhomework.di.FragmentReceiverComponent
 import ru.otus.daggerhomework.presentation.activity.MainActivity
 import ru.otus.daggerhomework.util.assistedViewModel
+import java.lang.ref.WeakReference
 
 class FragmentReceiver : Fragment(R.layout.fragment_b) {
 
     lateinit var component: FragmentReceiverComponent
 
-    val viewModel: ViewModelReceiver by assistedViewModel {
-        savedStateHandle -> component.viewModelFactory.create(savedStateHandle)
+    val viewModel: ViewModelReceiver by assistedViewModel { savedStateHandle ->
+        component.viewModelFactory.create(savedStateHandle, component.appContext)
     }
 
     private lateinit var frame: View
@@ -32,6 +33,7 @@ class FragmentReceiver : Fragment(R.layout.fragment_b) {
         component = FragmentReceiverComponent.factory().create(
             (requireActivity() as MainActivity).mainActivityComponent
         )
+        viewModel.updateContext(component.appContext)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
