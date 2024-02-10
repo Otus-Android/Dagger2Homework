@@ -21,7 +21,6 @@ interface MainActivityComponent {
 
     fun inject(act: MainActivity)
 
-    @FragmentScope
     fun provideObserver(): MyObserver
 
     @AppContext

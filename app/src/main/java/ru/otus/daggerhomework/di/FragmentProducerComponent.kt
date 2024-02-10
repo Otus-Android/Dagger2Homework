@@ -1,5 +1,6 @@
 package ru.otus.daggerhomework.di
 
+import dagger.Binds
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -20,14 +21,10 @@ interface FragmentProducerComponent {
     }
 
     fun inject(f: FragmentProducer)
-
-    fun provideViewModel(): ViewModelProducer
 }
 
 @Module
-object ColorGeneratorModule {
-    @Provides
-    fun provideColorGenerator(): ColorGenerator {
-        return ColorGeneratorImpl()
-    }
+interface ColorGeneratorModule {
+    @Binds
+    fun provideColorGenerator(c: ColorGeneratorImpl): ColorGenerator
 }
