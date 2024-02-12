@@ -6,7 +6,9 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [BindsMainModule::class], dependencies = [ApplicationComponent::class])
+@Component(
+    modules = [BindsMainModule::class, MainModule::class],
+    dependencies = [ApplicationComponent::class])
 interface MainActivityComponent : StateFlowDependency {
 
   @Component.Factory

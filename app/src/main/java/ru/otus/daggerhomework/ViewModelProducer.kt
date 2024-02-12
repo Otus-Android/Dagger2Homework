@@ -6,18 +6,21 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 class ViewModelProducer(
     private val colorGenerator: ColorGenerator,
-    private val context: Context,
-    private val stateObserver: StateObserver
+    context: Context,
+    private val stateObserver: ProducerStateObserver
 ) : ViewModel() {
 
+  private val context: WeakReference<Context> = WeakReference(context)
+
   fun generateColor() {
-    if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
-    Toast.makeText(context, "Color sent", Toast.LENGTH_LONG).show()
+    if (context.get() !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
+    Toast.makeText(context.get(), "Color sent", Toast.LENGTH_LONG).show()
     viewModelScope.launch { stateObserver.setState(colorGenerator.generateColor()) }
   }
 }
@@ -27,7 +30,7 @@ class ViewModelProviderFactory
 constructor(
     private val colorGenerator: ColorGenerator,
     @ActivityContext private val context: Context,
-    private val stateObserver: StateObserver
+    private val stateObserver: ProducerStateObserver
 ) : ViewModelProvider.Factory {
 
   override fun <T : ViewModel> create(modelClass: Class<T>): T {

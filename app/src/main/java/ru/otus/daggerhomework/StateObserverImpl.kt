@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class StateObserverImpl @Inject constructor() : StateObserver {
+class StateObserverImpl @Inject constructor() : ProducerStateObserver, ReceiverStateObserver {
   private val stateFlow = MutableStateFlow<Int?>(null)
 
   override fun getStateObserver(): StateFlow<Int?> {

@@ -8,12 +8,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class ViewModelReceiver(private val context: Context, private val stateObserver: StateObserver) :
+class ViewModelReceiver(context: Context, private val stateObserver: ReceiverStateObserver) :
     ViewModel() {
+  private val context: WeakReference<Context> = WeakReference(context)
 
   private val _colorLiveData = MutableLiveData<Int>()
   val colorLiveData: LiveData<Int> = _colorLiveData
@@ -30,8 +32,8 @@ class ViewModelReceiver(private val context: Context, private val stateObserver:
   }
 
   private fun observeColors() {
-    if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
-    Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
+    if (context.get() !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
+    Toast.makeText(context.get(), "Color received", Toast.LENGTH_LONG).show()
   }
 }
 
@@ -39,7 +41,7 @@ class ViewModelReceiverFactory
 @Inject
 constructor(
     @ApplicationContext private val context: Context,
-    private val stateObserver: StateObserver
+    private val stateObserver: ReceiverStateObserver
 ) : ViewModelProvider.Factory {
 
   override fun <T : ViewModel> create(modelClass: Class<T>): T {

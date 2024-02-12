@@ -15,6 +15,6 @@ interface ApplicationComponent {
   }
 }
 
-@Qualifier @Retention(AnnotationRetention.RUNTIME) annotation class ApplicationContext
+@Qualifier annotation class ApplicationContext
 
-@Qualifier @Retention(AnnotationRetention.RUNTIME) annotation class ActivityContext
+@Qualifier annotation class ActivityContext

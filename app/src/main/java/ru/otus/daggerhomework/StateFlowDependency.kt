@@ -4,7 +4,9 @@ import android.content.Context
 
 interface StateFlowDependency {
 
-  fun getStateFlow(): StateObserver
+  fun getStateFlow(): ProducerStateObserver
+
+  fun getReceiverStateObserver(): ReceiverStateObserver
 
   @ApplicationContext fun context(): Context
 
