@@ -1,35 +1,26 @@
 package ru.otus.daggerhomework
 
-import android.graphics.Color
 import android.os.Bundle
-import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 
 
 fun interface ColorProducer {
-    suspend fun produceColor(@ColorInt color: Int)
+    suspend fun produceColor(color: IntColor)
 }
 
 fun interface ColorReceiver {
-    fun receiveColors(): Flow<Int>
+    fun receiveColors(): Flow<IntColor>
 }
 
 class MainActivity : AppCompatActivity() {
 
-    private val colorTransactionFlow = MutableStateFlow(Color.TRANSPARENT)
-
-    lateinit var mainComponent: MainActivityComponent
+    private lateinit var _mainComponent: MainActivityComponent
+    val mainComponent get() = _mainComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mainComponent = DaggerMainActivityComponent.factory()
-            .create(
-                appComponent,
-                this,
-                colorProducer = colorTransactionFlow::emit,
-                colorReceiver = { colorTransactionFlow }
-            )
+        _mainComponent = DaggerMainActivityComponent.factory()
+            .create(appComponent, this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }

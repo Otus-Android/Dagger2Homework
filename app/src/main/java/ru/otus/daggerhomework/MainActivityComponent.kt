@@ -5,8 +5,10 @@ import dagger.BindsInstance
 import dagger.Component
 
 
+@ActivityScope
 @Component(
-    dependencies = [ApplicationComponent::class]
+    dependencies = [ApplicationComponent::class],
+    modules = [MainActivityModule::class]
 )
 interface MainActivityComponent {
 
@@ -15,9 +17,6 @@ interface MainActivityComponent {
         fun create(
             applicationComponent: ApplicationComponent,
             @BindsInstance @ActivityContext activityContext: Context,
-
-            @BindsInstance colorReceiver: ColorReceiver,
-            @BindsInstance colorProducer: ColorProducer
         ): MainActivityComponent
     }
 
