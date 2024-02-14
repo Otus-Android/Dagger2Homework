@@ -3,8 +3,9 @@ package ru.otus.daggerhomework
 import android.app.Application
 import android.content.Context
 import android.widget.Toast
+import javax.inject.Inject
 
-class ViewModelReceiver(
+class ViewModelReceiver@Inject constructor(
     private val context: Context
 ) {
 
