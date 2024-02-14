@@ -22,7 +22,6 @@ class FragmentReceiver : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DaggerFragmentReceiverComponent.builder()
-            .applicationComponent(requireContext().appComponent)
             .mainActivityComponent(requireContext().mainActivityComponent)
             .build()
             .inject(this)

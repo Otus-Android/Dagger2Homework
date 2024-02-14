@@ -4,7 +4,6 @@ import dagger.Component
 
 @Component(
     dependencies = [
-        ApplicationComponent::class,
         MainActivityComponent::class
     ]
 )

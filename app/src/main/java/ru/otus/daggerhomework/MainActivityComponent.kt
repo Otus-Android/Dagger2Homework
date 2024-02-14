@@ -3,7 +3,6 @@ package ru.otus.daggerhomework
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import kotlinx.coroutines.flow.MutableSharedFlow
 
 
 @Component(
@@ -24,6 +23,9 @@ interface MainActivityComponent {
 
     @ActivityContext
     fun provideActivityContext(): Context
+
+    @ApplicationContext
+    fun provideApplicationContext(): Context
 
     fun provideColorReceiver(): ColorReceiver
 
