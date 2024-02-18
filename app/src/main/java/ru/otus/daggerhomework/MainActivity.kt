@@ -7,26 +7,25 @@ import ru.otus.daggerhomework.di.DaggerActivityComponent
 
 class MainActivity : AppCompatActivity() {
 
-    val activityComponent: ActivityComponent by lazy(LazyThreadSafetyMode.NONE) {
-        // Попытка сохранить компонент для сохранения состояния при повроте активити.
-        var component = savedActivityComponent
-        if (component == null) {
-            component = DaggerActivityComponent.factory().create(
+    val activityComponent: ComponentHolder<ActivityComponent> by lazy(LazyThreadSafetyMode.NONE) {
+        ComponentStore.get("activity") {
+            DaggerActivityComponent.factory().create(
                 (applicationContext as App).appComponent,
                 this
             )
-            savedActivityComponent = component
         }
-        component
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        activityComponent.inject(this)
+        activityComponent.component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
 
-    companion object {
-        private var savedActivityComponent: ActivityComponent? = null
+    override fun onDestroy() {
+        super.onDestroy()
+        if (isFinishing) {
+            ComponentStore.delete(activityComponent)
+        }
     }
 }

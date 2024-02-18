@@ -26,8 +26,13 @@ class FragmentReceiver : Fragment() {
         super.onAttach(context)
         DaggerFragmentReceiverComponent
             .factory()
-            .create((activity as MainActivity).activityComponent)
+            .create((activity as MainActivity).activityComponent.component)
             .inject(this)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        viewModel.clear()
     }
 
     override fun onCreateView(

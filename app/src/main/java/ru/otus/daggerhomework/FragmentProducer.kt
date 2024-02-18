@@ -19,7 +19,7 @@ class FragmentProducer : Fragment() {
         super.onAttach(context)
         DaggerFragmentProducerComponent
             .factory()
-            .create((activity as MainActivity).activityComponent)
+            .create((activity as MainActivity).activityComponent.component)
             .inject(this)
     }
 

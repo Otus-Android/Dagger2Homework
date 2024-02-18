@@ -35,8 +35,6 @@ interface ActivityComponent {
 
     fun provideColorExchanger(): ColorExchanger
 
-    fun provideColorGenerator(): ColorGenerator
-
     fun inject(activity: MainActivity)
 }
 

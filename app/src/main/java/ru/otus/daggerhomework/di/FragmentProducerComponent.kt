@@ -1,14 +1,16 @@
 package ru.otus.daggerhomework.di
 
-import android.content.Context
-import dagger.BindsInstance
+import dagger.Binds
 import dagger.Component
+import dagger.Module
+import ru.otus.daggerhomework.ColorGenerator
+import ru.otus.daggerhomework.ColorGeneratorImpl
 import ru.otus.daggerhomework.FragmentProducer
-
 
 @FragmentScope
 @Component(
-    dependencies = [ActivityComponent::class]
+    dependencies = [ActivityComponent::class],
+    modules = [FragmentProducerModule::class]
 )
 interface FragmentProducerComponent {
 
@@ -18,4 +20,10 @@ interface FragmentProducerComponent {
     }
 
     fun inject(fragment: FragmentProducer)
+}
+
+@Module
+interface FragmentProducerModule {
+    @Binds
+    fun provideColorGenerator(colorGenerator: ColorGeneratorImpl): ColorGenerator
 }
