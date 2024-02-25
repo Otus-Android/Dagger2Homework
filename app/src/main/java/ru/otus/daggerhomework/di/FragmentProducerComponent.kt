@@ -15,7 +15,7 @@ interface FragmentProducerComponent {
     interface Factory {
         fun create(mainActivityComponent: MainActivityComponent): FragmentProducerComponent
     }
-
+    @FragmentScope
     fun inject(fragmentProducer: FragmentProducer)
 
 }

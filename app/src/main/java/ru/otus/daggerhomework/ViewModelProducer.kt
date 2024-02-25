@@ -15,7 +15,7 @@ class ViewModelProducer @Inject constructor  (
     private val colorGenerator: ColorGenerator,
     @ActivityContext
     private val context: Context,
-    private val myObServer: MyObServer
+    private val myObServer: MyObServer.Send
 ) {
     private val scope = CoroutineScope(Dispatchers.Main + Job())
     fun generateColor() {

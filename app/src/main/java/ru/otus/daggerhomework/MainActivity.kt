@@ -12,8 +12,11 @@ class MainActivity : AppCompatActivity() {
 
     fun getMainActivityComponent() : MainActivityComponent? = mainActivityComponent
 
-    @Inject
-    lateinit var myObserver: MyObServer
+//    @Inject
+//    lateinit var myObserver: MyObServer
+//
+//    @Inject
+//    lateinit var myObServerMutable: MyObServerMutable
 
     override fun onCreate(savedInstanceState: Bundle?) {
 

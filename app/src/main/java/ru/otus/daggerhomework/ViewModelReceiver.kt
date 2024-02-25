@@ -15,7 +15,7 @@ import javax.inject.Inject
 class ViewModelReceiver @Inject constructor(
     @AppContext
     private val context: Context,
-    private val myObServer: MyObServer
+    private val myObServer: MyObServer.Observe
 ) {
 
     private val scope = CoroutineScope(Dispatchers.Main + Job())

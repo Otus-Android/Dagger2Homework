@@ -1,6 +1,5 @@
 package ru.otus.daggerhomework
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.launch
-import ru.otus.daggerhomework.di.AppContext
 import ru.otus.daggerhomework.di.DaggerFragmentReceiverComponent
 import javax.inject.Inject
 
@@ -19,13 +17,8 @@ class FragmentReceiver : Fragment() {
 
     private lateinit var frame: View
 
-    @AppContext
-    @Inject
-    lateinit var appContext: Context
-
     @Inject
     lateinit var viewModelReceiver: ViewModelReceiver
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +50,7 @@ class FragmentReceiver : Fragment() {
             }
         }
 
-            viewModelReceiver.observeColors()
+        viewModelReceiver.observeColors()
 
 
     }

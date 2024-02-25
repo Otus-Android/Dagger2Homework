@@ -5,8 +5,6 @@ import dagger.BindsInstance
 import dagger.Component
 import ru.otus.daggerhomework.MainActivity
 import ru.otus.daggerhomework.MyObServer
-import javax.inject.Qualifier
-import javax.inject.Scope
 
 
 @ActivityScope
@@ -16,13 +14,16 @@ interface MainActivityComponent {
     @Component.Factory
     interface Factory {
 
-        fun create(applicationComponent: ApplicationComponent,
-                   @BindsInstance @ActivityContext context: Context
-                   ): MainActivityComponent
+        fun create(
+            applicationComponent: ApplicationComponent,
+            @BindsInstance @ActivityContext context: Context
+        ): MainActivityComponent
     }
 
 
-    fun provideObserver(): MyObServer
+    fun provideObserver(): MyObServer.Observe
+    fun provideObserverSend(): MyObServer.Send
+
 
     @AppContext
     fun provideAppContext(): Context

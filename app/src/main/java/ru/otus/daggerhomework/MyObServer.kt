@@ -6,17 +6,24 @@ import kotlinx.coroutines.flow.asStateFlow
 import ru.otus.daggerhomework.di.ActivityScope
 import javax.inject.Inject
 
+
 @ActivityScope
-class MyObServer @Inject constructor() {
+object MyObServer  {
 
     private val _data = MutableStateFlow(0)
+    private val data = _data.asStateFlow()
 
-    suspend fun send(data: Int) {
-        _data.emit(data)
+
+    class Observe @Inject constructor() {
+        fun observe(): Flow<Int> {
+            return data
+        }
     }
 
-    fun observe(): Flow<Int> {
-        return _data.asStateFlow()
+    class Send @Inject constructor() {
+        suspend fun send(data: Int) {
+            _data.emit(data)
+        }
     }
 
 }
