@@ -26,8 +26,7 @@ class FragmentProducer : Fragment() {
         super.onAttach(context)
         component =
             DaggerFragmentProducerComponent.factory()
-                .create((requireActivity() as MainActivity).stateDependency)
-        component.inject(this)
+                .create((requireActivity() as MainActivity).mainActivityComponent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

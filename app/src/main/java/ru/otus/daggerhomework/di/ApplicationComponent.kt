@@ -4,6 +4,7 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Qualifier
+import javax.inject.Scope
 
 @Component
 interface ApplicationComponent {
@@ -20,3 +21,9 @@ interface ApplicationComponent {
 @Retention annotation class ApplicationContext
 
 @Qualifier @Retention annotation class ActivityContext
+
+@Scope
+annotation class ActivityScope
+
+@Scope
+annotation class FragmentScope
