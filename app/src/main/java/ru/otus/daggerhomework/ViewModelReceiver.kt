@@ -13,17 +13,20 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 class ViewModelReceiver @Inject constructor(
-    private val context: Context,
+    context: Context,
     private val colorGenerator: ColorGenerator
 ) : ViewModel() {
     var showToast = true
+
+    val contextThis : WeakReference<Context> = WeakReference(context)
     suspend fun observeColors(): StateFlow<Int> {
-        if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
+        if (contextThis.get() !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
         if(showToast){
-            Toast.makeText(context, "Color received", Toast.LENGTH_SHORT).show()
+            Toast.makeText(contextThis.get(), "Color received", Toast.LENGTH_SHORT).show()
             showToast = false}
         return colorGenerator.getColor().stateIn(CoroutineScope(Dispatchers.IO))
     }

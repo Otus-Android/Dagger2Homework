@@ -8,17 +8,19 @@ import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 class ViewModelProducer @Inject constructor(
     val colorGenerator: ColorGenerator,
-    private val context: Context
+    context: Context
 ) : ViewModel() {
 
+    val contextThis : WeakReference<Context> = WeakReference(context)
     fun changeColor() {
-        if (context !is MainActivity) throw RuntimeException("Здесь нужен контекст активити")
+        if (contextThis.get() !is MainActivity) throw RuntimeException("Здесь нужен контекст активити")
         colorGenerator.generateColor()
-        Toast.makeText(context, "Color sent", Toast.LENGTH_SHORT).show()
+        Toast.makeText(contextThis.get(), "Color sent", Toast.LENGTH_SHORT).show()
     }
 }
 
