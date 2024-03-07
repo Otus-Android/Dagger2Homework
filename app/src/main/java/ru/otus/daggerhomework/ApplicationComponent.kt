@@ -7,6 +7,8 @@ import dagger.Component
 @Component
 interface ApplicationComponent {
 
+    fun provideApplication(): Context
+
     @Component.Factory
     interface Factory {
 
