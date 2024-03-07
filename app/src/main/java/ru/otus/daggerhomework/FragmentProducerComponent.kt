@@ -2,13 +2,13 @@ package ru.otus.daggerhomework
 
 import dagger.Component
 
-@Component(dependencies = [MainActivityComponent::class, ApplicationComponent::class])
+@Component(dependencies = [MainActivityComponent::class])
 interface FragmentProducerComponent {
 
     fun inject(fragmentProducer: FragmentProducer)
 
     @Component.Factory
     interface Factory {
-        fun create(mainActivityComponent: MainActivityComponent, applicationComponent: ApplicationComponent): FragmentProducerComponent
+        fun create(mainActivityComponent: MainActivityComponent): FragmentProducerComponent
     }
 }

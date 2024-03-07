@@ -22,6 +22,7 @@ class FragmentReceiver : Fragment() {
     @Inject
     lateinit var subject: PublishSubject<Int>
 
+    @ApplicationContext
     @Inject
     lateinit var appContext: Context
 
@@ -30,11 +31,9 @@ class FragmentReceiver : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val activity = requireActivity() as MainActivity
-        val application = requireActivity().application as App
+        val activity = requireActivity() as MainActivityComponentInterface
         DaggerFragmentReceiverComponent.factory().create(
-            mainActivityComponent = activity.getMainActivityComponent(),
-            applicationComponent = application.appComponent
+            mainActivityComponent = activity.getComponent()
         ).inject(this)
         viewModelReceiver = ViewModelReceiver(appContext, subject)
         subscribeOnViewModel()

@@ -2,7 +2,9 @@ package ru.otus.daggerhomework
 
 import android.app.Application
 
-class App : Application() {
+class App :
+    ApplicationComponentInterface,
+    Application() {
 
-    val appComponent = DaggerApplicationComponent.factory().create(this)
+    override fun getComponent() = DaggerApplicationComponent.factory().create(this)
 }

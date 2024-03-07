@@ -1,5 +1,6 @@
 package ru.otus.daggerhomework
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,8 @@ class FragmentProducer : Fragment() {
     private lateinit var viewModelProducer: ViewModelProducer
 
     @Inject
-    lateinit var mainActivityContext: MainActivity
+    @MainActivityContext
+    lateinit var mainActivityContext: Context
 
     @Inject
     lateinit var subject: PublishSubject<Int>
@@ -24,11 +26,9 @@ class FragmentProducer : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val activity = requireActivity() as MainActivity
-        val application = activity.application as App
+        val activity = requireActivity() as MainActivityComponentInterface
         DaggerFragmentProducerComponent.factory().create(
-            mainActivityComponent = activity.getMainActivityComponent(),
-            applicationComponent = application.appComponent
+            mainActivityComponent = activity.getComponent()
         ).inject(this)
         viewModelProducer = ViewModelProducer(
             colorGenerator = ColorGeneratorImpl(),
@@ -42,7 +42,7 @@ class FragmentProducer : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.button).setOnClickListener {
-            viewModelProducer.generateColor()
+            //отправить результат через livedata в другой фрагмент
         }
     }
 }
