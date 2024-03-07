@@ -9,6 +9,7 @@ class ViewModelProducer(
     private val context: Context
 ) {
 
+
     fun generateColor() {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
         Toast.makeText(context, "Color sent", Toast.LENGTH_LONG).show()
