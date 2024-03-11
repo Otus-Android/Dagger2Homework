@@ -1,26 +1,28 @@
 package ru.otus.daggerhomework
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import ru.otus.daggerhomework.di.FragmentProducerComponent
 
-class FragmentProducer : Fragment() {
+class FragmentProducer : Fragment(R.layout.fragment_a) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_a, container, true)
-    }
+    private lateinit var viewModel: ViewModelProducer
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        FragmentProducerComponent.build((requireActivity() as MainActivity).mainActivityComponent).let { component ->
+            val context = component.provideContext()
+            val colorGenerator = component.provideColorGenerator()
+            val observer = component.provideObserver()
+            val factory = ViewModelProducer.Factory(colorGenerator, context, observer)
+            viewModel = ViewModelProvider(this, factory)[ViewModelProducer::class.java]
+        }
         view.findViewById<Button>(R.id.button).setOnClickListener {
-            //отправить результат через livedata в другой фрагмент
+            viewModel.generateColor()
         }
     }
 }
