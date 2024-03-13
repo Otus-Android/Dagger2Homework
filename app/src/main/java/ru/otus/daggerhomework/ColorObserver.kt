@@ -8,13 +8,16 @@ import javax.inject.Inject
 interface ColorObserver {
 
     val currentColor: StateFlow<Int>
+}
+
+interface MutableColorObserver : ColorObserver {
 
     fun refreshColor()
 }
 
 class ColorObserverImpl @Inject constructor(
     private val colorGenerator: ColorGenerator
-) : ColorObserver {
+) : MutableColorObserver {
 
     private val _currentColor = MutableStateFlow(colorGenerator.generateColor())
 

@@ -8,7 +8,7 @@ import ru.otus.daggerhomework.di.ActivityScope
 import javax.inject.Inject
 
 class ViewModelProducer @Inject constructor(
-    private val colorObserver: ColorObserver,
+    private val colorObserver: MutableColorObserver,
     @ActivityContext private val context: Context
 ) {
 

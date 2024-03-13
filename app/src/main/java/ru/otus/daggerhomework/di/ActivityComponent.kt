@@ -9,6 +9,7 @@ import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.ColorGeneratorImpl
 import ru.otus.daggerhomework.ColorObserver
 import ru.otus.daggerhomework.ColorObserverImpl
+import ru.otus.daggerhomework.MutableColorObserver
 import javax.inject.Qualifier
 import javax.inject.Scope
 
@@ -38,6 +39,10 @@ interface ColorModule {
 
     @Binds
     fun bindColorGenerator(impl: ColorGeneratorImpl): ColorGenerator
+
+    @Binds
+    @ActivityScope
+    fun bindMutableColorObserver(impl: ColorObserverImpl): MutableColorObserver
 
     @Binds
     @ActivityScope

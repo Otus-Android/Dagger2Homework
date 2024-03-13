@@ -6,8 +6,5 @@ import ru.otus.daggerhomework.ViewModelReceiver
 
 @Subcomponent
 interface FragmentReceiverComponent {
-
-    val viewModel: ViewModelReceiver
-
     fun inject(fragment: FragmentReceiver)
 }
