@@ -1,22 +1,18 @@
 package ru.otus.daggerhomework
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var component: MainActivityComponent
+    var mainActivityComponent: MainActivityComponent? = null
+        private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        component = DaggerMainActivityComponent
-            .factory()
-            .create(
-                this,
-                (application as App).applicationComponent,
-            )
-
         setContentView(R.layout.activity_main)
+        mainActivityComponent = DaggerMainActivityComponent
+            .factory()
+            .create(this, (application as App).applicationComponent)
     }
 }

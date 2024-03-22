@@ -6,17 +6,26 @@ import javax.inject.Qualifier
 import javax.inject.Scope
 import kotlin.reflect.KClass
 
-@Scope
-@Retention(AnnotationRetention.RUNTIME)
-annotation class ApplicationScope
+@Qualifier
+annotation class ActivityContext
 
 @Scope
 @Retention(AnnotationRetention.RUNTIME)
+
 annotation class ActivityScope
+
+@Qualifier
+annotation class ApplicationContext
 
 @Scope
 @Retention(AnnotationRetention.RUNTIME)
 annotation class FragmentScope
+
+@Qualifier
+annotation class ColorState
+
+@Qualifier
+annotation class ProducerColorState
 
 @MapKey
 @Retention(AnnotationRetention.RUNTIME)

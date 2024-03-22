@@ -3,29 +3,24 @@ package ru.otus.daggerhomework
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 @ActivityScope
-@Component(
-    modules = [MainActivityModule::class],
-    dependencies = [ApplicationComponent::class]
-)
+@Component(dependencies = [ApplicationComponent::class], modules = [MainActivityModule::class])
 interface MainActivityComponent {
 
-    @ActivityContextQualifier
+    @ActivityContext
     fun provideActivityContext(): Context
-
-    fun provideColorStateFlow(): MutableStateFlow<Color>
+    @ApplicationContext
+    fun provideApplicationContext(): Context
+    @ColorState
+    fun provideColorStateFlow(): StateFlow<Int?>
 
     @Component.Factory
-    interface MainActivityComponentFactory {
-
+    interface Factory {
         fun create(
-            @BindsInstance
-            @ActivityContextQualifier
-            activityContext: Context,
-            mainActivityComponent: ApplicationComponent
+            @BindsInstance @ActivityContext activity: Context,
+            applicationComponent: ApplicationComponent
         ): MainActivityComponent
     }
 }

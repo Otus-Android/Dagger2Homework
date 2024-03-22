@@ -7,8 +7,10 @@ import kotlinx.coroutines.flow.StateFlow
 
 @Module
 class MainActivityModule {
-
     @ActivityScope
+    @ColorState
     @Provides
-    fun providesColorStateFlow(): MutableStateFlow<Color> = MutableStateFlow(Color(0))
+    fun provideColorStateFlow(): StateFlow<Int?> {
+        return MutableStateFlow(null)
+    }
 }

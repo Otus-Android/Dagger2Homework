@@ -1,19 +1,22 @@
 package ru.otus.daggerhomework
 
-import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Module
-import dagger.multibindings.IntoMap
+import dagger.Provides
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 @Module
 interface FragmentProducerModule {
 
     @Binds
-    @FragmentScope
-    fun bindsColorGenerator(impl: ColorGeneratorImpl): ColorGenerator
+    fun bindColorGenerator(colorGeneratorImpl: ColorGeneratorImpl): ColorGenerator
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(ViewModelProducer::class)
-    fun bindsViewModelProducer(viewModelProducer: ViewModelProducer): ViewModel
+    companion object {
+        @Provides
+        @ProducerColorState
+        fun bindColorMutableStateFlow(@ColorState stateFlow: StateFlow<Int?>): MutableStateFlow<Int?> {
+            return stateFlow as MutableStateFlow<Int?>
+        }
+    }
 }
