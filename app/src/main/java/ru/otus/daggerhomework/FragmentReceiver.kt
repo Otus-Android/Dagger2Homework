@@ -16,13 +16,13 @@ class FragmentReceiver : Fragment(R.layout.fragment_b) {
         frame = view.findViewById(R.id.frame)
 
         FragmentReceiverComponent.build((requireActivity() as MainActivity).mainActivityComponent).let { component ->
-            val context = component.provideContext()
+            val contextFromComponent = component.provideContext()
             val observer = component.provideObserver()
-            val factory = ViewModelReceiver.Factory(context, observer) { color ->
+            val factory = ViewModelReceiver.Factory(observer) { color ->
                 populateColor(color)
             }
             val viewModel = ViewModelProvider(this, factory)[ViewModelReceiver::class.java]
-            viewModel.observeColors()
+            viewModel.observeColors(contextFromComponent)
         }
 
     }

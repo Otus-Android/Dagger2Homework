@@ -11,11 +11,10 @@ import kotlinx.coroutines.launch
 
 class ViewModelProducer(
     private val colorGenerator: ColorGenerator,
-    private val context: Context,
     private val observer: MutableStateFlow<Int>
 ) : ViewModel() {
 
-    fun generateColor() {
+    fun generateColor(context: Context) {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
         viewModelScope.launch {
             observer.emit(colorGenerator.generateColor())
@@ -25,13 +24,12 @@ class ViewModelProducer(
 
     class Factory(
         private val colorGenerator: ColorGenerator,
-        private val context: Context,
         private val observer: MutableStateFlow<Int>,
     ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return if (modelClass.isAssignableFrom(ViewModelProducer::class.java)) {
-                ViewModelProducer(colorGenerator, context, observer) as T
+                ViewModelProducer(colorGenerator, observer) as T
             } else {
                 throw IllegalArgumentException("ViewModelProvider.Factory error")
             }

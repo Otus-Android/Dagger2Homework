@@ -15,14 +15,15 @@ class FragmentProducer : Fragment(R.layout.fragment_a) {
         super.onViewCreated(view, savedInstanceState)
 
         FragmentProducerComponent.build((requireActivity() as MainActivity).mainActivityComponent).let { component ->
-            val context = component.provideContext()
+            val contextFromComponent = component.provideContext()
             val colorGenerator = component.provideColorGenerator()
             val observer = component.provideObserver()
-            val factory = ViewModelProducer.Factory(colorGenerator, context, observer)
+            val factory = ViewModelProducer.Factory(colorGenerator, observer)
             viewModel = ViewModelProvider(this, factory)[ViewModelProducer::class.java]
-        }
-        view.findViewById<Button>(R.id.button).setOnClickListener {
-            viewModel.generateColor()
+
+            view.findViewById<Button>(R.id.button).setOnClickListener {
+                viewModel.generateColor(contextFromComponent)
+            }
         }
     }
 }
