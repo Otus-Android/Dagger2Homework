@@ -12,17 +12,21 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import ru.otus.daggerhomework.di.components.FragmentReceiverComponent
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
 
-    private lateinit var frame: FrameLayout
-
     @Inject
     lateinit var viewModelReceiver: ViewModelReceiver
 
+    private lateinit var fragmentReceiverComponent: FragmentReceiverComponent
+    private lateinit var frame: FrameLayout
+
     override fun onAttach(context: Context) {
-        (requireActivity() as MainActivity).fragmentReceiverComponent.inject(this)
+        val mainActivityComponent = (requireActivity() as MainActivity).mainActivityComponent
+        fragmentReceiverComponent = mainActivityComponent.fragmentReceiverComponentBuilder().applicationContext((requireActivity() as MainActivity).applicationContext).build()
+        fragmentReceiverComponent.inject(this)
         super.onAttach(context)
     }
 

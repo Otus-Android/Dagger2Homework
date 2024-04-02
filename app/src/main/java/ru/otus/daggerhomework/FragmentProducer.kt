@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import ru.otus.daggerhomework.di.components.FragmentProducerComponent
 import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
@@ -14,8 +15,12 @@ class FragmentProducer : Fragment() {
     @Inject
     lateinit var viewModelProducer: ViewModelProducer
 
+    private lateinit var fragmentProducerComponent: FragmentProducerComponent
+
     override fun onAttach(context: Context) {
-        (requireActivity() as MainActivity).fragmentProducerComponent.inject(this)
+        val mainActivityComponent = (requireActivity() as MainActivity).mainActivityComponent
+        fragmentProducerComponent = mainActivityComponent.fragmentProducerComponentBuilder().applicationContext((requireActivity() as MainActivity).applicationContext).build()
+        fragmentProducerComponent.inject(this)
         super.onAttach(context)
     }
 
