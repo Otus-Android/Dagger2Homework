@@ -2,15 +2,14 @@ package ru.otus.daggerhomework
 
 import android.app.Application
 
-class App :Application() {
+class App : Application() {
+
+    lateinit var applicationComponent: ApplicationComponent
+        private set
+
     override fun onCreate() {
         super.onCreate()
-        initDagger()
-    }
-    private fun initDagger() {
-        val appComponent = DaggerApplicationComponent
-            .factory()
-            .create(this)
-        DiProvider.appComponent = appComponent
+
+        applicationComponent = DaggerApplicationComponent.factory().create(this)
     }
 }
