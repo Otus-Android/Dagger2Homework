@@ -5,12 +5,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdk 34
 
     defaultConfig {
         applicationId "ru.otus.daggerhomework"
         minSdkVersion 23
-        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -40,4 +39,6 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation 'com.google.dagger:dagger:2.42'
     kapt 'com.google.dagger:dagger-compiler:2.42'
+
+    implementation "androidx.fragment:fragment-ktx:1.5.0"
 }
