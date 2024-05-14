@@ -3,9 +3,11 @@ package ru.otus.daggerhomework.ui.receiver
 import android.app.Application
 import android.content.Context
 import android.widget.Toast
+import ru.otus.daggerhomework.di.annotations.AppContext
+import javax.inject.Inject
 
-class ViewModelReceiver(
-    private val context: Context
+class ViewModelReceiver @Inject constructor(
+    @AppContext private val context: Context
 ) {
 
     fun observeColors() {

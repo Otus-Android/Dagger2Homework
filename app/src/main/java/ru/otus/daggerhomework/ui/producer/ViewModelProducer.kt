@@ -3,11 +3,13 @@ package ru.otus.daggerhomework.ui.producer
 import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import ru.otus.daggerhomework.di.annotations.ActivityContext
 import ru.otus.daggerhomework.utils.ColorGenerator
+import javax.inject.Inject
 
-class ViewModelProducer(
+class ViewModelProducer @Inject constructor(
     private val colorGenerator: ColorGenerator,
-    private val context: Context
+    @ActivityContext private val context: Context
 ) {
 
     fun generateColor() {

@@ -3,13 +3,22 @@ package ru.otus.daggerhomework.di.components
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import ru.otus.daggerhomework.di.qualifiers.ActivityContext
-import ru.otus.daggerhomework.di.qualifiers.AppContext
+import ru.otus.daggerhomework.di.annotations.ActivityContext
+import ru.otus.daggerhomework.di.annotations.AppContext
+import ru.otus.daggerhomework.di.annotations.MainActivityScope
+import ru.otus.daggerhomework.di.modules.ActivityModule
+import ru.otus.daggerhomework.ui.producer.ViewModelProducer
+import ru.otus.daggerhomework.ui.receiver.ViewModelReceiver
 
+@MainActivityScope
 @Component(
-    dependencies = [ApplicationComponent::class]
+    dependencies = [ApplicationComponent::class],
+    modules = [ActivityModule::class]
 )
 interface MainActivityComponent {
+    fun provideViewModelProducer(): ViewModelProducer
+    fun provideViewModelReceiver(): ViewModelReceiver
+
     @AppContext
     fun provideApplicationContext(): Context
 
