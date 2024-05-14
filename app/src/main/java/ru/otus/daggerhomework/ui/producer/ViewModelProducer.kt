@@ -1,8 +1,9 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.ui.producer
 
 import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import ru.otus.daggerhomework.utils.ColorGenerator
 
 class ViewModelProducer(
     private val colorGenerator: ColorGenerator,

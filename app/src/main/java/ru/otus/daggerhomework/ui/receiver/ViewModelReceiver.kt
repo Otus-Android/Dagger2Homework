@@ -1,4 +1,4 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.ui.receiver
 
 import android.app.Application
 import android.content.Context
