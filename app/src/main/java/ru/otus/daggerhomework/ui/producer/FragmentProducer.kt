@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.R
 import ru.otus.daggerhomework.di.components.DaggerFragmentComponent
 import ru.otus.daggerhomework.ui.MainActivity
@@ -38,7 +40,9 @@ class FragmentProducer : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.button).setOnClickListener {
-            //отправить результат через livedata в другой фрагмент
+            lifecycleScope.launch {
+                viewModelProducer.generateColor()
+            }
         }
     }
 }
