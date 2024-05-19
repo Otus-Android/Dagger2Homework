@@ -48,7 +48,7 @@ class FragmentProducer : Fragment() {
     }
 
     override fun onDestroyView() {
-        viewModel.cancelScope()
+        viewModel.disposeResources()
         super.onDestroyView()
     }
 }

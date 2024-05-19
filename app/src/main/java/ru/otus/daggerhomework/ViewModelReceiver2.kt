@@ -41,7 +41,7 @@ class ViewModelReceiver2 @Inject constructor(
         }
     }
 
-    fun cancelScope() {
+    override fun disposeResources() {
         viewModelScope.cancel()
     }
 }

@@ -69,7 +69,7 @@ class FragmentReceiver : Fragment() {
     }
 
     override fun onDestroyView() {
-        viewModel.cancelScope()
+        viewModel.disposeResources()
         super.onDestroyView()
     }
 

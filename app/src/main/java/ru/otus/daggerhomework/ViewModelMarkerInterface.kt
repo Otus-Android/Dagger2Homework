@@ -1,3 +1,5 @@
 package ru.otus.daggerhomework
 
-interface ViewModelMarkerInterface
+interface ViewModelMarkerInterface {
+    fun disposeResources()
+}
