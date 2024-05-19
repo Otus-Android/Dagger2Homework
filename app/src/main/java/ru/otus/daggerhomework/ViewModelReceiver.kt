@@ -6,6 +6,7 @@ import android.graphics.Color
 import kotlinx.coroutines.flow.collect
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,7 +18,7 @@ import javax.inject.Inject
 
 class ViewModelReceiver @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val colorStorageRepository: ColorStorageRepository,
+    private val getColorRepository: GetColorRepository,
 ): ViewModel() {
 
     private val _state = MutableStateFlow(Color.WHITE)
@@ -31,7 +32,7 @@ class ViewModelReceiver @Inject constructor(
         if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
 
         viewModelScope.launch {
-            colorStorageRepository.getColor()
+            getColorRepository.getColor()
                 .onEach { color ->
                     if (color != null) {
                         _state.update { color }
@@ -40,4 +41,14 @@ class ViewModelReceiver @Inject constructor(
                 }.collect()
         }
     }
+}
+
+class ViewModelReceiverFactory @Inject constructor(
+    @ApplicationContext
+    private val context: Context,
+    private val getColorRepository: GetColorRepository
+) : ViewModelProvider.NewInstanceFactory() {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T =
+        ViewModelReceiver(context, getColorRepository) as T
 }

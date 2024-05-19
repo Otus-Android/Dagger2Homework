@@ -6,18 +6,22 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
-interface ColorStorageRepository {
+private val colorStateFlow = MutableStateFlow<Int?>(null)
+
+interface SetColorRepository {
     fun setColor(@ColorInt color: Int)
-    fun getColor(): StateFlow<Int?>
 }
 
-class ColorStorageRepositoryImpl @Inject constructor() : ColorStorageRepository {
-
-    private val colorStateFlow = MutableStateFlow<Int?>(null)
-
+class SetColorRepositoryImpl @Inject constructor(): SetColorRepository {
     override fun setColor(@ColorInt color: Int) {
         colorStateFlow.update { color }
     }
+}
 
+interface GetColorRepository {
+    fun getColor(): StateFlow<Int?>
+}
+
+class GetColorRepositoryImpl @Inject constructor(): GetColorRepository {
     override fun getColor(): MutableStateFlow<Int?> = colorStateFlow
 }

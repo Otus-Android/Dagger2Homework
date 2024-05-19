@@ -3,7 +3,8 @@ package ru.otus.daggerhomework.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import ru.otus.daggerhomework.ColorStorageRepository
+import ru.otus.daggerhomework.GetColorRepository
+import ru.otus.daggerhomework.SetColorRepository
 
 @ActivityScope
 @Component(
@@ -18,7 +19,8 @@ interface MainActivityComponent {
     @ActivityContext
     fun provideActivityContext(): Context
 
-    fun provideColorStorageRepository(): ColorStorageRepository
+    fun provideGetColorRepository(): GetColorRepository
+    fun provideSetColorRepository(): SetColorRepository
 
     @Component.Factory
     interface MainActivityFactory {

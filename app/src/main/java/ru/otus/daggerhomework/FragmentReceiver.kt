@@ -17,7 +17,8 @@ import javax.inject.Inject
 class FragmentReceiver : Fragment() {
 
     @Inject
-    lateinit var viewModel: ViewModelReceiver
+    lateinit var viewModelFactory: ViewModelReceiverFactory
+    private var viewModel: ViewModelReceiver? = null
 
     private lateinit var frame: View
 
@@ -32,11 +33,12 @@ class FragmentReceiver : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         frame = view.findViewById(R.id.frame)
+        viewModel = viewModelFactory.create(ViewModelReceiver::class.java)
 
         lifecycleScope.launch {
-            viewModel.state.onEach { color ->
+            viewModel?.state?.onEach { color ->
                 populateColor(color)
-            }.collect()
+            }?.collect()
         }
     }
 
