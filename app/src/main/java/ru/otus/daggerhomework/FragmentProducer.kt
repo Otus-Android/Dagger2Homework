@@ -38,7 +38,7 @@ class FragmentProducer : Fragment() {
 
     private fun initListeners() {
         view?.findViewById<Button>(R.id.button_generate_color)?.setOnClickListener {
-            viewModelProducer.generateColor()
+            viewModelProducer.generateColor(requireActivity())
         }
         view?.findViewById<Button>(R.id.button_open_receiver)?.setOnClickListener {
             parentFragmentManager.beginTransaction()

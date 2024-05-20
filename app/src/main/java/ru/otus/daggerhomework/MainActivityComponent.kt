@@ -18,7 +18,6 @@ interface MainActivityComponent {
     @Named("activityContext")
     fun provideContext(): Context
 
-    @Named("applicationContext")
     fun provideApplicationContext(): Context
 
     fun provideMutableStateFlow(): MutableStateFlow<Int>
