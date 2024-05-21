@@ -3,11 +3,13 @@ package ru.otus.daggerhomework.di.components
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import ru.otus.daggerhomework.di.annotations.AppContext
 import ru.otus.daggerhomework.di.annotations.MainActivityScope
+import ru.otus.daggerhomework.di.annotations.StateFlowColor
 import ru.otus.daggerhomework.di.modules.ActivityModule
-import ru.otus.daggerhomework.ui.producer.ViewModelProducer
-import ru.otus.daggerhomework.ui.receiver.ViewModelReceiver
+import ru.otus.daggerhomework.utils.ColorGenerator
 
 @MainActivityScope
 @Component(
@@ -15,8 +17,15 @@ import ru.otus.daggerhomework.ui.receiver.ViewModelReceiver
     modules = [ActivityModule::class]
 )
 interface MainActivityComponent {
-    fun provideViewModelProducer(): ViewModelProducer
-    fun provideViewModelReceiver(): ViewModelReceiver
+    fun provideColorGenerator(): ColorGenerator
+
+
+    @StateFlowColor
+    fun provideStateFlow(): StateFlow<Int>
+
+    @StateFlowColor
+    fun provideMutableStateFlow(): MutableStateFlow<Int>
+
 
     @AppContext
     fun provideApplicationContext(): Context
