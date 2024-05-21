@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.R
-import ru.otus.daggerhomework.di.components.DaggerFragmentComponent
+import ru.otus.daggerhomework.di.components.DaggerFragmentProducerComponent
 import ru.otus.daggerhomework.ui.MainActivity
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ class FragmentProducer : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val mainActivityComponent = (requireActivity() as MainActivity).mainActivityComponent
-        val fragmentComponent = DaggerFragmentComponent.builder()
+        val fragmentComponent = DaggerFragmentProducerComponent.builder()
             .mainActivityComponent(mainActivityComponent)
             .build()
 
