@@ -4,7 +4,6 @@ import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import kotlinx.coroutines.flow.MutableStateFlow
-import ru.otus.daggerhomework.di.annotations.ActivityContext
 import ru.otus.daggerhomework.di.annotations.StateFlowColor
 import ru.otus.daggerhomework.utils.ColorGenerator
 import javax.inject.Inject
@@ -12,7 +11,7 @@ import javax.inject.Inject
 class ViewModelProducer @Inject constructor(
     private val colorGenerator: ColorGenerator,
     @StateFlowColor private val mutableStateFlow: MutableStateFlow<Int>,
-    @ActivityContext private val context: Context
+    private val context: Context
 ) {
 
     suspend fun generateColor() {

@@ -3,7 +3,6 @@ package ru.otus.daggerhomework.di.components
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import ru.otus.daggerhomework.di.annotations.ActivityContext
 import ru.otus.daggerhomework.di.annotations.AppContext
 import ru.otus.daggerhomework.di.annotations.MainActivityScope
 import ru.otus.daggerhomework.di.modules.ActivityModule
@@ -22,14 +21,13 @@ interface MainActivityComponent {
     @AppContext
     fun provideApplicationContext(): Context
 
-    @ActivityContext
     fun provideActivityContext(): Context
 
     @Component.Factory
     interface Factory {
         fun create(
             applicationComponent: ApplicationComponent,
-            @BindsInstance @ActivityContext context: Context
+            @BindsInstance context: Context
         ): MainActivityComponent
     }
 }
