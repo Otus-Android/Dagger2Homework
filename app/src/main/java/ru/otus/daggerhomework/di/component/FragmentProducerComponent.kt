@@ -4,7 +4,6 @@ import android.content.Context
 import dagger.Component
 import ru.otus.daggerhomework.EventObserver
 import ru.otus.daggerhomework.FragmentProducer
-import ru.otus.daggerhomework.di.ActivityContext
 import ru.otus.daggerhomework.di.FeatureScope
 import ru.otus.daggerhomework.di.module.ProducerModule
 
@@ -20,7 +19,6 @@ interface ProducerComponent {
         }
     }
 
-    @ActivityContext
     fun provideActivityContext(): Context
 
     fun provideEventObserver(): EventObserver

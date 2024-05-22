@@ -4,8 +4,6 @@ import javax.inject.Qualifier
 
 @Qualifier
 annotation class ApplicationContext
-@Qualifier
-annotation class ActivityContext
 
 @Qualifier
 annotation class IO

@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
 
         mainActivityComponent = DaggerMainActivityComponent.factory().create(
             activityContext = this,
-            eventObserver = EventObserver(),
             applicationComponent = appComponent
         )
 
