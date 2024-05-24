@@ -13,8 +13,7 @@ import javax.inject.Inject
 class FragmentProducer : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProducerFactory
-    private var viewModel: ViewModelProducer? = null
+    lateinit var viewModel: ViewModelProducer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,9 +25,8 @@ class FragmentProducer : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = viewModelFactory.create(ViewModelProducer::class.java)
         view.findViewById<Button>(R.id.button).setOnClickListener {
-            viewModel?.generateColor()
+            viewModel.generateColor()
             (activity as MainActivity).navigateToReceiverFragment()
         }
     }
