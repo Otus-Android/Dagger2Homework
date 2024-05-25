@@ -14,20 +14,16 @@ class FragmentProducer : Fragment() {
     @Inject
     lateinit var viewModelProducer: ViewModelProducer
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        DaggerFragmentProducerComponent.builder()
-            .mainActivityComponent((requireActivity() as MainActivity).getMainActivityComponent())
-            .build()
-            .inject(this)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        DaggerFragmentProducerComponent.builder()
+            .mainActivityComponent((requireActivity() as MainActivity).getMainActivityComponent())
+            .build()
+            .inject(this)
+
         return inflater.inflate(R.layout.fragment_a, container, false)
     }
 

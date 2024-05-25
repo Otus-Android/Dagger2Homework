@@ -20,20 +20,16 @@ class FragmentReceiver : Fragment() {
     @Inject
     lateinit var viewModelReceiver: ViewModelReceiver
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        DaggerFragmentReceiverComponent.builder()
-            .mainActivityComponent((requireActivity() as MainActivity).getMainActivityComponent())
-            .build()
-            .inject(this)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        DaggerFragmentReceiverComponent.builder()
+            .mainActivityComponent((requireActivity() as MainActivity).getMainActivityComponent())
+            .build()
+            .inject(this)
+
         return inflater.inflate(R.layout.fragment_b, container, false)
     }
 
