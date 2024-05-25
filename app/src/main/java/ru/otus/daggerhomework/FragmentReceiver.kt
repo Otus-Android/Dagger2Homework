@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
@@ -19,9 +18,7 @@ class FragmentReceiver : Fragment() {
     private lateinit var frame: View
 
     @Inject
-    lateinit var viewModelFactory: ReceiverViewModelFactory
-
-    private lateinit var viewModel: ViewModelReceiver
+    lateinit var viewModelReceiver: ViewModelReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,17 +40,17 @@ class FragmentReceiver : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(
-            requireActivity(),
-            viewModelFactory
-        )[ViewModelReceiver::class.java]
-
         frame = view.findViewById(R.id.frame)
 
-        viewModel.colorEventFlow
+        viewModelReceiver.colorEventFlow
             .filterNotNull()
             .onEach(::populateColor)
             .launchIn(lifecycleScope)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModelReceiver.onDestroyView()
     }
 
     private fun populateColor(@ColorInt color: Int) {

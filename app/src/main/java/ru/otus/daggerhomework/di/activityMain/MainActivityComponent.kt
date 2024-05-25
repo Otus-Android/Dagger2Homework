@@ -6,8 +6,8 @@ import dagger.Component
 import ru.otus.daggerhomework.ColorEventSource
 import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.MainActivity
-import ru.otus.daggerhomework.di.annotation.Activity
-import ru.otus.daggerhomework.di.annotation.Application
+import ru.otus.daggerhomework.di.annotation.ActivityContext
+import ru.otus.daggerhomework.di.annotation.ApplicationContext
 import ru.otus.daggerhomework.di.annotation.scope.ActivityScope
 import ru.otus.daggerhomework.di.application.ApplicationComponent
 
@@ -18,10 +18,10 @@ import ru.otus.daggerhomework.di.application.ApplicationComponent
 )
 interface MainActivityComponent {
 
-    @Application
+    @ApplicationContext
     fun provideApplicationContext(): Context
 
-    @Activity
+    @ActivityContext
     fun provideActivityContext(): Context
 
     fun provideColorGenerator(): ColorGenerator

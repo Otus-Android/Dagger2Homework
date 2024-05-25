@@ -4,7 +4,7 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.otus.daggerhomework.ColorGenerator
-import ru.otus.daggerhomework.di.annotation.Application
+import ru.otus.daggerhomework.di.annotation.ApplicationContext
 import javax.inject.Singleton
 
 @Singleton
@@ -13,7 +13,7 @@ interface ApplicationComponent {
 
     fun provideColorGenerator(): ColorGenerator
 
-    @Application
+    @ApplicationContext
     fun provideApplicationContext(): Context
 
     @Component.Factory

@@ -6,13 +6,13 @@ import dagger.Module
 import dagger.Provides
 import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.ColorGeneratorImpl
-import ru.otus.daggerhomework.di.annotation.Application
+import ru.otus.daggerhomework.di.annotation.ApplicationContext
 
 @Module
 interface AppModule {
 
     companion object {
-        @Application
+        @ApplicationContext
         @Provides
         @JvmStatic
         fun provideApplicationContext(context: Context): Context {

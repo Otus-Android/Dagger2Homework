@@ -3,18 +3,25 @@ package ru.otus.daggerhomework
 import android.app.Application
 import android.content.Context
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import ru.otus.daggerhomework.di.annotation.ApplicationContext
+import ru.otus.daggerhomework.di.annotation.scope.FragmentReceiverScope
+import javax.inject.Inject
 
-class ViewModelReceiver(
+@FragmentReceiverScope
+class ViewModelReceiver @Inject constructor(
     private val colorEventSource: ColorEventSource,
-    private val context: Context
-) : ViewModel() {
+    @ApplicationContext private val context: Context
+) {
+
+    private val viewModelReceiverScope = CoroutineScope(Dispatchers.Main)
 
     private val _colorEventFlow = MutableStateFlow<Int?>(null)
 
@@ -31,6 +38,10 @@ class ViewModelReceiver(
             .onEach { color ->
                 Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
                 _colorEventFlow.tryEmit(color)
-            }.launchIn(viewModelScope)
+            }.launchIn(viewModelReceiverScope)
+    }
+
+    fun onDestroyView() {
+        viewModelReceiverScope.cancel()
     }
 }

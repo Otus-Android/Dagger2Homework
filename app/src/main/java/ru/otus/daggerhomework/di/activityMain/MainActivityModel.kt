@@ -3,12 +3,12 @@ package ru.otus.daggerhomework.di.activityMain
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import ru.otus.daggerhomework.di.annotation.Activity
+import ru.otus.daggerhomework.di.annotation.ActivityContext
 
 @Module
 object MainActivityModel {
 
-    @Activity
+    @ActivityContext
     @Provides
     @JvmStatic
     fun provideApplicationContext(context: Context): Context {
