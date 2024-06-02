@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_producer_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:name="ru.otus.daggerhomework.FragmentProducer"
-        app:layout_constraintBottom_toTopOf="@id/fragment_receiver_container"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/delimiter"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_a" />
+
+    <View
+        android:id="@+id/delimiter"
+        android:layout_width="8dp"
+        android:layout_height="0dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/fragment_producer_container"
+        app:layout_constraintEnd_toStartOf="@id/fragment_receiver_container"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_receiver_container"
@@ -24,9 +33,8 @@
         android:layout_height="0dp"
         android:name="ru.otus.daggerhomework.FragmentReceiver"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/delimiter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_producer_container"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_b"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
