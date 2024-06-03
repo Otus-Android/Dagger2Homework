@@ -1,14 +1,25 @@
 package ru.otus.daggerhomework
 
+import dagger.Binds
 import dagger.Component
+import dagger.Module
 import javax.inject.Scope
 
 @ReceiverScope
-@Component(dependencies = [MainActivityComponent::class])
+@Component(
+    modules = [FragmentReceiverModule::class],
+    dependencies = [MainActivityComponent::class]
+)
 interface FragmentReceiverComponent {
     fun inject(fragmentReceiver: FragmentReceiver)
 }
 
+@Module
+interface FragmentReceiverModule {
+    @Binds
+    fun bindsEventsObserver(eventsObserverImpl: EventsObserverImpl): EventsObserver
+}
+
+
 @Scope
-@Retention(AnnotationRetention.RUNTIME)
 annotation class ReceiverScope

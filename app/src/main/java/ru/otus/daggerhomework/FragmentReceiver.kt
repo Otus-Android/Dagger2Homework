@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import dagger.Lazy
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -17,10 +16,7 @@ class FragmentReceiver : Fragment() {
     private lateinit var frame: View
 
     @Inject
-    lateinit var viewModelFactory: Lazy<ViewModelReceiver.ViewModelFactory>
-    private val viewModel: ViewModelReceiver by lazy {
-        viewModelFactory.get().create(ViewModelReceiver::class.java)
-    }
+    lateinit var viewModel: ViewModelReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

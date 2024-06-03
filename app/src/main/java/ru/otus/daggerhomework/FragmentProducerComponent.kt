@@ -19,8 +19,9 @@ interface FragmentProducerComponent {
 interface FragmentProducerModule {
     @Binds
     fun bindsColorGenerator(colorGeneratorImpl: ColorGeneratorImpl): ColorGenerator
+    @Binds
+    fun bindsEventsProducer(eventsProducerImpl: EventsProducerImpl): EventsProducer
 }
 
 @Scope
-@Retention(AnnotationRetention.RUNTIME)
 annotation class ProducerScope

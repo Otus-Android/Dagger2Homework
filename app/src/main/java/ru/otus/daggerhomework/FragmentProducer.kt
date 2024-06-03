@@ -7,17 +7,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import dagger.Lazy
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: Lazy<ViewModelProducer.ViewModelFactory>
-    private val viewModel: ViewModelProducer by lazy {
-        viewModelFactory.get().create(ViewModelProducer::class.java)
-    }
+    lateinit var viewModel: ViewModelProducer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
