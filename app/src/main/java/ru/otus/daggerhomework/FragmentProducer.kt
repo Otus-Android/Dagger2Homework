@@ -10,12 +10,11 @@ import androidx.fragment.app.Fragment
 import javax.inject.Inject
 
 class FragmentProducer: Fragment() {
-    @Inject lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var viewModel: ViewModelProducer
+    @Inject lateinit var viewModel: ViewModelProducer
 
-    val component by lazy {
-        DaggerFragmentProducerComponent.factory().create((requireActivity() as MainActivity).mainActivityComponent)
-    }
+    val component = DaggerFragmentProducerComponent.factory().create(
+        (requireActivity() as MainActivity).mainActivityComponent
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,8 +31,6 @@ class FragmentProducer: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = viewModelFactory.create(ViewModelProducer::class.java)
 
         view.findViewById<Button>(R.id.button).setOnClickListener {
             viewModel.generateColor()

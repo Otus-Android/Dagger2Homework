@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class ViewModelReceiver @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val appObserver: AppObserver
+    appObserver: AppObserver
 ): ViewModel() {
     val colorLiveData = appObserver.liveData
     fun observeColors() {

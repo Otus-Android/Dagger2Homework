@@ -3,5 +3,5 @@ package ru.otus.daggerhomework
 import android.app.Application
 
 class App :Application() {
-    val component by lazy { DaggerApplicationComponent.factory().create(this) }
+    val component = DaggerApplicationComponent.factory().create(this)
 }

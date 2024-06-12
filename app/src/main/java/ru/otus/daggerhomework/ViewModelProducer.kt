@@ -10,7 +10,7 @@ class ViewModelProducer @Inject constructor(
     private val colorGenerator: ColorGenerator,
     @ApplicationContext private val context: Context,
     private val appObserver: AppObserver
-): ViewModel() {
+) {
     fun generateColor() {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
         val color = colorGenerator.generateColor()
