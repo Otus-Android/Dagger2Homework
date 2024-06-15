@@ -13,7 +13,6 @@ import ru.otus.daggerhomework.di.application.ApplicationComponent
 
 @ActivityScope
 @Component(
-    modules = [MainActivityModel::class],
     dependencies = [ApplicationComponent::class]
 )
 interface MainActivityComponent {
@@ -34,7 +33,7 @@ interface MainActivityComponent {
     interface MainActivityComponentFactory {
         fun create(
             appComponent: ApplicationComponent,
-            @BindsInstance activityContext: Context
+            @BindsInstance @ActivityContext activityContext: Context
         ): MainActivityComponent
     }
 }
