@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @FragmentReceiverScope
 class ViewModelReceiver @Inject constructor(
-    private val colorEventSource: ColorEventSource,
+    private val colorReceiver: ColorReceiver,
     @ApplicationContext private val context: Context
 ) {
 
@@ -33,7 +33,7 @@ class ViewModelReceiver @Inject constructor(
 
     private fun observeColors() {
         if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
-        colorEventSource.events
+        colorReceiver.listenColorEvents()
             .filterNotNull()
             .onEach { color ->
                 Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
