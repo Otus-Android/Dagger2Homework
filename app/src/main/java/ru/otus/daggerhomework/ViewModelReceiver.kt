@@ -9,14 +9,18 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.lang.ref.WeakReference
 
 class ViewModelReceiver(
-    private val context: Context,
+    context: Context,
     private val observer: StateFlow<Int>,
     private val onReceive: (Int) -> Unit,
 ): ViewModel() {
 
+    private val contextRef: WeakReference<Context> = WeakReference(context)
+
     fun observeColors() {
+        val context = contextRef.get()
         if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
         viewModelScope.launch {
             observer.collect { color: Int ->

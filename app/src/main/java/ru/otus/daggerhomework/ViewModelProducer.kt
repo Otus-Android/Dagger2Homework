@@ -7,17 +7,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import java.lang.ref.WeakReference
 
 class ViewModelProducer(
     private val colorGenerator: ColorGenerator,
-    private val context: Context,
+    context: Context,
     private val observer: MutableStateFlow<Int>,
 ): ViewModel() {
 
+    private val contextRef: WeakReference<Context> = WeakReference(context)
+
     fun generateColor() {
+        val context = contextRef.get()
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
         viewModelScope.launch {
             observer.emit(colorGenerator.generateColor())
