@@ -1,16 +1,12 @@
 package ru.otus.daggerhomework
 
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
-import kotlinx.coroutines.flow.MutableStateFlow
-import javax.inject.Singleton
 
 @Module
-object ColorGeneratorModule {
+interface ColorGeneratorModule {
 
-    @Provides
-    fun provideColorGenerator(): ColorGenerator {
-        return ColorGeneratorImpl()
-    }
+    @Binds
+    fun provideColorGenerator(colorGeneratorImpl: ColorGeneratorImpl): ColorGenerator
 
 }
