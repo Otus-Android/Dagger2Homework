@@ -4,11 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+
+    private lateinit var viewModelReceiver: ViewModelReceiver
 
     private lateinit var frame: View
 
@@ -17,12 +23,25 @@ class FragmentReceiver : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_b, container, true)
+        ReceiverComponent
+            .getReceiverComponent(
+                (requireActivity() as MainActivity).getMainActivityComponent()
+            )
+            .inject(this)
+
+        return inflater.inflate(R.layout.fragment_b, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         frame = view.findViewById(R.id.frame)
+        viewModelReceiver = ViewModelProvider(this, viewModelFactory)
+            .get(ViewModelReceiver::class.java)
+
+        viewModelReceiver.state.observe(viewLifecycleOwner) {
+            populateColor(it)
+        }
     }
 
     fun populateColor(@ColorInt color: Int) {
