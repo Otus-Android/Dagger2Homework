@@ -10,9 +10,7 @@ import javax.inject.Singleton
 annotation class ContextApplication
 
 @Singleton
-@Component(
-  modules = [],
-)
+@Component()
 interface ApplicationComponent {
 
   @Component.Factory

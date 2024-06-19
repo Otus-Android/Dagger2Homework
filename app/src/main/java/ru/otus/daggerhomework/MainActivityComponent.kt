@@ -1,10 +1,10 @@
 package ru.otus.daggerhomework
 
 import android.content.Context
+import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
-import dagger.Provides
 import javax.inject.Qualifier
 import javax.inject.Scope
 
@@ -42,11 +42,7 @@ interface MainActivityComponent {
 
 @Module
 interface MainActivityModule {
-  companion object {
-    @ActivityScope
-    @Provides
-    fun provideObservable(): IColorObservable {
-      return ColorObservableImpl()
-    }
-  }
+  @ActivityScope
+  @Binds
+  fun bindObservable(impl: ColorObservableImpl): IColorObservable
 }

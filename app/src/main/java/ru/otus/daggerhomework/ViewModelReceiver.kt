@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 
 class ViewModelReceiver(
-    @ContextApplication private val context: Context,
+    private val context: Context,
     private val colorObservable: IColorObservable,
 ) : ViewModel() {
     private val mutableState = MutableLiveData<Int>()

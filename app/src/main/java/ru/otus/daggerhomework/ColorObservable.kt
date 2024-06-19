@@ -1,5 +1,7 @@
 package ru.otus.daggerhomework
 
+import javax.inject.Inject
+
 interface IObserver<T> {
   fun notify(data: T)
 }
@@ -12,7 +14,7 @@ interface IColorObservable {
   fun notify(data: Int)
 }
 
-class ColorObservableImpl: IColorObservable {
+class ColorObservableImpl @Inject constructor() : IColorObservable {
   private val observers = mutableListOf<IObserver<Int>>()
 
   override fun add(observer: IObserver<Int>) {
