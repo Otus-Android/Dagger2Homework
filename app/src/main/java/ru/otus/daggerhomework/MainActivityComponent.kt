@@ -10,7 +10,6 @@ import ru.otus.daggerhomework.scopes.ActivityScope
 @ActivityScope
 @Component(
     dependencies = [ApplicationComponent::class],
-    modules = [MainActivityModule::class],
 )
 interface MainActivityComponent {
 
