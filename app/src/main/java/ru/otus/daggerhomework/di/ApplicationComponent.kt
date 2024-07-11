@@ -3,6 +3,7 @@ package ru.otus.daggerhomework.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Singleton
@@ -10,8 +11,16 @@ import javax.inject.Singleton
 interface ApplicationComponent {
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance applicationContext: Context): ApplicationComponent
+        fun create(
+            @BindsInstance
+            @ApplicationContext
+            applicationContext: Context
+        ): ApplicationComponent
     }
 
+    @ApplicationContext
     fun provideApplicationContext(): Context
 }
+
+@Qualifier
+annotation class ApplicationContext

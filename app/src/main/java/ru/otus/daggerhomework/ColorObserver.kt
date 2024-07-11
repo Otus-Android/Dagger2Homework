@@ -1,17 +1,16 @@
 package ru.otus.daggerhomework
 
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import ru.otus.daggerhomework.di.ActivityScope
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @ActivityScope
 class ColorObserver @Inject constructor() {
-    private val _color = MutableStateFlow<Int?>(null)
-    val color = _color.asStateFlow()
+    private val _color = MutableLiveData<Int>()
+    val color: LiveData<Int> = _color
 
     fun postColor(color: Int) {
-        _color.value = color
+        _color.postValue(color)
     }
 }

@@ -1,19 +1,15 @@
 package ru.otus.daggerhomework.di
 
-import dagger.Component
-import ru.otus.daggerhomework.ColorObserver
+import dagger.Subcomponent
 import ru.otus.daggerhomework.FragmentReceiver
 
 @FragmentScope
-@Component(dependencies = [MainActivityComponent::class])
+@Subcomponent
 interface FragmentReceiverComponent {
 
-    @Component.Factory
-    interface Factory {
-        fun create(mainActivityComponent: MainActivityComponent): FragmentReceiverComponent
-    }
-
     fun inject(fragmentReceiver: FragmentReceiver)
+}
 
-    fun provideColorObserver(): ColorObserver
+interface FragmentReceiverComponentHolder {
+    fun getReceiverComponent(): FragmentReceiverComponent
 }

@@ -8,10 +8,12 @@ import ru.otus.daggerhomework.ColorObserver
 import ru.otus.daggerhomework.MainActivity
 import javax.inject.Qualifier
 import javax.inject.Scope
-import javax.inject.Singleton
 
 @ActivityScope
-@Component(dependencies = [ApplicationComponent::class], modules = [ColorEventModule::class])
+@Component(
+    dependencies = [ApplicationComponent::class],
+    modules = [ColorEventModule::class]
+)
 interface MainActivityComponent {
 
     @Component.Factory
@@ -24,15 +26,15 @@ interface MainActivityComponent {
 
     fun inject(activity: MainActivity)
 
+    fun provideProducerComponent(): FragmentProducerComponent
+    fun provideReceiverComponent(): FragmentReceiverComponent
+
+    @ApplicationContext
     fun provideApplicationContext(): Context
 
     fun provideColorObserver(): ColorObserver
 
     fun provideColorGenerator(): ColorGenerator
-}
-
-interface MainActivityComponentHolder {
-    fun getActivityComponent(): MainActivityComponent
 }
 
 @Scope

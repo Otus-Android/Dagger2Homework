@@ -3,10 +3,13 @@ package ru.otus.daggerhomework
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ru.otus.daggerhomework.di.DaggerMainActivityComponent
+import ru.otus.daggerhomework.di.FragmentProducerComponent
+import ru.otus.daggerhomework.di.FragmentProducerComponentHolder
+import ru.otus.daggerhomework.di.FragmentReceiverComponent
+import ru.otus.daggerhomework.di.FragmentReceiverComponentHolder
 import ru.otus.daggerhomework.di.MainActivityComponent
-import ru.otus.daggerhomework.di.MainActivityComponentHolder
 
-class MainActivity : AppCompatActivity(), MainActivityComponentHolder {
+class MainActivity : AppCompatActivity(), FragmentProducerComponentHolder, FragmentReceiverComponentHolder {
     lateinit var mainActivityComponent: MainActivityComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,17 +18,21 @@ class MainActivity : AppCompatActivity(), MainActivityComponentHolder {
 
         mainActivityComponent = DaggerMainActivityComponent.factory().create(
             this,
-            (application as App).appComponent
+            (applicationContext as App).appComponent
         )
 
         supportFragmentManager.beginTransaction().add(
             R.id.container1,
             FragmentProducer(),
-            ""
+            "a"
         ).commit()
     }
 
-    override fun getActivityComponent(): MainActivityComponent {
-        return mainActivityComponent
+    override fun getProducerComponent(): FragmentProducerComponent {
+        return mainActivityComponent.provideProducerComponent()
+    }
+
+    override fun getReceiverComponent(): FragmentReceiverComponent {
+        return mainActivityComponent.provideReceiverComponent()
     }
 }

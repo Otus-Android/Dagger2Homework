@@ -3,6 +3,7 @@ package ru.otus.daggerhomework
 import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import ru.otus.daggerhomework.di.ActivityContext
 import ru.otus.daggerhomework.di.FragmentScope
 import javax.inject.Inject
 
@@ -10,11 +11,13 @@ import javax.inject.Inject
 class ViewModelProducer @Inject constructor(
     private val colorObserver: ColorObserver,
     private val colorGenerator: ColorGenerator,
-    private val context: Context
+    @ActivityContext private val context: Context
 ) {
 
     fun generateColor() {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
         Toast.makeText(context, "Color sent", Toast.LENGTH_LONG).show()
+
+        colorObserver.postColor(colorGenerator.generateColor())
     }
 }
