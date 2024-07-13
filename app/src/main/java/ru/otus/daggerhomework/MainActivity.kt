@@ -8,9 +8,6 @@ class MainActivity : AppCompatActivity() {
         private set
 
     override fun onCreate(savedInstanceState : Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
         activityComponent = DaggerMainActivityComponent
             .factory()
             .create(
@@ -18,8 +15,13 @@ class MainActivity : AppCompatActivity() {
                 appComponent = (application as App).appComponent
             )
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, FragmentProducer())
-            .commit()
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, FragmentProducer())
+                .commit()
+        }
     }
 }
