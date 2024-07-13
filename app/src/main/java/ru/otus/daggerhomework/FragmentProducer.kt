@@ -10,11 +10,7 @@ import javax.inject.Inject
 class FragmentProducer : Fragment(R.layout.fragment_a) {
 
     @Inject
-    lateinit var viewModelFactory : ViewModelFactory
-
-    private val producerViewModel by lazy(LazyThreadSafetyMode.NONE) {
-        viewModelFactory.create(ViewModelProducer::class.java)
-    }
+    lateinit var producerViewModel : ViewModelProducer
 
     override fun onAttach(context : Context) {
         super.onAttach(context)
