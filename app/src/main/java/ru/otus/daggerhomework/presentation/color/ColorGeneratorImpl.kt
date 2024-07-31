@@ -1,15 +1,8 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.presentation.color
 
 import android.graphics.Color
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
-import java.util.*
+import java.util.Random
 
-interface ColorGenerator {
-
-    @ColorInt
-    fun generateColor(): Int
-}
 
 class ColorGeneratorImpl : ColorGenerator {
 

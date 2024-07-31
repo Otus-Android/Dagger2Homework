@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.channels.Channel
-import ru.otus.daggerhomework.ColorGenerator
-import ru.otus.daggerhomework.ColorGeneratorImpl
+import ru.otus.daggerhomework.presentation.color.ColorGenerator
+import ru.otus.daggerhomework.presentation.color.ColorGeneratorImpl
 import ru.otus.daggerhomework.di.utils.scopes.ActivityScope
 
 @Module
