@@ -5,7 +5,8 @@ import dagger.BindsInstance
 import dagger.Component
 
 @Component(
-    dependencies = [ApplicationComponent::class]
+    dependencies = [ApplicationComponent::class],
+    modules = [ColorRepositoryModule::class]
 )
 @ActivityScope
 interface MainActivityComponent {
