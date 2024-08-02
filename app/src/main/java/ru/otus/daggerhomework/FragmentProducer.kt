@@ -13,14 +13,12 @@ import javax.inject.Inject
 class FragmentProducer : Fragment() {
 
     @Inject
-    lateinit internal var colorRepositoryWriteOnly: IColorRepositoryWriteOnly
+    lateinit internal var viewModelProducer: ViewModelProducer
 
     override fun onAttach(context: Context) {
         DaggerFragmentProducerComponent.factory().create(
-            activityComponent = (activity as MainActivity).mainActivityComponent
-        ).also {
-            it.inject(this)
-        }
+            activityComponent = (requireActivity() as MainActivity).mainActivityComponent
+        ).inject(this)
         super.onAttach(context)
     }
 

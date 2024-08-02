@@ -7,22 +7,22 @@ import kotlinx.coroutines.flow.update
 import ru.otus.daggerhomework.di.ActivityScope
 import javax.inject.Inject
 
-interface IColorRepository : IColorRepositoryReadOnly, IColorRepositoryWriteOnly
+interface ColorRepository : ColorRepositoryReadOnly, ColorRepositoryWriteOnly
 
-interface IColorRepositoryReadOnly {
-    val colorFlow: StateFlow<Color>
+interface ColorRepositoryReadOnly {
+    val colorFlow: StateFlow<GeneratedColor>
 }
 
-interface IColorRepositoryWriteOnly {
-    fun updateColor(color: Color)
+interface ColorRepositoryWriteOnly {
+    fun updateColor(color: GeneratedColor)
 }
 
 @ActivityScope
-class ColorRepositoryImpl @Inject constructor() : IColorRepository {
-    private val _colorFlow: MutableStateFlow<Color> = MutableStateFlow(Color.Unavailable)
-    override val colorFlow: StateFlow<Color> = _colorFlow.asStateFlow()
+class ColorRepositoryImpl @Inject constructor() : ColorRepository {
+    private val _colorFlow: MutableStateFlow<GeneratedColor> = MutableStateFlow(GeneratedColor.Default)
+    override val colorFlow: StateFlow<GeneratedColor> = _colorFlow.asStateFlow()
 
-    override fun updateColor(color: Color) {
+    override fun updateColor(color: GeneratedColor) {
         _colorFlow.update { color }
     }
 }

@@ -13,16 +13,14 @@ import javax.inject.Inject
 class FragmentReceiver : Fragment() {
 
     @Inject
-    internal lateinit var colorRepositoryReadOnly: IColorRepositoryReadOnly
+    internal lateinit var colorRepositoryReadOnly: ColorRepositoryReadOnly
 
     private lateinit var frame: View
 
     override fun onAttach(context: Context) {
         DaggerFragmentReceiverComponent.factory().create(
-            activityComponent = (activity as MainActivity).mainActivityComponent
-        ).also {
-            it.inject(this)
-        }
+            activityComponent = (requireActivity() as MainActivity).mainActivityComponent
+        ).inject(this)
         super.onAttach(context)
     }
 

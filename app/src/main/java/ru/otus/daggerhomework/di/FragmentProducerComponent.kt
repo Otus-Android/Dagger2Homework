@@ -4,7 +4,8 @@ import dagger.Component
 import ru.otus.daggerhomework.FragmentProducer
 
 @Component(
-    dependencies = [MainActivityComponent::class]
+    dependencies = [MainActivityComponent::class],
+    modules = [FragmentProducerModule::class]
 )
 @FragmentScope
 interface FragmentProducerComponent {
