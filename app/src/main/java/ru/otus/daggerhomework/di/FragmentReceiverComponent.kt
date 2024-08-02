@@ -4,7 +4,8 @@ import dagger.Component
 import ru.otus.daggerhomework.FragmentReceiver
 
 @Component(
-    dependencies = [MainActivityComponent::class]
+    dependencies = [MainActivityComponent::class],
+    modules = [FragmentProducerModule::class]
 )
 @FragmentScope
 interface FragmentReceiverComponent {

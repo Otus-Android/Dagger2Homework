@@ -23,6 +23,9 @@ interface MainActivityComponent {
         ): MainActivityComponent
     }
 
+    @ApplicationContext
+    fun provideApplicationContext(): Context
+
     @ActivityContext
     fun provideActivityContext(): Context
 
