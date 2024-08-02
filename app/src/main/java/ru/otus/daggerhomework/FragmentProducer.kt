@@ -1,13 +1,28 @@
 package ru.otus.daggerhomework
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import ru.otus.daggerhomework.di.DaggerFragmentProducerComponent
+import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
+
+    @Inject
+    lateinit internal var colorRepositoryWriteOnly: IColorRepositoryWriteOnly
+
+    override fun onAttach(context: Context) {
+        DaggerFragmentProducerComponent.factory().create(
+            activityComponent = (activity as MainActivity).mainActivityComponent
+        ).also {
+            it.inject(this)
+        }
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

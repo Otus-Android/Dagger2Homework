@@ -3,6 +3,8 @@ package ru.otus.daggerhomework.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import ru.otus.daggerhomework.IColorRepositoryReadOnly
+import ru.otus.daggerhomework.IColorRepositoryWriteOnly
 
 @Component(
     dependencies = [ApplicationComponent::class],
@@ -20,4 +22,8 @@ interface MainActivityComponent {
             applicationComponent: ApplicationComponent
         ): MainActivityComponent
     }
+
+    fun provideColorRepositoryReadOnly(): IColorRepositoryReadOnly
+
+    fun provideColorRepositoryWriteOnly(): IColorRepositoryWriteOnly
 }
