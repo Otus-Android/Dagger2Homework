@@ -17,7 +17,7 @@ class FragmentReceiver : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_b, container, true)
+        return inflater.inflate(R.layout.fragment_b, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
