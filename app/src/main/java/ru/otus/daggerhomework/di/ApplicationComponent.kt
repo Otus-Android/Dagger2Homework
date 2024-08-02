@@ -17,4 +17,7 @@ interface ApplicationComponent {
             applicationContext: Context
         ): ApplicationComponent
     }
+
+    @ApplicationContext
+    fun provideApplicationContext(): Context
 }
