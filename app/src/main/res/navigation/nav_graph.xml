@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentProducer">
+
+    <fragment
+        android:id="@+id/fragmentProducer"
+        android:name="ru.otus.daggerhomework.FragmentProducer"
+        android:label="fragment_producer">
+        <action
+            android:id="@+id/action_fragmentProducer_to_fragmentReceiver"
+            app:destination="@id/fragmentReceiver"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentReceiver"
+        android:name="ru.otus.daggerhomework.FragmentReceiver"
+        android:label="fragment_receiver">
+        <action
+            android:id="@+id/action_fragmentReceiver_to_fragmentProducer"
+            app:destination="@id/fragmentProducer"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+</navigation>
