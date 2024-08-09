@@ -36,11 +36,4 @@ interface MainActivityModule {
     @Binds
     fun bindsColorGenerator(colorGeneratorImpl: ColorGeneratorImpl): ColorGenerator
 
-    companion object {
-        @Singleton
-        @Provides
-        fun provideColorEventObserver(): ColorEventObserver {
-            return ColorEventObserver()
-        }
-    }
 }

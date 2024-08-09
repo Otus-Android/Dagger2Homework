@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +20,7 @@ class ViewModelReceiver (
     fun observeColors() {
         if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
         viewModelScope.launch {
-            colorEventObserver.colorEventState.collect {
+            colorEventObserver.onChangeColorState {
                 Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
                 color.postValue(it)
             }

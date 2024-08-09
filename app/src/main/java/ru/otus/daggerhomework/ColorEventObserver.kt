@@ -5,12 +5,18 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
-class ColorEventObserver {
+class ColorEventObserver @Inject constructor() {
 
     private val _colorEventState: MutableStateFlow<Int> = MutableStateFlow(Color.YELLOW)
-    val colorEventState = _colorEventState.asStateFlow()
+    private val colorEventState = _colorEventState.asStateFlow()
 
     fun setColor(color: Int) {
         _colorEventState.value = color
+    }
+
+    suspend fun onChangeColorState(onChange: (Int) -> Unit) {
+        colorEventState.collect {
+            onChange.invoke(it)
+        }
     }
 }
