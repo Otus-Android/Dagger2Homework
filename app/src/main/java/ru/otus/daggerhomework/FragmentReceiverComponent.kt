@@ -1,5 +1,6 @@
 package ru.otus.daggerhomework
 
+import dagger.Module
 import dagger.Subcomponent
 
 @Subcomponent
@@ -12,3 +13,6 @@ interface FragmentReceiverComponent {
 
     fun inject(receiverFragment: FragmentReceiver)
 }
+
+@Module(subcomponents = [FragmentReceiverComponent::class])
+interface ReceiverModule

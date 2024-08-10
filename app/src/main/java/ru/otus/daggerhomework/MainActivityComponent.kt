@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Subcomponent
 
 @ActivityScope
-@Subcomponent(modules = [ProducerModule::class])
+@Subcomponent(modules = [ProducerModule::class, ReceiverModule::class])
 interface MainActivityComponent {
 
     @Subcomponent.Factory
