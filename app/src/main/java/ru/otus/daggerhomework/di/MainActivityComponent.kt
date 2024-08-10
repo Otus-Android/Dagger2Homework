@@ -1,9 +1,10 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.di
 
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Module
 import dagger.Subcomponent
+import ru.otus.daggerhomework.presentation.MainActivity
 
 @ActivityScope
 @Subcomponent(modules = [ProducerModule::class, ReceiverModule::class])

@@ -1,4 +1,4 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.presentation
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import ru.otus.daggerhomework.R
+import ru.otus.daggerhomework.di.FragmentProducerComponent
 import javax.inject.Inject
 
 class FragmentProducer : Fragment() {

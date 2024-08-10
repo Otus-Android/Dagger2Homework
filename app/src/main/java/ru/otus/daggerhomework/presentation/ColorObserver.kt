@@ -1,8 +1,9 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.presentation
 
 import androidx.annotation.ColorInt
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import ru.otus.daggerhomework.di.ActivityScope
 import javax.inject.Inject
 
 @ActivityScope

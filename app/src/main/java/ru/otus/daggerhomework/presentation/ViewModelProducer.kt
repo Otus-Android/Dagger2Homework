@@ -1,8 +1,9 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.presentation
 
 import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import ru.otus.daggerhomework.di.ActivityContext
 import javax.inject.Inject
 
 class ViewModelProducer @Inject constructor(

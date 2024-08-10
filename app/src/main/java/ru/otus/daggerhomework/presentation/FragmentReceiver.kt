@@ -1,4 +1,4 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.presentation
 
 import android.content.Context
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import ru.otus.daggerhomework.R
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {

@@ -1,4 +1,4 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.presentation
 
 import android.app.Application
 import android.content.Context
@@ -6,6 +6,7 @@ import android.widget.Toast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.otus.daggerhomework.di.ApplicationContext
 import javax.inject.Inject
 
 class ViewModelReceiver @Inject constructor(

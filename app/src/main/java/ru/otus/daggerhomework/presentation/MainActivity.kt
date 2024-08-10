@@ -1,7 +1,10 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import ru.otus.daggerhomework.App
+import ru.otus.daggerhomework.R
+import ru.otus.daggerhomework.di.MainActivityComponent
 
 class MainActivity : AppCompatActivity() {
 

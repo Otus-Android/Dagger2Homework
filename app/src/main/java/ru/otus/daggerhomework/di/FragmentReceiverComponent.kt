@@ -1,7 +1,8 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.di
 
 import dagger.Module
 import dagger.Subcomponent
+import ru.otus.daggerhomework.presentation.FragmentReceiver
 
 @Subcomponent
 interface FragmentReceiverComponent {

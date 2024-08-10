@@ -1,8 +1,11 @@
-package ru.otus.daggerhomework
+package ru.otus.daggerhomework.di
 
 import dagger.Binds
 import dagger.Module
 import dagger.Subcomponent
+import ru.otus.daggerhomework.presentation.ColorGenerator
+import ru.otus.daggerhomework.presentation.ColorGeneratorImpl
+import ru.otus.daggerhomework.presentation.FragmentProducer
 
 @Subcomponent
 interface FragmentProducerComponent {
