@@ -11,14 +11,10 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class FragmentReceiver : Fragment() {
-
-    lateinit var viewModel: ViewModelReceiver
-
     private var component: FragmentReceiverComponent? = null
 
     @Inject
-    @Named("ReceiverFactory")
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModel: ViewModelReceiver
 
     private lateinit var frame: View
 
@@ -38,7 +34,6 @@ class FragmentReceiver : Fragment() {
             .create()
 
         frame = view.findViewById(R.id.frame)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModelReceiver::class.java)
         viewModel.color.observe(viewLifecycleOwner) {
             populateColor(it)
         }

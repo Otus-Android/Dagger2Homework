@@ -12,14 +12,11 @@ import javax.inject.Named
 
 class FragmentProducer : Fragment() {
 
-
-    private lateinit var viewModel: ViewModelProducer
-
     private var component: FragmentProducerComponent? = null
 
     @Inject
     @Named("ProducerFactory")
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModel: ViewModelProducer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +33,7 @@ class FragmentProducer : Fragment() {
             .addFragmentProducerComponent()
             .create()
 
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModelProducer::class.java)
+//        viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModelProducer::class.java)
 
         view.findViewById<Button>(R.id.button).setOnClickListener {
             //отправить результат через livedata в другой фрагмент

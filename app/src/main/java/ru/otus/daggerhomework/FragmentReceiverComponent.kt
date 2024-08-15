@@ -1,8 +1,10 @@
 package ru.otus.daggerhomework
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.Subcomponent
 import javax.inject.Named
 
@@ -19,10 +21,13 @@ interface FragmentReceiverComponent {
 @Module
 interface FragmentReceiverModule {
 
-    @Binds
-    @Named("ReceiverFactory")
-    fun bindsViewModelReceiverFactory(
-        viewModelReceiverFactory: ViewModelReceiverFactory
-    ): ViewModelProvider.Factory
+//    @Provides
+//    @Named("ReceiverFactory")
+//    fun bindsViewModelReceiver(
+//        context: Context,
+//        colorEventObserver: ColorEventObserver
+//    ): ViewModelReceiver {
+//        return ViewModelReceiver(context, colorEventObserver)
+//    }
 
 }

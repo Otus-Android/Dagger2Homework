@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.Subcomponent
 import javax.inject.Named
 
@@ -19,10 +20,13 @@ interface FragmentProducerComponent {
 
 @Module
 interface FragmentProducerModule {
-
-    @Binds
-    @Named("ProducerFactory")
-    fun bindsViewModelProducerFactory(
-        viewModelProducerFactory: ViewModelProducerFactory
-    ): ViewModelProvider.Factory
+//    @Provides
+//    @Named("ProducerFactory")
+//    fun provideViewModelProducer(
+//        colorGenerator: ColorGenerator,
+//        context: Context,
+//        colorEventObserver: ColorEventObserver
+//    ): ViewModelProducer {
+//        return ViewModelProducer(colorGenerator, context, colorEventObserver)
+//    }
 }

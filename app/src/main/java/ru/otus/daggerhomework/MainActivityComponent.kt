@@ -17,7 +17,6 @@ interface MainActivityComponent {
             @BindsInstance  context: Context
         ): MainActivityComponent
     }
-//@Named("ActivityContext")
 
     fun addFragmentProducerComponent(): FragmentProducerComponent.Factory
 
