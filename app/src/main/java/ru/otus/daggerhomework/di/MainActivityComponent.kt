@@ -7,7 +7,7 @@ import dagger.Subcomponent
 import ru.otus.daggerhomework.presentation.MainActivity
 
 @ActivityScope
-@Subcomponent(modules = [ProducerModule::class, ReceiverModule::class])
+@Subcomponent(modules = [FragmentsModule::class])
 interface MainActivityComponent {
 
     @Subcomponent.Factory
