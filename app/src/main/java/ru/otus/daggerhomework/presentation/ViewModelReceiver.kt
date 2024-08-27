@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class ViewModelReceiver @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val colorObserver: ColorObserver
+    private val colorObserver: ReadOnlyColorObserver
 ) {
 
     fun observeColors() : StateFlow<Int> {

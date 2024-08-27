@@ -9,7 +9,7 @@ import javax.inject.Inject
 class ViewModelProducer @Inject constructor(
     private val colorGenerator: ColorGenerator,
     @ActivityContext private val context: Context,
-    private val colorObserver: ColorObserver
+    private val colorObserver: MutableColorObserver
 ) {
 
     fun generateColor() {

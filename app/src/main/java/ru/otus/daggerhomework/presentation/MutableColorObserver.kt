@@ -7,10 +7,10 @@ import ru.otus.daggerhomework.di.ActivityScope
 import javax.inject.Inject
 
 @ActivityScope
-class ColorObserver @Inject constructor() {
+class MutableColorObserver @Inject constructor() : ReadOnlyColorObserver {
 
     private val _mutableColorFlow = MutableStateFlow(0)
-    val colorFlow = _mutableColorFlow.asStateFlow()
+    override val colorFlow = _mutableColorFlow.asStateFlow()
 
     fun setColor(@ColorInt color: Int) {
         _mutableColorFlow.value = color
