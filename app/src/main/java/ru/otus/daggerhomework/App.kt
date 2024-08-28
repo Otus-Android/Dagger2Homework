@@ -12,12 +12,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        applicationComponent = DaggerApplicationComponent.factory().create(applicationContext)
+        applicationComponent = DaggerApplicationComponent.factory().create(this)
     }
 }
-
-val Context.applicationComponent: ApplicationComponent
-    get() = when (this)  {
-        is App -> applicationComponent
-        else -> applicationContext.applicationComponent
-    }

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import ru.otus.daggerhomework.R
 import ru.otus.daggerhomework.di.DaggerFragmentProducerComponent
 import javax.inject.Inject
@@ -14,8 +13,7 @@ import javax.inject.Inject
 class FragmentProducer : Fragment() {
 
     @Inject
-    lateinit var viewModelProducerFactory: ViewModelProducerFactory
-    private val viewModel by viewModels<ViewModelProducer> { viewModelProducerFactory }
+    lateinit var viewModel: ViewModelProducer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +31,12 @@ class FragmentProducer : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.button).setOnClickListener {
             viewModel.generateColor()
+        }
+    }
+
+    companion object {
+        fun newInstance(): FragmentProducer {
+            return FragmentProducer()
         }
     }
 }

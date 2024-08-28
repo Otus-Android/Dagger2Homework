@@ -19,14 +19,12 @@ interface FragmentProducerComponent {
 
         fun create(activityComponent: MainActivityComponent): FragmentProducerComponent
     }
-    fun inject(fragment: FragmentProducer)
 
-    fun provideColorGenerator(): ColorGenerator
+    fun inject(fragment: FragmentProducer)
 }
 
 @Module
 interface FragmentProducerModule {
-    @FragmentScope
     @Binds
     fun colorGenerator(colorGeneratorImpl: ColorGeneratorImpl): ColorGenerator
 }
