@@ -1,15 +1,18 @@
 package ru.otus.daggerhomework.di
 
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.ColorGeneratorImpl
+import ru.otus.daggerhomework.ColorObserver
+import ru.otus.daggerhomework.ColorObserverImpl
 
 @Module(subcomponents = [FragmentProducerComponent::class])
-object FragmentProducerModule {
+interface FragmentProducerModule {
 
-    @Provides
-    fun provideColorGenerator(): ColorGenerator {
-        return ColorGeneratorImpl()
-    }
+    @Binds
+    fun bindColorGenerator(colorGenerator: ColorGeneratorImpl): ColorGenerator
+
+    @Binds
+    fun bindColorObserver(colorObserver: ColorObserverImpl): ColorObserver
 }
