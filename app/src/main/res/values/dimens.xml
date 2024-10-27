@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <dimen name="match_constraint">0dp</dimen>
+    <dimen name="little_margin">4dp</dimen>
+    <dimen name="little_padding">4dp</dimen>
+
+    <dimen name="width_rectangle">1dp</dimen>
+    <dimen name="width_dash_rectangle">4dp</dimen>
+    <dimen name="gap_dash_rectangle">4dp</dimen>
+</resources>
