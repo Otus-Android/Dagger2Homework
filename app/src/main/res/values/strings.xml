@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">DaggerHomework</string>
     <string name="generate_color">Generate Color</string>
+    <string name="color_received">Color received</string>
+    <string name="chaeck_application_context">Здесь нужен контекст апликейшена</string>
+    <string name="color_sent">Color sent</string>
+    <string name="check_context_activity">Здесь нужен контекст активити</string>
 </resources>
