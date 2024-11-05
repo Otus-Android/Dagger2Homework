@@ -10,9 +10,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainActivityComponent = DaggerMainActivityComponent.factory().create(
+        mainActivityComponent = MainActivityComponent.getMainActivityComponent(
             this,
             (application as App).appComponent
         )
     }
+
+    val activityComponent: MainActivityComponent get() = mainActivityComponent
+
 }

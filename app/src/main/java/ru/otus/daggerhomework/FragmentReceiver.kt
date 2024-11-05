@@ -1,31 +1,47 @@
 package ru.otus.daggerhomework
 
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import androidx.annotation.ColorInt
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.launch
+import ru.otus.daggerhomework.databinding.FragmentBBinding
+import javax.inject.Inject
 
-class FragmentReceiver : Fragment() {
+class FragmentReceiver : BaseFragment<FragmentBBinding>() {
 
-    private lateinit var frame: View
+    @Inject
+    lateinit var viewModel: ViewModelReceiver
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_b, container, true)
-    }
+    override fun getViewBinding() = FragmentBBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        frame = view.findViewById(R.id.frame)
+
+        FragmentReceiverComponent.getFragmentReceiverComponent((requireActivity() as MainActivity).activityComponent)
+            .inject(this)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.colorState.collect{ color ->
+                    Log.d("TAG", "onViewCreated: $color")
+                    populateColor(color)
+                }
+            }
+        }
+
+        viewModel.init()
     }
 
-    fun populateColor(@ColorInt color: Int) {
-        frame.setBackgroundColor(color)
+    private fun populateColor(@ColorInt color: Int) {
+        binding.frame.setBackgroundColor(color)
+    }
+
+    override fun onDestroy() {
+        viewModel.cancel()
+        super.onDestroy()
     }
 }
