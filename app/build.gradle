@@ -5,8 +5,8 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
-
+    compileSdkVersion 34
+    namespace 'ru.otus.daggerhomework'
     defaultConfig {
         applicationId "ru.otus.daggerhomework"
         minSdkVersion 23

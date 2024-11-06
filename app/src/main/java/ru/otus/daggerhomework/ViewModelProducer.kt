@@ -8,11 +8,12 @@ import androidx.lifecycle.ViewModelProvider
 import ru.otus.daggerhomework.di.ActivityContext
 import javax.inject.Inject
 
-class ViewModelProducer(
+
+class ViewModelProducer @Inject constructor(
     private val colorGenerator: ColorGenerator,
-    private val context: Context,
-    private val colorsDataStore: ColorsDataStore,
-) : ViewModel() {
+    @ActivityContext private val context: Context,
+    private val colorsDataStore: ColorsDataStoreMutable,
+) {
 
     suspend fun generateColor() {
         if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
@@ -26,7 +27,7 @@ class ViewModelProducer(
 open class ViewModelProducerFactory @Inject constructor(
     private val colorGenerator: ColorGenerator,
     @ActivityContext private val context: Context,
-    private val colorsDataStore: ColorsDataStore,
+    private val colorsDataStore: ColorsDataStoreMutable,
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

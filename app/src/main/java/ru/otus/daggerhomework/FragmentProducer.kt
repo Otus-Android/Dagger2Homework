@@ -15,8 +15,8 @@ class FragmentProducer : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private lateinit var producerViewModel: ViewModelProducer
+    @Inject
+    lateinit var producerViewModel: ViewModelProducer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +34,6 @@ class FragmentProducer : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        producerViewModel =
-            ViewModelProvider(this, viewModelFactory).get(ViewModelProducer::class.java)
 
         view.findViewById<Button>(R.id.button).setOnClickListener {
 

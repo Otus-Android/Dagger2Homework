@@ -8,7 +8,8 @@ import dagger.Module
 import dagger.Provides
 import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.ColorGeneratorImpl
-import ru.otus.daggerhomework.ColorsDataStore
+import ru.otus.daggerhomework.ColorsDataStoreMutable
+import ru.otus.daggerhomework.ColorsDataStoreUnmutable
 import ru.otus.daggerhomework.MainActivity
 
 @FeatureScope
@@ -35,14 +36,18 @@ interface MainActivityComponent {
 
     fun provideColorsGenerator(): ColorGenerator
 
-    fun provideColorDataDStore(): ColorsDataStore
+    //  fun provideColorDataDStore(): ColorsDataStore @Singleton
+
+    fun providesColorsDataStoreMutable(): ColorsDataStoreMutable
+
+
+    fun providesColorsDataStoreUnmutable(): ColorsDataStoreUnmutable
 }
 
 @Module
 interface MainActivityModule {
     companion object {
         @Provides
-        @FeatureScope
         @ActivityContext
         fun provideActivityContext(activityContext: Context): Context = activityContext
     }

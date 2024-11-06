@@ -1,11 +1,14 @@
 package ru.otus.daggerhomework.di
 
 import android.content.Context
+import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
 import dagger.Provides
 import ru.otus.daggerhomework.ColorsDataStore
+import ru.otus.daggerhomework.ColorsDataStoreMutable
+import ru.otus.daggerhomework.ColorsDataStoreUnmutable
 import javax.inject.Singleton
 
 @Singleton
@@ -22,18 +25,22 @@ interface ApplicationComponent {
     @ApplicationContext
     fun provideApplicationContext1(): Context
 
-    fun providesColorsDataStore() = ColorsDataStore()
+    fun providesColorsDataStoreMutable(): ColorsDataStoreMutable
+
+    fun providesColorsDataStoreUnmutable(): ColorsDataStoreUnmutable
 }
 
 @Module
-object ApplicationModule {
+interface ApplicationModule {
+    companion object {
+        @Provides
+        @ApplicationContext
+        fun provideApplicationContext(applicationContext: Context): Context = applicationContext
+    }
 
-    @Provides
-    @Singleton
-    @ApplicationContext
-    fun provideApplicationContext(applicationContext: Context): Context = applicationContext
+    @Binds
+    fun bindColorDataStoreMutable(impl: ColorsDataStore): ColorsDataStoreMutable
 
-    @Provides
-    @Singleton
-    fun providesColorsDataStore() = ColorsDataStore()
+    @Binds
+    fun bindColorDataStoreUnmutable(impl: ColorsDataStore): ColorsDataStoreUnmutable
 }

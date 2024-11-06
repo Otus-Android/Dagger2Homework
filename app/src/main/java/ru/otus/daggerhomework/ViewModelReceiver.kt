@@ -14,8 +14,8 @@ import ru.otus.daggerhomework.di.ApplicationContext
 import javax.inject.Inject
 
 class ViewModelReceiver(
-    private val context: Context,
-    colorsDataStore: ColorsDataStore,
+   @ApplicationContext private val context: Context,
+    colorsDataStore: ColorsDataStoreUnmutable,
 ) : ViewModel() {
 
     private val _colorFlow = MutableSharedFlow<Int>()
@@ -23,8 +23,8 @@ class ViewModelReceiver(
 
     init {
         colorsDataStore.colorFlow.onEach {
-                observeColors(it)
-            }.launchIn(viewModelScope)
+            observeColors(it)
+        }.launchIn(viewModelScope)
     }
 
     suspend fun observeColors(color: Int) {
@@ -36,7 +36,7 @@ class ViewModelReceiver(
 
 open class ViewModelReceiverFactory @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val colorsDataStore: ColorsDataStore,
+    private val colorsDataStore: ColorsDataStoreUnmutable,
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

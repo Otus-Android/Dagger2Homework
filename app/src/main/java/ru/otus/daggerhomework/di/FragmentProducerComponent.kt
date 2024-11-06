@@ -4,13 +4,14 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Component
 import dagger.Module
-
 import ru.otus.daggerhomework.FragmentProducer
 import ru.otus.daggerhomework.ViewModelProducerFactory
 
 @FragmentScope
-@Component(dependencies = [MainActivityComponent::class],
-        modules = [FragmentProducerModule::class])
+@Component(
+    dependencies = [MainActivityComponent::class],
+    modules = [FragmentProducerModule::class]
+)
 interface FragmentProducerComponent {
     companion object {
         fun getFragmentProducerComponent(mainActivityComponent: MainActivityComponent): FragmentProducerComponent =
@@ -25,6 +26,6 @@ interface FragmentProducerComponent {
 @Module
 interface FragmentProducerModule {
     @Binds
-    fun bindFactory(viewModelProducerFactory : ViewModelProducerFactory): ViewModelProvider.Factory
+    fun bindFactory(viewModelProducerFactory: ViewModelProducerFactory): ViewModelProvider.Factory
 
 }
