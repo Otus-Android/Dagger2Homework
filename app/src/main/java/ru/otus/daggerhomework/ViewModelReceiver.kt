@@ -3,13 +3,13 @@ package ru.otus.daggerhomework
 import android.app.Application
 import android.content.Context
 import android.widget.Toast
+import kotlinx.coroutines.flow.StateFlow
+import ru.otus.daggerhomework.di.FragmentScope
+import javax.inject.Inject
 
-class ViewModelReceiver(
-    private val context: Context
+class ViewModelReceiver @Inject constructor(
+    private val mainActivityState: MainActivityState
 ) {
-
-    fun observeColors() {
-        if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
-        Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
-    }
+    val colors: StateFlow<Int>
+        get() = mainActivityState.colors
 }
