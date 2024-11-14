@@ -1,19 +1,23 @@
 package ru.otus.daggerhomework
 
 import dagger.Component
-import javax.inject.Singleton
+import javax.inject.Scope
 
-@Singleton
+@FragmentScope
 @Component(
-    modules = [FragmentProducerModule::class],
-    dependencies = [ApplicationComponent::class]
+    dependencies = [MainActivityComponent::class]
 )
 interface FragmentProducerComponent {
+    fun inject(fragmentProducer: FragmentProducer)
 
     companion object {
-        fun getFragmentProducerComponent(applicationComponent: ApplicationComponent): FragmentProducerComponent {
+        fun getFragmentProducerComponent(mainActivityComponent: MainActivityComponent): FragmentProducerComponent {
             return DaggerFragmentProducerComponent.builder()
-                .applicationComponent(applicationComponent).build()
+                .mainActivityComponent(mainActivityComponent).build()
         }
     }
 }
+
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class FragmentScope

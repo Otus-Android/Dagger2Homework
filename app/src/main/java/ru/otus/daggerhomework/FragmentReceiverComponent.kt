@@ -2,16 +2,18 @@ package ru.otus.daggerhomework
 
 import dagger.Component
 
+@FragmentScope
 @Component(
-    modules = [FragmentReceiverModule::class],
-    dependencies = [ApplicationComponent::class]
+    dependencies = [MainActivityComponent::class]
 )
 interface FragmentReceiverComponent {
 
+    fun inject(fragmentReceiver: FragmentReceiver)
+
     companion object {
-        fun getFragmentReceiverComponent(applicationComponent: ApplicationComponent): FragmentReceiverComponent {
+        fun getFragmentReceiverComponent(mainActivityComponent: MainActivityComponent): FragmentReceiverComponent {
             return DaggerFragmentReceiverComponent.builder()
-                .applicationComponent(applicationComponent).build()
+                .mainActivityComponent(mainActivityComponent).build()
         }
     }
 }
