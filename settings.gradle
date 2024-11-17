@@ -1,2 +1,8 @@
 include ':app'
+include ':modules:platform'
+include ':modules:core:api'
+include ':modules:core:api_impl'
+include ':modules:core:api_factory'
+include ':modules:features:producer'
+
 rootProject.name = "DaggerHomework"

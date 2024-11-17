@@ -2,6 +2,7 @@ package ru.otus.daggerhomework
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.mironchik.multimodule.CoreFactory
 import ru.otus.daggerhomework.di.ActivityComponent
 import ru.otus.daggerhomework.di.ActivityComponentProvider
 import ru.otus.daggerhomework.di.DaggerActivityComponent
@@ -19,5 +20,6 @@ class MainActivity : AppCompatActivity(), ActivityComponentProvider {
             .add(R.id.fragment_producer, FragmentProducer())
             .add(R.id.fragment_receiver, FragmentReceiver())
             .commit()
+        CoreFactory.create(this)
     }
 }
