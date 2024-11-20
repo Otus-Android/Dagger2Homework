@@ -5,16 +5,20 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import java.util.*
 
+@JvmInline
+value class Color(@ColorInt val number: Int)
+
 interface ColorGenerator {
 
-    @ColorInt
-    fun generateColor(): Int
+    fun generateColor(): ru.otus.daggerhomework.Color
 }
 
 class ColorGeneratorImpl : ColorGenerator {
 
-    override fun generateColor(): Int {
+    override fun generateColor(): ru.otus.daggerhomework.Color {
         val rnd = Random()
-        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+        return Color(
+            Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+        )
     }
 }
