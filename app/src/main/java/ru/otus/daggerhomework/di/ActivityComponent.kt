@@ -1,13 +1,10 @@
 package ru.otus.daggerhomework.di
 
 import android.app.Activity
-import android.app.Application
-import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
-import dagger.Module
-import dagger.Provides
-import ru.otus.daggerhomework.MainActivityState
+import ru.otus.daggerhomework.ColorsController
+import ru.otus.daggerhomework.ColorsControllerProvider
 import javax.inject.Scope
 
 @Scope
@@ -17,18 +14,17 @@ annotation class ActivityScope
 @Component(
     dependencies = [AppComponent::class],
 )
-interface ActivityComponent : AppProvider {
+interface ActivityComponent : AppProvider, ColorsControllerProvider {
     @Component.Factory
     interface Factory {
         fun create(
             appComponent: AppComponent,
             @BindsInstance activity: Activity,
-            @BindsInstance activityState: MainActivityState,
+            @BindsInstance colorsController: ColorsController,
         ): ActivityComponent
     }
 
     fun provideActivity(): Activity
-    fun provideMainActivityState(): MainActivityState
 }
 
 interface ActivityComponentProvider {

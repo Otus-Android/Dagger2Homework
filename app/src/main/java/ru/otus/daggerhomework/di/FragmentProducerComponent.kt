@@ -7,8 +7,6 @@ import dagger.Provides
 import ru.otus.daggerhomework.ColorGenerator
 import ru.otus.daggerhomework.ColorGeneratorImpl
 import ru.otus.daggerhomework.FragmentProducer
-import ru.otus.daggerhomework.MainActivityState
-import ru.otus.daggerhomework.ViewModelProducer
 
 @FragmentScope
 @Component(
