@@ -24,7 +24,7 @@ class FragmentProducer : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         DaggerFragmentProducerComponent.factory()
-            .create((activity as ActivityComponentProvider).provideActivityComponent())
+            .create((activity as ActivityComponentProvider).provideActivityComponent(), ColorGeneratorImpl())
             .inject(this)
         view.findViewById<Button>(R.id.button).setOnClickListener {
             viewModel.generateColor()
