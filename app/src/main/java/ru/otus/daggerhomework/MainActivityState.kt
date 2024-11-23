@@ -8,12 +8,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.otus.daggerhomework.di.ActivityScope
+import javax.inject.Inject
 
+@ActivityScope
 class MainActivityState(color: Int = Color.BLACK) {
-    init {
-        Log.e("TESTTEST", "MainActivityState create")
-    }
-
     private val _colors = MutableStateFlow(color)
     val colors: StateFlow<Int>
         get() = _colors

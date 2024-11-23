@@ -7,8 +7,7 @@ import ru.otus.daggerhomework.ViewModelReceiver
 
 @FragmentScope
 @Component(
-    dependencies = [ActivityComponent::class],
-    modules = [FragmentReceiverModule::class]
+    dependencies = [ActivityComponent::class]
 )
 interface FragmentReceiverComponent {
     @Component.Factory
@@ -17,10 +16,4 @@ interface FragmentReceiverComponent {
     }
 
     fun inject(fragment: FragmentReceiver)
-}
-
-@Module(includes = [FragmentProducerModule::class])
-interface FragmentReceiverModule {
-    @FragmentScope
-    fun getViewModel(): ViewModelReceiver
 }

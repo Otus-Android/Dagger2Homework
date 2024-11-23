@@ -19,6 +19,7 @@ import ru.otus.daggerhomework.di.ActivityComponent
 import ru.otus.daggerhomework.di.FragmentScope
 import javax.inject.Inject
 
+@FragmentScope
 class ViewModelProducer @Inject constructor(
     private val mainActivityState: MainActivityState,
     private val colorGenerator: ColorGenerator,

@@ -2,6 +2,7 @@ package ru.otus.daggerhomework.di
 
 import android.app.Activity
 import android.app.Application
+import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
@@ -15,34 +16,22 @@ annotation class ActivityScope
 @ActivityScope
 @Component(
     dependencies = [AppComponent::class],
-    modules = [ActivityModule::class],
 )
-interface ActivityComponent {
+interface ActivityComponent : AppProvider {
     @Component.Factory
     interface Factory {
         fun create(
             appComponent: AppComponent,
             @BindsInstance activity: Activity,
+            @BindsInstance activityState: MainActivityState,
         ): ActivityComponent
     }
 
-    fun getApplicationContext(): Application
-    fun getActivityContext(): Activity
+    fun provideActivity(): Activity
     fun provideMainActivityState(): MainActivityState
-}
-
-@Module
-interface ActivityModule {
-    fun getActivityContext(): Activity
-    companion object {
-        @ActivityScope
-        @Provides
-        fun createMainActivityState(): MainActivityState {
-            return MainActivityState()
-        }
-    }
 }
 
 interface ActivityComponentProvider {
     fun provideActivityComponent(): ActivityComponent
 }
+

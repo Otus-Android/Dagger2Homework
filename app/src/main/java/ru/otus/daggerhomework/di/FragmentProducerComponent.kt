@@ -26,8 +26,6 @@ interface FragmentProducerComponent {
 
 @Module
 interface FragmentProducerModule {
-    @FragmentScope
-    fun getViewModel(): ViewModelProducer
     companion object {
         @Provides
         fun getColorGenerator(): ColorGenerator = ColorGeneratorImpl()
