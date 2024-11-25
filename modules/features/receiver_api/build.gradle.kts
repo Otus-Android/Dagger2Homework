@@ -1,10 +1,11 @@
 plugins {
     id("com.android.library")
     id("kotlin-android")
+    id("kotlin-kapt")
 }
 
 android {
-    namespace = "com.mironchik.multimodule.core.api_factory"
+    namespace = "com.mironchik.multimodule.features.receiver_api"
     compileSdk = rootProject.extra["compileSdkVersion"] as Int
 
     defaultConfig {
@@ -18,6 +19,7 @@ android {
 }
 
 dependencies {
-    api(project(":modules:core:api"))
-    implementation(project(":modules:core:api_impl"))
+    implementation(platform(project(":modules:platform")))
+
+    implementation("androidx.appcompat:appcompat")
 }

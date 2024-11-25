@@ -13,7 +13,7 @@ val namespace by extra { "com.mironchik.multimodule" }
 val compileSdkVersion by extra { 34 }
 val minSdkVersion by extra { 23 }
 val targetSdkVersion by extra { 34 }
-val javaCompileVersion by extra { JavaVersion.VERSION_17 }
+val javaCompatibility by extra { JavaVersion.VERSION_17 }
 
 allprojects {
     repositories {

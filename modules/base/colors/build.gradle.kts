@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mironchik.multimodule.core.api_factory"
+    namespace = "com.mironchik.multimodule.base.colors"
     compileSdk = rootProject.extra["compileSdkVersion"] as Int
 
     defaultConfig {
@@ -18,6 +18,8 @@ android {
 }
 
 dependencies {
-    api(project(":modules:core:api"))
-    implementation(project(":modules:core:api_impl"))
+    implementation(platform(project(":modules:platform")))
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+    implementation("androidx.appcompat:appcompat")
 }

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = rootProject.extra["namespace"] as String
+    namespace = "com.mironchik.multimotule.core.api"
     compileSdk = rootProject.extra["compileSdkVersion"] as Int
 
     defaultConfig {
@@ -12,8 +12,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = rootProject.extra["javaCompileVersion"] as JavaVersion
-        targetCompatibility = rootProject.extra["javaCompileVersion"] as JavaVersion
+        sourceCompatibility = rootProject.extra["javaCompatibility"] as JavaVersion
+        targetCompatibility = rootProject.extra["javaCompatibility"] as JavaVersion
     }
 }
 

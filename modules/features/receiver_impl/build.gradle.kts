@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mironchik.multimodule.core.api_impl"
+    namespace = "com.mironchik.multimodule.features.receiver_impl"
     compileSdk = rootProject.extra["compileSdkVersion"] as Int
 
     defaultConfig {
@@ -19,9 +19,14 @@ android {
 }
 
 dependencies {
+    api(project(":modules:core:api"))
+    api(project(":modules:base:colors"))
+    api(project(":modules:features:receiver_api"))
+
     implementation(platform(project(":modules:platform")))
-    implementation(project(":modules:core:api"))
     implementation("com.google.dagger:dagger")
     kapt("com.google.dagger:dagger-compiler:2.52")
-    implementation("javax.inject:javax.inject:1")
+    implementation("androidx.appcompat:appcompat")
+    implementation("androidx.constraintlayout:constraintlayout")
+    implementation("com.google.android.material:material")
 }
