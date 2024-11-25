@@ -1,2 +1,13 @@
 include ':app'
-rootProject.name = "DaggerHomework"
+include ':modules:platform'
+include ':modules:base:colors'
+include ':modules:core:api'
+include ':modules:core:api_impl'
+include ':modules:core:api_factory'
+include ':modules:features:producer_api'
+include ':modules:features:producer_impl'
+include ':modules:features:receiver_api'
+include ':modules:features:receiver_impl'
+include ':modules:features:screen'
+
+rootProject.name = "MultimoduleHomework"
