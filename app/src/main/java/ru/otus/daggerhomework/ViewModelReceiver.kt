@@ -3,13 +3,12 @@ package ru.otus.daggerhomework
 import android.app.Application
 import android.content.Context
 import android.widget.Toast
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class ViewModelReceiver @Inject constructor(
     private val context: Context,
-    private val colorFlow: MutableStateFlow<Int>
+    private val colorFlow: StateFlow<Int>
 ) {
 
     fun observeColors(): Flow<Int> {

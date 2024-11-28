@@ -1,6 +1,5 @@
 package ru.otus.daggerhomework
 
-import android.app.Application
 import android.os.Bundle
 import android.view.*
 import androidx.annotation.ColorInt
@@ -10,9 +9,6 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
-
-    @Inject
-    lateinit var application: Application
 
     @Inject
     lateinit var viewModelReceiver: ViewModelReceiver

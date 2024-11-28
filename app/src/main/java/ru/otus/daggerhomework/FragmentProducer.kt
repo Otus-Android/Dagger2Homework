@@ -1,6 +1,5 @@
 package ru.otus.daggerhomework
 
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +9,6 @@ import androidx.fragment.app.Fragment
 import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
-
-    @Inject
-    lateinit var application: Application
 
     @Inject
     lateinit var viewModelProducer: ViewModelProducer
