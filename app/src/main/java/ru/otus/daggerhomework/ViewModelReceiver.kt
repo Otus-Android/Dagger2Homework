@@ -9,21 +9,21 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
+import ru.otus.daggerhomework.di.ApplicationContext
 import javax.inject.Inject
 
-class ViewModelReceiver(
-    private val subscriber: Flow<Color>,
-    private val context: Context
+class ViewModelReceiver @Inject constructor(
+    private val subscriber: Flow<ColorNumber>,
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
     private val viewModelScope = CoroutineScope(Dispatchers.Main.immediate + SupervisorJob())
 
-    fun observeColors(onNewColor: (Color) -> Unit) {
+    fun observeColors(onNewColor: (ColorNumber) -> Unit) {
         viewModelScope.launch {
             subscriber.collect { color ->
                 if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
-                Toast.makeText(context, "Color received: $color", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Color received: $color", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -31,7 +31,7 @@ class ViewModelReceiver(
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun factory(
-            subscriber: Flow<Color>,
+            subscriber: Flow<ColorNumber>,
             context: Context
         ) = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {

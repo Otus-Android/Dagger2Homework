@@ -5,14 +5,15 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.flow.Flow
-import ru.otus.daggerhomework.Color
+import ru.otus.daggerhomework.ColorNumber
 import ru.otus.daggerhomework.ViewModelReceiver
 
 @Module
 object ViewModelReceiverModule {
     @Provides
+    @FragmentScope
     fun provideViewModelReceiverFactory(
-        subscriber: Flow<Color>,
+        @Subscriber subscriber: Flow<ColorNumber>,
         @ApplicationContext context: Context
     ): ViewModelProvider.Factory = ViewModelReceiver.factory(subscriber, context)
 }

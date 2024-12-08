@@ -1,10 +1,21 @@
 package ru.otus.daggerhomework.di
 
-import dagger.Subcomponent
+import dagger.Component
 import ru.otus.daggerhomework.FragmentProducer
 
-@Subcomponent(modules = [ColorGeneratorModule::class, ViewModelProducerModule::class])
+@Component(
+    modules = [ViewModelProducerModule::class],
+    dependencies = [MainActivityComponent::class]
+)
+@FragmentScope
 interface FragmentProducerComponent {
+    companion object {
+        fun getInstance(activityComponent: MainActivityComponent): FragmentProducerComponent =
+            DaggerFragmentProducerComponent.builder()
+                .mainActivityComponent(activityComponent)
+                .build()
+    }
+
     fun inject(fragment: FragmentProducer)
 }
 

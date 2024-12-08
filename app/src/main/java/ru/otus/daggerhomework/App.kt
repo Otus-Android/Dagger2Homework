@@ -1,11 +1,15 @@
 package ru.otus.daggerhomework
 
 import android.app.Application
-import ru.otus.daggerhomework.di.DaggerApplicationComponent
+import ru.otus.daggerhomework.di.ApplicationComponent
 
-class App :Application() {
+class App : Application() {
 
-    val appComponent by lazy {
-        DaggerApplicationComponent.factory().create(this)
+    lateinit var appComponent: ApplicationComponent
+        private set
+
+    override fun onCreate() {
+        super.onCreate()
+        appComponent = ApplicationComponent.getInstance(this)
     }
 }

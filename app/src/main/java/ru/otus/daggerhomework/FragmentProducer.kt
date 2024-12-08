@@ -12,20 +12,10 @@ import ru.otus.daggerhomework.di.FragmentProducerComponent
 import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
-
-    private var component: FragmentProducerComponent? = null
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel: ViewModelProducer by lazy {
-        ViewModelProvider(this, viewModelFactory).get(ViewModelProducer::class.java)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        component = (requireActivity() as MainActivity)
-            .mainActivityComponent
-            .createProducerComponent()
-            .also { it.inject(this) }
+        ViewModelProvider(this, viewModelFactory)[ViewModelProducer::class.java]
     }
 
     override fun onCreateView(
@@ -33,7 +23,15 @@ class FragmentProducer : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_a, container, true)
+        return inflater.inflate(R.layout.fragment_a, container, false)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        FragmentProducerComponent.getInstance(
+            (context as MainActivity).mainActivityComponent
+        )
+            .inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -2,23 +2,53 @@ package ru.otus.daggerhomework.di
 
 import android.content.Context
 import dagger.BindsInstance
-import dagger.Subcomponent
+import dagger.Component
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
+import ru.otus.daggerhomework.ColorNumber
+import ru.otus.daggerhomework.ColorGenerator
 import javax.inject.Qualifier
-import javax.inject.Singleton
+import javax.inject.Scope
 
-@Subcomponent
+@Component(dependencies = [ApplicationComponent::class])
+@ActivityScope
 interface MainActivityComponent {
 
-    fun createProducerComponent(): FragmentProducerComponent
-    fun createReceiverComponent(): FragmentReceiverComponent
+    companion object {
+        fun getInstance(appComponent: ApplicationComponent, @ActivityContext context: Context): MainActivityComponent =
+            DaggerMainActivityComponent.factory()
+                .create(appComponent, context)
+    }
 
-    @Subcomponent.Factory
-    interface  MainActivityComponentFactory {
+    @ActivityContext
+    fun activity(): Context
 
-        fun create(@BindsInstance @ActivityContext context: Context): MainActivityComponent
+    @ApplicationContext
+    fun application(): Context
+
+    fun colorGenerator(): ColorGenerator
+
+    @Publisher
+    @JvmSuppressWildcards
+    fun publisher(): FlowCollector<ColorNumber>
+
+    @Subscriber
+    fun subscriber(): Flow<ColorNumber>
+
+    @Component.Factory
+    interface Factory {
+        fun create(
+            appComponent: ApplicationComponent,
+            @BindsInstance @ActivityContext context: Context,
+        ): MainActivityComponent
     }
 }
 
 @Qualifier
-@Singleton
 annotation class ActivityContext
+
+@Scope
+annotation class ActivityScope
+
+@Scope
+annotation class FragmentScope

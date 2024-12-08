@@ -9,26 +9,24 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
-import ru.otus.daggerhomework.di.ActivityContext
+import ru.otus.daggerhomework.di.ApplicationContext
 import javax.inject.Inject
 
-class ViewModelProducer(
+class ViewModelProducer @Inject constructor(
     private val colorGenerator: ColorGenerator,
-    private val publisher: FlowCollector<Color>,
-    private val context: Context
+    private val publisher: FlowCollector<ColorNumber>,
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
     private val viewModelScope = CoroutineScope(Dispatchers.Main.immediate + SupervisorJob())
 
     fun generateColor() {
         val color =  colorGenerator.generateColor()
         viewModelScope.launch {
-            publisher.emit(color)
             if (context !is FragmentActivity) throw RuntimeException("Здесь нужен контекст активити")
-            Toast.makeText(context, "Color sent: $color", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Color sent: $color", Toast.LENGTH_LONG).show()
+            publisher.emit(color)
         }
     }
 
@@ -42,7 +40,7 @@ class ViewModelProducer(
         @Suppress("UNCHECKED_CAST")
         fun factory(
             colorGenerator: ColorGenerator,
-            publisher: FlowCollector<Color>,
+            publisher: FlowCollector<ColorNumber>,
             context: Context
         ) = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
