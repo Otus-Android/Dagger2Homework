@@ -9,7 +9,7 @@ class ViewModelReceiver(
 ) {
 
     fun observeColors() {
-        if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
-        Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
+//        if (context !is Application) throw RuntimeException("Здесь нужен контекст апликейшена")
+//        Toast.makeText(context, "Color received", Toast.LENGTH_LONG).show()
     }
 }

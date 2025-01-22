@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
+import javax.inject.Inject
 
 class FragmentReceiver : Fragment() {
 
@@ -19,6 +20,9 @@ class FragmentReceiver : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_b, container, true)
     }
+
+    @Inject
+    lateinit var viewModel: ViewModelReceiver
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
