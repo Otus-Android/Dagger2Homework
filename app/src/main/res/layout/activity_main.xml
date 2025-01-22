@@ -7,13 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <fragment class="ru.otus.daggerhomework.FragmentProducer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/producer"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <fragment class="ru.otus.daggerhomework.FragmentReceiver"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/receiver"
+        app:layout_constraintTop_toBottomOf="@+id/producer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

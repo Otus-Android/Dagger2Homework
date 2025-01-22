@@ -6,8 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import ru.otus.daggerhomework.di.DaggerApplicationComponent
+import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
+
+    @Inject
+    lateinit var viewModel: ViewModelProducer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,8 +24,9 @@ class FragmentProducer : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         view.findViewById<Button>(R.id.button).setOnClickListener {
-            //отправить результат через livedata в другой фрагмент
+            viewModel.generateColor()
         }
     }
 }
