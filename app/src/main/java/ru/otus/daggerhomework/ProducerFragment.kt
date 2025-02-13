@@ -5,27 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 
-class FragmentReceiver : Fragment() {
-
-    private lateinit var frame: View
+class ProducerFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_b, container, true)
+        return inflater.inflate(R.layout.fragment_producer, container, true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        frame = view.findViewById(R.id.frame)
-    }
-
-    fun populateColor(@ColorInt color: Int) {
-        frame.setBackgroundColor(color)
+        view.findViewById<Button>(R.id.button).setOnClickListener {
+            //отправить результат через flow в другой фрагмент
+        }
     }
 }
