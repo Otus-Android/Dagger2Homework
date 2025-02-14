@@ -11,8 +11,6 @@ class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        application
         component = DaggerMainActivityComponent.factory().build(this)
         setContentView(R.layout.activity_main)
     }
