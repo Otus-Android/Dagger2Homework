@@ -3,6 +3,7 @@ package ru.otus.daggerhomework
 import android.app.Application
 import ru.otus.daggerhomework.di.component.ApplicationComponent
 import ru.otus.daggerhomework.di.component.DaggerApplicationComponent
+import ru.otus.daggerhomework.di.component.MainActivityComponent
 
 class App : Application() {
 
@@ -13,3 +14,4 @@ class App : Application() {
         appComponent = DaggerApplicationComponent.factory().create(this)
     }
 }
+val Application.appComponent: ApplicationComponent get() = (this as App).appComponent
