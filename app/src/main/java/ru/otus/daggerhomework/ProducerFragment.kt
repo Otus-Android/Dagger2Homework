@@ -17,7 +17,7 @@ class ProducerFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DaggerProducerFragmentComponent.factory()
-            .create(requireActivity().component, requireContext())
+            .create(requireActivity().component)
             .inject(this)
 
     }

@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.widget.Toast
 import javax.inject.Inject
+import javax.inject.Named
 
 class ProducerViewModel @Inject constructor(
     private val colorGenerator: ColorGenerator,
+    @Named("activityContext")
     private val context: Context,
     private val colorState: ColorState
 ) {

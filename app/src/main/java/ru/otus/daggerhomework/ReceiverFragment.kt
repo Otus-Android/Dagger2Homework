@@ -23,8 +23,7 @@ class ReceiverFragment : Fragment() {
 
         DaggerReceiverFragmentComponent.factory()
             .create(
-                requireActivity().component,
-                requireContext().applicationContext
+                requireActivity().component
             )
             .inject(this)
 

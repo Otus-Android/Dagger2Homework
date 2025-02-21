@@ -3,10 +3,12 @@ package ru.otus.daggerhomework.di.component
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import dagger.Provides
 import ru.otus.daggerhomework.ProducerFragment
 import ru.otus.daggerhomework.ProducerViewModel
 import ru.otus.daggerhomework.di.module.ColorGeneratorModule
 import ru.otus.daggerhomework.di.scope.FragmentScope
+import javax.inject.Named
 
 @FragmentScope
 @Component(
@@ -19,8 +21,7 @@ interface ProducerFragmentComponent {
     @Component.Factory
     interface Factory {
         fun create(
-            activityComponent: MainActivityComponent,
-            @BindsInstance context: Context
+            activityComponent: MainActivityComponent
         ): ProducerFragmentComponent
     }
 

@@ -10,8 +10,10 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Named
 
 class ReceiverViewModel @Inject constructor(
+    @Named("activityContext")
     private val context: Context,
     private val colorState: ColorState,
 ) : ViewModel() {

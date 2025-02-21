@@ -18,7 +18,6 @@ interface ReceiverFragmentComponent {
     interface Factory {
         fun create(
             activityComponent: MainActivityComponent,
-            @BindsInstance context: Context
         ): ReceiverFragmentComponent
     }
 

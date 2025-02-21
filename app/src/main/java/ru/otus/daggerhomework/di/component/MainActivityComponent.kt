@@ -1,11 +1,13 @@
 package ru.otus.daggerhomework.di.component
 
-import android.app.Activity
+import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.otus.daggerhomework.ColorState
 import ru.otus.daggerhomework.di.scope.ActivityScope
 import ru.otus.daggerhomework.di.module.MainActivityModule
+import javax.inject.Named
+
 
 @ActivityScope
 @Component(
@@ -19,7 +21,9 @@ interface MainActivityComponent {
     interface Factory {
         fun build(
             appComponent: ApplicationComponent,
-            @BindsInstance activity: Activity
+            @BindsInstance
+            @Named("activityContext")
+            context: Context
         ): MainActivityComponent
     }
 
