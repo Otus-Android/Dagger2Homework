@@ -6,7 +6,8 @@ import ru.otus.daggerhomework.di.DaggerApplicationComponent
 
 class App :Application() {
 
-    private lateinit var appComponent: ApplicationComponent
+    lateinit var appComponent: ApplicationComponent
+        private set
 
     override fun onCreate() {
         super.onCreate()

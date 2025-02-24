@@ -2,19 +2,23 @@ package ru.otus.daggerhomework
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import ru.otus.daggerhomework.di.DaggerApplicationComponent
+import ru.otus.daggerhomework.di.MainActivityComponent
 
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var mainActivityComponent: MainActivityComponent
+        private set
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        DaggerApplicationComponent
-            .factory()
-            .create(applicationContext)
+
+        mainActivityComponent = (applicationContext as App).appComponent
             .addMainActivityComponent()
-            .create(baseContext)
-            .inject(this)
+            .create(this)
+
+        mainActivityComponent.inject(this)
+
+        setContentView(R.layout.activity_main)
     }
 }

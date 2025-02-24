@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import ru.otus.daggerhomework.di.DaggerApplicationComponent
 import javax.inject.Inject
 
 class FragmentProducer : Fragment() {
@@ -24,6 +23,11 @@ class FragmentProducer : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (requireActivity() as MainActivity)
+            .mainActivityComponent
+            .fragmentProducerComponent()
+            .create().inject(this)
 
         view.findViewById<Button>(R.id.button).setOnClickListener {
             viewModel.generateColor()
