@@ -19,4 +19,6 @@ interface ApplicationComponent {
         ): ApplicationComponent
     }
 
+    @Named("appContext")
+    fun provideContext(): Context
 }

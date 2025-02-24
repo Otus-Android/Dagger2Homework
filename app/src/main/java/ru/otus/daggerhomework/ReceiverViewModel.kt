@@ -13,7 +13,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class ReceiverViewModel @Inject constructor(
-    @Named("activityContext")
+    @Named("appContext")
     private val context: Context,
     private val colorState: ColorState,
 ) : ViewModel() {

@@ -29,4 +29,9 @@ interface MainActivityComponent {
 
     fun provideColorState(): ColorState
 
+    @Named("appContext")
+    fun provideAppContext(): Context
+
+    @Named("activityContext")
+    fun provideActivityContext(): Context
 }

@@ -3,7 +3,6 @@ package ru.otus.daggerhomework
 import android.app.Application
 import ru.otus.daggerhomework.di.component.ApplicationComponent
 import ru.otus.daggerhomework.di.component.DaggerApplicationComponent
-import ru.otus.daggerhomework.di.component.MainActivityComponent
 
 class App : Application() {
 
