@@ -4,4 +4,5 @@ import dagger.Subcomponent
 
 @Subcomponent
 interface ReceiverFragmentComponent {
+    fun inject(receiverFragment: ReceiverFragment)
 }

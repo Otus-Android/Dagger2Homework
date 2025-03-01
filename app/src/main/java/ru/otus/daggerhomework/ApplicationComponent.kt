@@ -3,16 +3,13 @@ package ru.otus.daggerhomework
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Named
 
 @Component
 interface ApplicationComponent {
 
-    fun createReceiverFragmentComponent(): ReceiverFragmentComponent
-
-    fun createProducerFragmentComponent(): ProducerFragmentComponent
-
     @Component.Factory
     interface ApplicationComponentFactory {
-        fun create(@BindsInstance context: Context): ApplicationComponent
+        fun create(@BindsInstance @Named("AppContext") context: Context): ApplicationComponent
     }
 }
