@@ -12,12 +12,16 @@ import javax.inject.Inject
 class ReceiverFragment : Fragment() {
 
     @Inject
+    lateinit var viewModelFactory: ReceiverViewModel.ReceiverViewModelFactory
     lateinit var viewModel: ReceiverViewModel
 
     private lateinit var frame: View
 
     override fun onAttach(context: Context) {
         (activity as MainActivity).receiverFragmentComponent.inject(this)
+        viewModel = viewModelFactory.create { color ->
+            this.populateColor(color)
+        }
         super.onAttach(context)
     }
 
@@ -34,8 +38,7 @@ class ReceiverFragment : Fragment() {
         frame = view.findViewById(R.id.frame)
     }
 
-    fun populateColor(@ColorInt color: Int) {
-        viewModel.observeColors()
+    private fun populateColor(@ColorInt color: Int) {
         frame.setBackgroundColor(color)
     }
 }
