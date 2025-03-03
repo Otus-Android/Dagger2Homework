@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.appcompat)
     ksp(libs.daggerCompiler)
     implementation(libs.dagger)
 }
